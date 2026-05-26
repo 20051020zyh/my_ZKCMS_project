@@ -78,6 +78,11 @@ export const getMyPermissionPaths = () => {
   return request.get('/user/admin/permissionPaths')
 }
 
+// 校验当前用户是否为后台管理员
+export const checkAdmin = () => {
+  return request.get('/user/admin/checkAdmin')
+}
+
 // 文件上传
 export const uploadFile = (file: File) => {
   const formData = new FormData()

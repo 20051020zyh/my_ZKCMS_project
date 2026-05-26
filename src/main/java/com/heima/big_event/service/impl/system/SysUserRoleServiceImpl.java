@@ -135,5 +135,17 @@ public class SysUserRoleServiceImpl extends ServiceImpl<SysUserRoleMapper, SysUs
         return new HashSet<>(perms);
     }
 
+    @Override
+    public boolean isNonAdminUser(Long userId) {
+        List<Long> roleIds = sysUserRoleMapper.selectRoleIdsByUserId(userId);
+        if (roleIds.isEmpty()) {
+            return true;
+        }
+        LambdaQueryWrapper<SysRole> wrapper = new LambdaQueryWrapper<>();
+        wrapper.in(SysRole::getId, roleIds);
+        List<SysRole> roles = sysRoleMapper.selectList(wrapper);
+        return roles.stream().allMatch(r -> "guest".equals(r.getRoleCode()) || "user".equals(r.getRoleCode()));
+    }
+
 }
 

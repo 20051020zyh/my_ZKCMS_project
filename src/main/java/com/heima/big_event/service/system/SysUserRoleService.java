@@ -22,5 +22,8 @@ public interface SysUserRoleService extends IService<SysUserRole> {
     List<Long> getRoleIdsByUserId(Long userId);
 
     Set<String> getUserPermissions(Long userId);
+
+    //判断用户是否仅有访客/普通用户角色（不可访问后台）
+    boolean isNonAdminUser(Long userId);
 }
 

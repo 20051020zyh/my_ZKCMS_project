@@ -447,6 +447,15 @@ public class UserController {
         return Result.success(list);
     }
 
+    //校验当前用户是否为后台管理员
+    @GetMapping("/admin/checkAdmin")
+    @RequirePermission(value = "user/admin/checkAdmin", checkPermission = false)
+    public Result checkAdmin(){
+        Integer userId = ThreadLocalUtil.getUserId();
+        boolean isNonAdmin = sysUserRoleService.isNonAdminUser(userId.longValue());
+        return Result.success(!isNonAdmin);
+    }
+
     //全用户分页管理
     @GetMapping("/allUserPage")
     @RequirePermission("user/alluserPage")

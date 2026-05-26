@@ -149,6 +149,7 @@ const handleMenuClick = (item: any) => {
 
         <div v-show="!isCollapse" class="sidebar-footer">
           <p>© 2026 知库平台</p>
+          <p>遇到问题请联系管理员: 3174471975@qq.com</p>
         </div>
       </div>
     </div>

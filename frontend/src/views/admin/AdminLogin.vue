@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { login as loginApi } from '@/api/user'
-import { getMyPermissionPaths } from '@/api/user'
+import { checkAdmin } from '@/api/user'
 import { ElMessage } from 'element-plus'
 
 const route = useRoute()
@@ -110,9 +110,8 @@ const handleLogin = async () => {
     const token = res.data?.token || res.data
     userStore.setToken(token)
 
-    const permRes: any = await getMyPermissionPaths()
-    const perms: string[] = permRes.data || []
-    if (perms.length === 0) {
+    const adminRes: any = await checkAdmin()
+    if (!adminRes.data) {
       userStore.logout()
       noPermDialogVisible.value = true
       loading.value = false

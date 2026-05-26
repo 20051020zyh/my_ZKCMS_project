@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { createRouter, createWebHistory } from 'vue-router'
-import { getMyPermissionPaths } from '@/api/user'
+import { getMyPermissionPaths, checkAdmin } from '@/api/user'
 import request from '@/utils/request'
 
 const _maintenanceCache = { active: false, checking: false, callbacks: [] as ((active: boolean) => void)[] }
@@ -178,6 +178,13 @@ router.beforeEach(async (to, _from) => {
     }
 
     try {
+      const adminRes: any = await checkAdmin()
+      if (!adminRes.data) {
+        localStorage.removeItem('token')
+        sessionStorage.removeItem('isAdmin')
+        return '/admin/login?noPermission=1'
+      }
+
       const res: any = await getMyPermissionPaths()
       const perms: string[] = res.data || []
       if (perms.length === 0) {
