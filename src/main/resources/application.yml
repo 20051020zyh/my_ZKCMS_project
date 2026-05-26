@@ -1,0 +1,55 @@
+server:
+  port: 8081
+
+spring:
+  profiles:
+    active: dev
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    druid:
+      filters: stat,log4j2
+      wall:
+        enabled: true
+        config:
+          selectAllow: true
+          selectIntoAllow: true
+          selectUnionAllow: true
+          selectWhereOrderByAllow: true
+          syntaxErrorAllow: true
+          noneBaseStatementAllow: true
+          multiStatementAllow: true
+          strictSyntaxCheck: false
+          commentAllow: true
+          countAllow: true
+
+  mail:
+    host: smtp.qq.com
+    port: 587
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+
+knife4j:
+  enable: true
+  production: false
+  setting:
+    language: zh_cn
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true

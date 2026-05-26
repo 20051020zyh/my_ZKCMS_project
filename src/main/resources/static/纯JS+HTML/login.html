@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 登录页主内容 */
+        .login-wrap {
+            padding: 80px 15%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .title-box {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .title-box h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .title-box p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .login-form {
+            background: #fff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideUp 0.8s ease 0.4s forwards;
+        }
+        .form-item {
+            margin-bottom: 25px;
+        }
+        .form-item input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            outline: none;
+        }
+        .form-item input:focus {
+            border-color: #333;
+        }
+        .form-tips {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            height: 18px;
+            visibility: hidden;
+        }
+        .form-tips.show {
+            visibility: visible;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background: #333;
+            transform: scale(1.02);
+        }
+        .link-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link-group a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .link-group a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 页面淡出跳转 */
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { gap: 20px; }
+            .login-wrap { padding: 40px 5%; }
+            .login-form { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">我的CMS系统</div>
+        <div class="nav-container" >
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="nav-link">首页</a></li>
+                    <!-- 当前页面设为 active -->
+                    <li><a href="product.html" class="active">产品</a></li>
+                    <li><a href="about.html" class="nav-link">关于</a></li>
+                    <li><a href="contact.html" class="nav-link">联系</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="login-wrap">
+        <div class="title-box">
+            <h2>用户登录</h2>
+            <p>欢迎登录，体验更多专属服务</p>
+        </div>
+
+        <div class="login-form">
+            <div class="form-item">
+                <input type="text" id="username" placeholder="请输入用户名">
+                <div class="form-tips" id="usernameTips"></div>
+            </div>
+            <div class="form-item">
+                <input type="password" id="password" placeholder="请输入密码">
+                <div class="form-tips" id="passwordTips"></div>
+            </div>
+            <button class="submit-btn" id="loginBtn">登录</button>
+            <div class="link-group">
+                <a href="register.html" class="nav-link">还没有账号？立即注册</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        © 2025 我的网站 保留所有权利
+    </footer>
+    <script src="assets/request.js" type="module"></script>
+    <script>
+        // 页面平滑淡出跳转
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetUrl = this.href;
+                document.body.classList.add('page-fade-out');
+                setTimeout(() => {
+                    window.location.href = targetUrl;
+                }, 400);
+            });
+        });
+
+        // 导航栏滚动效果
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.padding = '15px 15%';
+                header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+            } else {
+                header.style.padding = '20px 15%';
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            }
+        });
+
+        // 登录逻辑
+        const loginBtn = document.getElementById('loginBtn');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const usernameTips = document.getElementById('usernameTips');
+        const passwordTips = document.getElementById('passwordTips');
+
+        // 清空提示
+        function clearTips() {
+            usernameTips.classList.remove('show');
+            passwordTips.classList.remove('show');
+            usernameTips.textContent = '';
+            passwordTips.textContent = '';
+        }
+
+        // 显示提示
+        function showTips(el, text) {
+            el.textContent = text;
+            el.classList.add('show');
+        }
+
+        // 关键修改：把 /login 改成 /user/login
+        loginBtn.addEventListener('click', async () => {
+            clearTips();
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+
+            // 前端验证
+            if (!username) {
+                showTips(usernameTips, '请输入用户名');
+                return;
+            }
+            if (!password) {
+                showTips(passwordTips, '请输入密码');
+                return;
+            }
+
+            try {
+                // 核心修改：请求路径从 /login → /user/login
+                const result = await window.post('/user/login', {
+                    username: username,
+                    password: password
+                });
+
+                // 登录成功逻辑（原有逻辑不变）
+                localStorage.setItem('token', result.data);
+                alert('登录成功！');
+                document.body.classList.add('page-fade-out');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 400);
+
+            } catch (error) {
+                // 错误处理（原有逻辑不变）
+                if (error.message === '用户名错误') {
+                    showTips(usernameTips, error.message);
+                } else if (error.message === '密码错误') {
+                    showTips(passwordTips, error.message);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

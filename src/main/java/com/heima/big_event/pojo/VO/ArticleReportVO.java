@@ -1,0 +1,20 @@
+package com.heima.big_event.pojo.VO;
+
+import lombok.Data;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Data
+public class ArticleReportVO {
+    private Integer id;
+    private Integer articleId;
+    private Integer reportType;
+    private String content;
+    private List<String> images;
+    private Integer userId;
+    private String userName;
+    private Integer status;
+    private LocalDateTime createTime;
+    private LocalDateTime updateTime;
+}

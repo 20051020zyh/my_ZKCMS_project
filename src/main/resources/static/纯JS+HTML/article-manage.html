@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文章管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 页面整体淡入动画 */
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 导航栏（和about.html完全一致） */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 文章管理主容器 */
+        .article-wrap {
+            padding: 80px 15%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 标题区动画 */
+        .article-title {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .article-title h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .article-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 内容模块通用样式（滚动渐入） */
+        .article-section {
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+        }
+        .article-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 按钮通用样式 */
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary {
+            background: #000;
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+        .btn-secondary:hover {
+            background: #eee;
+            transform: translateY(-2px);
+        }
+        .btn-danger {
+            background: #ff4444;
+            color: #fff;
+        }
+        .btn-danger:hover {
+            background: #cc0000;
+            transform: translateY(-2px);
+        }
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* 表单样式 */
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-label {
+            display: block;
+            font-size: 1.1rem;
+            color: #222;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #000;
+        }
+        textarea.form-control {
+            min-height: 200px;
+            resize: vertical;
+            line-height: 1.8;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 文章列表样式 */
+        .article-list {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .article-list th, .article-list td {
+            padding: 18px 15px;
+            text-align: left;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        .article-list th {
+            color: #222;
+            font-weight: bold;
+            background: #f9f9f9;
+        }
+        .article-list td {
+            color: #666;
+            vertical-align: middle;
+        }
+        .article-list .img-thumbnail {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .status-tag {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-block;
+        }
+        .status-draft {
+            background: #fef0f0;
+            color: #ff4444;
+        }
+        .status-published {
+            background: #f0f9ff;
+            color: #0088ff;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            padding: 6px 12px;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+        .edit-btn {
+            background: #f5f5f5;
+            color: #333;
+        }
+        .edit-btn:hover {
+            background: #eee;
+        }
+        .delete-btn {
+            background: #ff4444;
+            color: #fff;
+        }
+        .delete-btn:hover {
+            background: #cc0000;
+        }
+
+        /* 批量操作区 */
+        .batch-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .batch-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .batch-select input {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .batch-select label {
+            color: #666;
+            font-size: 1rem;
+        }
+        .batch-btn {
+            display: flex;
+            gap: 10px;
+        }
+
+        /* 通用上滑动画 */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 页脚 */
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { gap: 20px; }
+            .article-wrap { padding: 40px 5%; }
+            .article-section { padding: 25px; }
+            .article-list th, .article-list td { padding: 12px 8px; }
+            .article-list .img-thumbnail { width: 60px; height: 45px; }
+            .action-buttons { flex-direction: column; }
+        }
+
+        /* 模态框样式（编辑文章用） */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .modal.show {
+            display: flex;
+            opacity: 1;
+        }
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            padding: 40px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+        .modal.show .modal-content {
+            transform: translateY(0);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: #222;
+        }
+        .close-modal {
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+        .close-modal:hover {
+            color: #000;
+        }
+
+        /* 加载提示样式 */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏（和about.html一致） -->
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container" >
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <!-- 当前页面设为 active -->
+                <li><a href="product.html" class="active">产品</a></li>
+                <li><a href="about.html" class="nav-link">关于</a></li>
+                <li><a href="contact.html" class="nav-link">联系</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 文章管理主内容 -->
+<div class="article-wrap">
+    <!-- 标题区 -->
+    <div class="article-title">
+        <h2>文章管理中心</h2>
+        <p>发布、编辑、管理您的所有文章，支持批量操作文章状态（草稿/已发布）</p>
+    </div>
+
+    <!-- 发布文章模块（滚动渐入） -->
+    <section class="article-section" id="publish-section">
+        <h3 style="font-size: 1.8rem; color: #222; margin-bottom: 30px;">发布新文章</h3>
+        <form id="publish-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="title">文章标题</label>
+                    <input type="text" class="form-control" id="title" placeholder="请输入文章标题" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="coverImg">封面图片URL</label>
+                    <input type="url" class="form-control" id="coverImg" placeholder="请输入图片URL">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="content">文章内容</label>
+                <textarea class="form-control" id="content" placeholder="请输入文章内容" required></textarea>
+            </div>
+            <!-- 新增：文章分类选择框 -->
+            <div class="form-group">
+                <label class="form-label" for="categoryId">文章分类</label>
+                <select class="form-control" id="categoryId" required>
+                    <!-- 选项会通过JS动态加载 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="state">文章状态</label>
+                <select class="form-control" id="state" required>
+                    <option value="草稿">草稿（不可见）</option>
+                    <option value="已发布">已发布（可见）</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">发布文章</button>
+        </form>
+    </section>
+
+    <!-- 文章列表与批量操作模块（滚动渐入） -->
+    <section class="article-section" id="list-section">
+        <h3 style="font-size: 1.8rem; color: #222; margin-bottom: 30px;">我的文章列表</h3>
+
+        <!-- 批量操作区 -->
+        <div class="batch-actions">
+            <div class="batch-select">
+                <input type="checkbox" id="select-all">
+                <label for="select-all">全选</label>
+            </div>
+            <div class="batch-btn">
+                <button type="button" class="btn btn-secondary" id="batch-draft">设为草稿</button>
+                <button type="button" class="btn btn-secondary" id="batch-publish">设为已发布</button>
+                <button type="button" class="btn btn-danger" id="batch-delete">批量删除</button>
+            </div>
+        </div>
+
+        <!-- 文章列表 -->
+        <table class="article-list">
+            <thead>
+            <tr>
+                <th><input type="checkbox" class="batch-checkbox"></th>
+                <th>标题</th>
+                <th>封面图片</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="article-table-body">
+            <!-- 加载提示 -->
+            <tr class="loading">
+                <td colspan="5">正在加载文章数据...</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+
+<!-- 编辑文章模态框 -->
+<div class="modal" id="edit-modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>编辑文章</h3>
+            <span class="close-modal">&times;</span>
+        </div>
+        <form id="edit-form">
+            <input type="hidden" id="edit-id">
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="edit-title">文章标题</label>
+                    <input type="text" class="form-control" id="edit-title" placeholder="请输入文章标题" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="edit-coverImg">封面图片URL</label>
+                    <input type="url" class="form-control" id="edit-coverImg" placeholder="请输入图片URL">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="edit-content">文章内容</label>
+                <textarea class="form-control" id="edit-content" placeholder="请输入文章内容" required></textarea>
+            </div>
+            <!-- 新增：编辑时的分类选择框 -->
+            <div class="form-group">
+                <label class="form-label" for="edit-categoryId">文章分类</label>
+                <select class="form-control" id="edit-categoryId" required>
+                    <!-- 动态加载 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="edit-state">文章状态</label>
+                <select class="form-control" id="edit-state" required>
+                    <option value="草稿">草稿(不可见)</option>
+                    <option value="已发布">已发布(可见)</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">保存修改</button>
+        </form>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer>
+    © 2025 我的网站 保留所有权利
+</footer>
+
+<script>
+    // ========== 关键修改：统一Token验证逻辑 ==========
+    //'http://localhost:8080'
+    const BASE_API_URL = 'http://' + window.location.host;
+    function getAuthToken() {
+        const lsToken = localStorage.getItem('token');
+        if (lsToken) return lsToken;
+        const cookies = document.cookie.split('; ');
+        for (let cookie of cookies) {
+            const [name, value] = cookie.split('=');
+            if (name === 'token' || name === 'access_token') {
+                return value;
+            }
+        }
+        return null;
+    }
+
+    function checkToken() {
+        const token = getAuthToken();
+        if (!token) {
+            alert('请先登录！');
+            window.location.href = 'login.html';
+            return false;
+        }
+        return true;
+    }
+
+    // 通用请求封装（核心：移除code判断，直接返回数据，避免拦截正常响应）
+    async function request(url, options = {}) {
+        if (!checkToken()) return Promise.reject('未登录');
+
+        const fullUrl = BASE_API_URL + url;
+        const token = getAuthToken();
+
+        const defaultOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            timeout: 10000
+        };
+
+        const requestOptions = { ...defaultOptions, ...options };
+        if (requestOptions.body && typeof requestOptions.body === 'object') {
+            requestOptions.body = JSON.stringify(requestOptions.body);
+        }
+
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), requestOptions.timeout);
+
+            const response = await fetch(fullUrl, {
+                ...requestOptions,
+                signal: controller.signal
+            });
+            clearTimeout(timeoutId);
+
+            if (!response.ok) {
+                throw new Error(`HTTP错误，状态码：${response.status}`);
+            }
+
+            const result = await response.json();
+            // 核心修改：直接返回result，不再判断code（避免过滤后端正常数据）
+            return result;
+        } catch (error) {
+            if (error.name === 'AbortError') {
+                alert('请求超时，请重试');
+            } else if (error.message.includes('401')) {
+                alert('登录已过期，请重新登录！');
+                localStorage.removeItem('token');
+                window.location.href = 'login.html';
+            } else {
+                console.error('请求错误：', error);
+                alert('操作失败：' + error.message);
+            }
+            return Promise.reject(error);
+        }
+    }
+
+    // 导航栏平滑跳转
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 导航栏滚动样式
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // 滚动渐入
+    const articleSections = document.querySelectorAll('.article-section');
+    function checkScroll() {
+        articleSections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const triggerPoint = window.innerHeight * 0.8;
+            if (sectionTop < triggerPoint) {
+                section.classList.add('show');
+            }
+        });
+    }
+
+    // 7. 渲染文章列表（核心：适配后端中文状态值）
+    function renderArticleList(articleList) {
+        const tableBody = document.getElementById('article-table-body');
+        tableBody.innerHTML = '';
+
+        if (!articleList || articleList.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="5" class="loading">暂无文章数据</td></tr>';
+            return;
+        }
+
+        // 调试：打印后端返回的文章数据，确认state字段
+        console.log('渲染的文章列表：', articleList);
+
+        articleList.forEach(article => {
+            const tr = document.createElement('tr');
+            // 核心：判断后端返回的中文状态值
+            const isDraft = article.state === '草稿';
+            tr.innerHTML = `
+                <td><input type="checkbox" class="article-checkbox" data-id="${article.id}"></td>
+                <td>${article.title || ''}</td>
+                <td>
+                    ${article.coverImg ? `<img src="${article.coverImg}" alt="${article.title}" class="img-thumbnail">` : '无图片'}
+                </td>
+                <td>
+                    <span class="status-tag ${isDraft ? 'status-draft' : 'status-published'}">
+                        ${isDraft ? '草稿' : '已发布'}
+                    </span>
+                </td>
+                <td class="action-buttons">
+                    <button class="action-btn edit-btn" data-id="${article.id}">编辑</button>
+                    <button class="action-btn delete-btn" data-id="${article.id}">删除</button>
+                </td>
+            `;
+            tableBody.appendChild(tr);
+        });
+
+        bindEditDeleteEvents();
+    }
+
+    // 8. 绑定编辑/删除事件
+    function bindEditDeleteEvents() {
+        // 编辑按钮
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const articleId = parseInt(this.getAttribute('data-id'));
+                try {
+                    // 核心：直接获取文章详情（不拦截数据）
+                    const article = await request(`/article/detail?id=${articleId}`);
+                    console.log('编辑的文章详情：', article);
+                    // 填充表单（适配中文状态值）
+                    document.getElementById('edit-id').value = article.id;
+                    document.getElementById('edit-title').value = article.title || '';
+                    document.getElementById('edit-coverImg').value = article.coverImg || '';
+                    document.getElementById('edit-content').value = article.content || '';
+                    document.getElementById('edit-state').value = article.state || '草稿';
+                    document.getElementById('edit-categoryId').value = article.categoryId || '';
+                    // 显示模态框
+                    document.getElementById('edit-modal').classList.add('show');
+                } catch (error) {
+                    console.error('获取文章详情失败：', error);
+                }
+            });
+        });
+
+        // 删除按钮
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
+                const articleId = parseInt(this.getAttribute('data-id'));
+                if (confirm('确定要删除这篇文章吗？')) {
+                    try {
+                        await request(`/article/delete?id=${articleId}`, {
+                            method: 'DELETE'
+                        });
+                        // 强制刷新列表
+                        await loadArticleList();
+                        alert('文章删除成功！');
+                    } catch (error) {
+                        console.error('删除文章失败：', error);
+                    }
+                }
+            });
+        });
+    }
+
+    // 9. 加载文章列表（核心：强制刷新，打印日志）
+    async function loadArticleList() {
+        try {
+            const tableBody = document.getElementById('article-table-body');
+            tableBody.innerHTML = '<tr><td colspan="5" class="loading">正在加载文章数据...</td></tr>';
+
+            // 核心：调用用户文章列表接口，直接获取数据
+            const articleList = await request('/article/user/list');
+            // 兼容后端返回格式（如果是{data: [...]}则取data，否则直接用）
+            const finalList = articleList.data || articleList;
+            // 渲染列表
+            renderArticleList(finalList);
+        } catch (error) {
+            console.error('加载文章列表失败：', error);
+            document.getElementById('article-table-body').innerHTML =
+                '<tr><td colspan="5" class="loading">加载失败，请刷新重试</td></tr>';
+        }
+    }
+
+    // 10. 发布文章（核心：传递中文状态值，发布后强制刷新）
+    document.getElementById('publish-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const categoryId = document.getElementById('categoryId').value;
+        const newArticle = {
+            title: document.getElementById('title').value,
+            content: document.getElementById('content').value,
+            coverImg: document.getElementById('coverImg').value.trim() || '',
+            categoryId: parseInt(categoryId),
+            state: document.getElementById('state').value // 中文状态值：草稿/已发布
+        };
+
+        console.log('发布的文章数据：', newArticle);
+
+        try {
+            // 发布文章
+            await request('/article', {
+                method: 'POST',
+                body: newArticle
+            });
+            // 重置表单
+            this.reset();
+            // 核心：强制刷新列表（使用await确保刷新完成）
+            await loadArticleList();
+            alert('文章发布成功！');
+        } catch (error) {
+            console.error('发布文章失败：', error);
+        }
+    });
+
+    // 11. 编辑文章（核心：传递中文状态值+分类ID）
+    document.getElementById('edit-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const updatedArticle = {
+            id: parseInt(document.getElementById('edit-id').value),
+            title: document.getElementById('edit-title').value,
+            content: document.getElementById('edit-content').value,
+            coverImg: document.getElementById('edit-coverImg').value.trim() || '',
+            categoryId: parseInt(document.getElementById('edit-categoryId').value),
+            state: document.getElementById('edit-state').value // 中文状态值
+        };
+
+        console.log('编辑后的文章数据：', updatedArticle);
+
+        try {
+            await request('/article', {
+                method: 'PUT',
+                body: updatedArticle
+            });
+            // 关闭模态框
+            document.getElementById('edit-modal').classList.remove('show');
+            // 强制刷新列表
+            await loadArticleList();
+            alert('文章修改成功！');
+        } catch (error) {
+            console.error('修改文章失败：', error);
+        }
+    });
+
+    // 12. 关闭模态框
+    document.querySelector('.close-modal').addEventListener('click', function() {
+        document.getElementById('edit-modal').classList.remove('show');
+    });
+
+    // 13. 全选/取消全选
+    document.getElementById('select-all').addEventListener('change', function() {
+        const isChecked = this.checked;
+        document.querySelectorAll('.article-checkbox').forEach(checkbox => {
+            checkbox.checked = isChecked;
+        });
+    });
+
+    // 14. 批量设为草稿（核心：传递中文状态值）
+    document.getElementById('batch-draft').addEventListener('click', async function() {
+        const selectedIds = [];
+        document.querySelectorAll('.article-checkbox:checked').forEach(checkbox => {
+            selectedIds.push(parseInt(checkbox.getAttribute('data-id')));
+        });
+
+        if (selectedIds.length === 0) {
+            alert('请先选择要操作的文章！');
+            return;
+        }
+
+        try {
+            await request('/article/updateStatus', {
+                method: 'POST',
+                body: {
+                    articleId: selectedIds,
+                    state: '草稿' // 中文状态值
+                }
+            });
+            await loadArticleList();
+            document.getElementById('select-all').checked = false;
+            alert('已将选中文章设为草稿！');
+        } catch (error) {
+            console.error('批量设为草稿失败：', error);
+        }
+    });
+
+    // 15. 批量设为已发布（核心：传递中文状态值）
+    document.getElementById('batch-publish').addEventListener('click', async function() {
+        const selectedIds = [];
+        document.querySelectorAll('.article-checkbox:checked').forEach(checkbox => {
+            selectedIds.push(parseInt(checkbox.getAttribute('data-id')));
+        });
+
+        if (selectedIds.length === 0) {
+            alert('请先选择要操作的文章！');
+            return;
+        }
+
+        try {
+            await request('/article/updateStatus', {
+                method: 'POST',
+                body: {
+                    articleId: selectedIds,
+                    state: '已发布' // 中文状态值
+                }
+            });
+            await loadArticleList();
+            document.getElementById('select-all').checked = false;
+            alert('已将选中文章设为已发布！');
+        } catch (error) {
+            console.error('批量设为已发布失败：', error);
+        }
+    });
+
+    // 16. 批量删除
+    document.getElementById('batch-delete').addEventListener('click', async function() {
+        const selectedIds = [];
+        document.querySelectorAll('.article-checkbox:checked').forEach(checkbox => {
+            selectedIds.push(parseInt(checkbox.getAttribute('data-id')));
+        });
+
+        if (selectedIds.length === 0) {
+            alert('请先选择要删除的文章！');
+            return;
+        }
+
+        if (confirm(`确定要删除选中的 ${selectedIds.length} 篇文章吗？`)) {
+            try {
+                for (const id of selectedIds) {
+                    await request(`/article/delete?id=${id}`, {
+                        method: 'DELETE'
+                    });
+                }
+                await loadArticleList();
+                document.getElementById('select-all').checked = false;
+                alert('已删除选中的文章！');
+            } catch (error) {
+                console.error('批量删除失败：', error);
+            }
+        }
+    });
+
+    // 17. 点击模态框外部关闭
+    window.addEventListener('click', function(e) {
+        const modal = document.getElementById('edit-modal');
+        if (e.target === modal) {
+            modal.classList.remove('show');
+        }
+    });
+
+    // 18. 加载分类列表（修复执行顺序）
+    async function loadCategoryList() {
+        try {
+            const response = await request('/category/all/simple', { method: 'GET' });
+            const categoryList = response.data || response;
+            console.log('分类列表：', categoryList);
+
+            const categorySelect = document.getElementById('categoryId');
+            const editCategorySelect = document.getElementById('edit-categoryId');
+
+            categorySelect.innerHTML = '';
+            editCategorySelect.innerHTML = '';
+
+            if (!categoryList || !Array.isArray(categoryList)) {
+                alert('分类数据加载失败');
+                return;
+            }
+
+            categoryList.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option.cloneNode(true));
+                editCategorySelect.appendChild(option);
+            });
+
+            // 默认选中第一个分类
+            if (categoryList.length > 0) {
+                categorySelect.value = categoryList[0].id;
+                editCategorySelect.value = categoryList[0].id;
+            }
+        } catch (error) {
+            console.error('加载分类失败：', error);
+            alert('分类加载失败，请刷新页面');
+        }
+    }
+
+    // 核心：统一初始化逻辑（先加载分类，再加载列表）
+    async function initPage() {
+        if (checkToken()) {
+            await loadCategoryList(); // 先加载分类
+            await loadArticleList();  // 再加载文章列表
+            checkScroll();
+        }
+    }
+
+    // 页面加载初始化
+    window.addEventListener('load', initPage);
+    window.addEventListener('scroll', checkScroll);
+
+    // 额外：手动刷新按钮（可选，方便测试）
+    window.refreshArticleList = async function() {
+        await loadArticleList();
+        alert('列表已手动刷新');
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/big_event?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 你的本地数据库密码
+    druid:
+      filter:
+        stat:
+          log-slow-sql: true
+          slow-sql-millis: 2000
+          merge-sql: true
+
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 10000
+
+  mail:
+    username: 你的QQ邮箱
+    password: 你的邮箱SMTP授权码
+
+  ai:
+    openai:
+      api-key: 你的AI接口Key
+
+system:
+  notify:
+    email: 你的通知邮箱
+
+jwt:
+  secret: "你的JWT密钥（至少32位）"
+  expiration: 86400000
+
+aliyun:
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    accessKeyId: 你的OSS AccessKeyId
+    accessKeySecret: 你的OSS AccessKeySecret
+    bucketName: 你的OSS Bucket名称

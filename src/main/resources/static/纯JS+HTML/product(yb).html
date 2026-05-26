@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品 - 文章列表</title>
+    <style>
+        /* ========== 第一部分：从 about.html 移植的整体风格、布局与动画 ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 导航栏（与 about.html 完全一致） */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 主内容容器（移植 about.html 的 .about-wrap 风格） */
+        .product-wrap {
+            padding: 60px 15% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 页面标题区风格 */
+        .page-title {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .page-title h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .page-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 滚动渐入动画（用于后续内容模块） */
+        .content-section {
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        .content-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 页脚（与 about.html 一致） */
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+        }
+
+        /* 页面跳转淡出动画 */
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ========== 第二部分：product.html 原有的功能组件样式（已做视觉微调以匹配新风格） ========== */
+        /* 搜索栏头部 */
+        .func-header {
+            background-color: #fff;
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-input {
+            flex: 1;
+            min-width: 200px;
+            height: 48px;
+            padding: 0 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 24px 0 0 24px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            border-color: #000;
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.05);
+        }
+
+        .search-btn {
+            height: 48px;
+            padding: 0 30px;
+            border: none;
+            border-radius: 0 24px 24px 0;
+            background-color: #000;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-btn:hover {
+            background-color: #333;
+        }
+
+        .home-btn {
+            height: 48px;
+            padding: 0 25px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            background-color: #fff;
+            color: #333;
+            font-size: 1rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .home-btn:hover {
+            background-color: #f5f5f5;
+            border-color: #ccc;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 标签栏 */
+        .tag-bar {
+            margin-bottom: 40px;
+        }
+        .tag-group {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .tag {
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            color: #666;
+            cursor: pointer;
+            border-radius: 20px;
+            background: #f5f5f5;
+            transition: all 0.3s ease;
+        }
+        .tag.special {
+            background-color: #f0f0f0;
+            color: #888;
+        }
+        .tag.active {
+            background-color: #000;
+            color: #fff;
+            font-weight: 500;
+        }
+        .tag:hover:not(.special):not(.active) {
+            background-color: #e8e8e8;
+            color: #333;
+        }
+
+        /* 文章列表 */
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .article-item {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 25px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease, box-shadow 0.3s ease;
+        }
+        .article-item.show {
+            animation: slideUp 0.5s ease forwards;
+        }
+        .article-item:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+        }
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .article-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .author-name {
+            font-size: 0.95rem;
+            color: #666;
+        }
+        .article-title {
+            font-size: 1.4rem;
+            color: #222;
+            font-weight: 600;
+            line-height: 1.4;
+            transition: color 0.2s ease;
+        }
+        .article-title:hover {
+            color: #000;
+        }
+        .article-desc {
+            font-size: 1rem;
+            color: #777;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 0.9rem;
+            color: #999;
+            margin-top: 5px;
+        }
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .article-img {
+            width: 160px;
+            height: 120px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            background-color: #f0f0f0;
+            overflow: hidden;
+            display: none;
+        }
+        .article-img.show {
+            display: block;
+        }
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 文章详情弹窗 */
+        #articleDetailModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal-content {
+            max-width: 800px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            max-height: 85vh;
+            overflow: auto;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            position: relative;
+        }
+        #closeModal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+        #closeModal:hover {
+            background: #e0e0e0;
+        }
+        #detailTitle {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        #detailAuthor {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        #detailMeta {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        #detailContent {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #444;
+        }
+        #detailContent p {
+            margin-bottom: 1.2em;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 1024px) {
+            header, .product-wrap {
+                padding-left: 8%;
+                padding-right: 8%;
+            }
+        }
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { gap: 20px; }
+            .product-wrap { padding: 40px 5%; }
+            .func-header {
+                padding: 20px;
+                gap: 12px;
+            }
+            .search-input {
+                flex: 1 1 100%;
+                border-radius: 24px;
+                margin-bottom: 10px;
+            }
+            .search-btn {
+                border-radius: 24px;
+                flex: 1;
+            }
+            .home-btn {
+                flex: 1;
+            }
+            .article-item {
+                flex-direction: column;
+                padding: 25px;
+                gap: 20px;
+            }
+            .article-img {
+                width: 100%;
+                height: 200px;
+                margin-top: 10px;
+            }
+            .modal-content {
+                padding: 25px;
+                margin: 20px auto;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 1. 导航栏（采用 about.html 的风格和结构） -->
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container" >
+    <nav>
+        <ul>
+            <li><a href="index.html" class="nav-link">首页</a></li>
+            <!-- 当前页面设为 active -->
+            <li><a href="product.html" class="active">产品</a></li>
+            <li><a href="about.html" class="nav-link">关于</a></li>
+            <li><a href="contact.html" class="nav-link">联系</a></li>
+        </ul>
+    </nav>
+    </div>
+</header>
+
+<!-- 2. 主内容区（采用 about.html 的 .about-wrap 容器风格，重命名为 .product-wrap） -->
+<div class="product-wrap">
+    <!-- 页面标题 -->
+    <div class="page-title">
+        <h2>技术文章</h2>
+        <p>探索前沿技术分享，涵盖开发实践、架构设计与行业洞察</p>
+    </div>
+
+    <!-- 搜索栏（原 product.html 的功能头部，样式已调整） -->
+    <section class="content-section">
+        <div class="func-header">
+            <input type="text" class="search-input" placeholder="输入关键词搜索文章，例如：UI界面设计AI生成">
+            <button class="search-btn">🔍 搜索</button>
+            <a href="index.html" class="home-btn">🏠 返回首页</a>
+            <div class="avatar">
+                <img src="https://picsum.photos/40/40" alt="用户头像">
+            </div>
+        </div>
+    </section>
+
+    <!-- 标签筛选区（原 product.html 的功能） -->
+    <section class="content-section">
+        <div class="tag-bar">
+            <div class="tag-group" id="tagGroup">
+                <!-- 分类标签将由JS动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章列表（原 product.html 的核心功能） -->
+    <section class="content-section">
+        <div class="article-list" id="articleList">
+            <!-- 文章列表将由JS动态渲染 -->
+        </div>
+    </section>
+
+    <!-- 文章详情弹窗（原 product.html 的功能） -->
+    <div id="articleDetailModal">
+        <div class="modal-content">
+            <button id="closeModal">×</button>
+            <h2 id="detailTitle"></h2>
+            <div id="detailAuthor"></div>
+            <div id="detailMeta"></div>
+            <div id="detailContent"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 3. 页脚（与 about.html 一致） -->
+<footer>
+    © 2025 我的网站 保留所有权利
+</footer>
+
+<script>
+    // ========== 从 about.html 移植的通用交互逻辑 ==========
+    // 1. 页面平滑跳转
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 2. 导航栏滚动样式变化
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // 3. 滚动时内容模块渐入显示（适配新类名 .content-section）
+    const contentSections = document.querySelectorAll('.content-section');
+    function checkScroll() {
+        contentSections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const triggerPoint = window.innerHeight * 0.85;
+            if (sectionTop < triggerPoint) {
+                section.classList.add('show');
+            }
+        });
+    }
+    window.addEventListener('load', checkScroll);
+    window.addEventListener('scroll', checkScroll);
+
+    // ========== product.html 核心改造：添加Token处理 + 兼容逻辑 ==========
+    // 1. 配置后端接口基础地址
+    const BASE_URL = 'http://' + window.location.host;
+
+    // 2. 核心：获取Token（根据你的实际登录逻辑调整，这里默认从localStorage取，也可以从Cookie取）
+    function getToken() {
+        // 方式1：从localStorage取（推荐，前后端分离常用）
+        return localStorage.getItem('token') || '';
+
+        // 方式2：如果你的Token存在Cookie里，用这个方法取（取消注释即可）
+        // function getCookie(name) {
+        //     const value = `; ${document.cookie}`;
+        //     const parts = value.split(`; ${name}=`);
+        //     if (parts.length === 2) return parts.pop().split(';').shift();
+        // }
+        // return getCookie('token') || '';
+    }
+
+    // 3. 封装带Token的请求方法（所有接口都用这个方法，统一处理认证）
+    async function requestWithToken(url, options = {}) {
+        // 默认请求头
+        const headers = {
+            'Content-Type': 'application/json',
+            ...options.headers
+        };
+
+        // 添加Token到请求头（JWT标准格式：Bearer + 空格 + Token）
+        const token = getToken();
+        if (token) {
+            headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        // 发送请求
+        const response = await fetch(url, {
+            ...options,
+            headers,
+            credentials: 'include' // 允许携带Cookie（如果后端用Session认证）
+        });
+
+        // 统一处理401错误
+        if (response.status === 401) {
+            alert('登录已过期，请重新登录');
+            // 跳转到登录页（根据你的登录页路径调整）
+            window.location.href = 'login.html';
+            throw new Error('未授权访问');
+        }
+
+        return response;
+    }
+
+    // 4. 渲染分类标签（改造：用带Token的请求 + 兼容非数组返回）
+    async function renderCategories() {
+        try {
+            const response = await requestWithToken(`${BASE_URL}/category/all/simple`);
+            const result = await response.json();
+
+            // 1. 先判断接口是否返回成功
+            if (result.code !== 0) {
+                throw new Error(result.message || '获取分类失败');
+            }
+
+            // 2. 从Result里取出data，data才是分类数组
+            const categories = result.data;
+            const tagGroup = document.getElementById("tagGroup");
+            tagGroup.innerHTML = `<div class="tag active" data-category-id="0">全部</div>`;
+
+            // 3. 遍历分类数组，渲染标签
+            if (Array.isArray(categories)) {
+                categories.forEach(category => {
+                    const tag = document.createElement("div");
+                    tag.className = "tag";
+                    // 注意：这里的key要和你Map里的键名一致
+                    tag.dataset.categoryId = category.id;
+                    tag.textContent = category.name;
+                    tagGroup.appendChild(tag);
+                });
+            }
+
+            // 特殊标签
+            const specialTags = ["推荐", "付费专栏", "VIP文章"];
+            specialTags.forEach(name => {
+                const tag = document.createElement("div");
+                tag.className = "tag special";
+                tag.textContent = name;
+                tagGroup.appendChild(tag);
+            });
+
+            bindTagClick();
+        } catch (error) {
+            console.error("获取分类失败：", error);
+            alert("加载分类失败，请刷新页面");
+            const tagGroup = document.getElementById("tagGroup");
+            tagGroup.innerHTML = `<div class="tag active" data-category-id="0">全部</div>`;
+        }
+    }
+
+    // 5. 渲染文章列表（改造：用带Token的请求）
+    async function renderArticles(categoryId = 0) {
+        try {
+            // 1. 拼接URL（确保参数正确）
+            const url = `${BASE_URL}/article/list/by-category?categoryId=${categoryId}`;
+            const response = await requestWithToken(url);
+            const result = await response.json();
+
+            console.log("文章接口返回：", result); // 方便调试
+
+            const articleList = document.getElementById("articleList");
+            articleList.innerHTML = "";
+
+            // 2. 判断接口是否成功
+            if (result.code !== 0) {
+                articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">加载失败：${result.message || '未知错误'}</div>`;
+                return;
+            }
+
+            // 3. 从result.data里取出文章列表
+            const articles = Array.isArray(result.data) ? result.data : [];
+
+            if (articles.length === 0) {
+                articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">暂无相关文章</div>`;
+                return;
+            }
+
+            // 4. 循环渲染文章
+            articles.forEach((article, index) => { // 增加index，用于延迟动画
+                const articleItem = document.createElement("div");
+                // 核心修改：添加show类，让文章项显示出来
+                articleItem.className = "article-item show";
+                // 给不同文章项加延迟，动画更自然
+                articleItem.style.animationDelay = `${index * 0.1}s`;
+
+                articleItem.dataset.articleId = article.id;
+
+                // 封面图处理
+                const hasImg = article.coverImg ? 'show' : '';
+                const imgHtml = article.coverImg ?
+                    `<div class="article-img ${hasImg}">
+                <img src="${article.coverImg}" alt="${article.title}">
+            </div>` : '';
+
+                // 渲染HTML
+                articleItem.innerHTML = `
+            <div class="author-avatar">
+                <img src="${article.authorAvatar || 'https://picsum.photos/40/40'}" alt="${article.author || '作者'}">
+            </div>
+            <div class="article-content">
+                <div class="author-name">${article.author || '未知作者'}</div>
+                <div class="article-title">${article.title || '无标题'}</div>
+                <div class="article-desc">${article.content ? article.content.substring(0, 100) + '...' : '暂无简介'}</div>
+                <div class="article-meta">
+                    <div class="meta-item">👁️ 阅读 ${article.viewCount || 0}</div>
+                    <div class="meta-item">👍 ${article.likeCount || 0}赞</div>
+                    <div class="meta-item">⭐ 收藏 ${article.collectCount || 0}</div>
+                </div>
+            </div>
+            ${imgHtml}
+        `;
+
+                articleList.appendChild(articleItem);
+
+                // 绑定点击事件（查看详情）
+                articleItem.addEventListener('click', () => {
+                    showArticleDetail(article.id);
+                });
+            });
+
+            // 触发滚动动画
+            window.dispatchEvent(new Event('scroll'));
+
+        } catch (error) {
+            console.error("渲染文章失败：", error);
+            const articleList = document.getElementById("articleList");
+            articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">加载失败，请刷新页面</div>`;
+        }
+    }
+
+    // 6. 标签点击事件（无修改）
+    function bindTagClick() {
+        const tags = document.querySelectorAll('.tag:not(.special)');
+        tags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                tags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                const categoryId = this.dataset.categoryId;
+                renderArticles(Number(categoryId));
+            });
+        });
+    }
+
+    // 7. 文章详情展示（改造：用带Token的请求）
+    async function showArticleDetail(articleId) {
+        try {
+            const url = `${BASE_URL}/article/detail?id=${articleId}`;
+            const response = await requestWithToken(url);
+            const result = await response.json();
+
+            if (result.code !== 0) {
+                alert("获取文章详情失败：" + (result.message || '未知错误'));
+                return;
+            }
+
+            const article = result.data || {};
+            document.getElementById("detailTitle").textContent = article.title || '无标题';
+            document.getElementById("detailAuthor").textContent = `创建者ID：${article.createUser || '未知'}`;
+            document.getElementById("detailMeta").textContent =
+                `阅读：${article.viewCount || 0} | 发布时间：${formatTime(article.createTime) || '未知'}`;
+            document.getElementById("detailContent").innerHTML = article.content || '暂无内容';
+            document.getElementById("articleDetailModal").style.display = "block";
+        } catch (error) {
+            console.error("获取文章详情失败：", error);
+            alert("加载文章详情失败，请重试");
+        }
+    }
+
+    // 8. 时间格式化辅助函数（无修改）
+    function formatTime(timeStr) {
+        if (!timeStr) return '';
+        const date = new Date(timeStr);
+        return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    }
+
+    // 9. 搜索功能（修复：确保标签选中逻辑可靠）
+    function bindSearch() {
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+
+        // 搜索主逻辑
+        async function doSearch() {
+            const keyword = searchInput.value.trim();
+            if (!keyword) {
+                alert("请输入搜索关键词");
+                return;
+            }
+
+            try {
+                // 1. 调用搜索接口
+                const url = `${BASE_URL}/article/search?keyword=${encodeURIComponent(keyword)}`;
+                const response = await requestWithToken(url);
+                const result = await response.json();
+
+                const articleList = document.getElementById("articleList");
+                articleList.innerHTML = "";
+
+                // 2. 接口异常
+                if (result.code !== 0) {
+                    articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">搜索失败：${result.message || '接口异常'}</div>`;
+                    return;
+                }
+
+                const articles = Array.isArray(result.data) ? result.data : [];
+
+                // 3. 无搜索结果 - 核心修复
+                if (articles.length === 0) {
+                    articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">未找到与“${keyword}”相关的文章，3秒后自动返回全部文章...</div>`;
+
+                    // 3秒后强制恢复 - 修复核心：确保标签已渲染，加容错
+                    setTimeout(async () => {
+                        console.log("开始恢复全部文章...");
+
+                        // 1. 清空搜索框
+                        searchInput.value = "";
+
+                        // 2. 先确保分类标签已渲染
+                        const tagGroup = document.getElementById("tagGroup");
+                        if (tagGroup.innerHTML.trim() === "") {
+                            await renderCategories(); // 如果标签没渲染，先渲染
+                        }
+
+                        // 3. 强制选中“全部”标签 - 加容错
+                        const allTag = document.querySelector('.tag[data-category-id="0"]');
+                        if (allTag) {
+                            document.querySelectorAll('.tag:not(.special)').forEach(tag => {
+                                tag.classList.remove('active');
+                            });
+                            allTag.classList.add('active');
+                            console.log("已选中全部标签");
+                        } else {
+                            console.warn("未找到全部标签，重新渲染分类");
+                            await renderCategories();
+                        }
+
+                        // 4. 强制渲染全部文章
+                        await renderArticles(0);
+                        console.log("已恢复全部文章");
+
+                    }, 3000);
+                    return;
+                }
+
+                // 4. 正常渲染搜索结果
+                articles.forEach((article, index) => {
+                    const articleItem = document.createElement("div");
+                    articleItem.className = "article-item show";
+                    articleItem.style.animationDelay = `${index * 0.1}s`;
+                    articleItem.dataset.articleId = article.id;
+
+                    const hasImg = article.coverImg ? 'show' : '';
+                    const imgHtml = article.coverImg ?
+                        `<div class="article-img ${hasImg}">
+                        <img src="${article.coverImg}" alt="${article.title}">
+                    </div>` : '';
+
+                    articleItem.innerHTML = `
+                    <div class="author-avatar">
+                        <img src="${article.authorAvatar || 'https://picsum.photos/40/40'}" alt="${article.author || '作者'}">
+                    </div>
+                    <div class="article-content">
+                        <div class="author-name">${article.author || '未知作者'}</div>
+                        <div class="article-title">${article.title || '无标题'}</div>
+                        <div class="article-desc">${article.content ? article.content.substring(0, 100) + '...' : '暂无简介'}</div>
+                        <div class="article-meta">
+                            <div class="meta-item">👁️ 阅读 ${article.viewCount || 0}</div>
+                            <div class="meta-item">👍 ${article.likeCount || 0}赞</div>
+                            <div class="meta-item">⭐ 收藏 ${article.collectCount || 0}</div>
+                        </div>
+                    </div>
+                    ${imgHtml}
+                `;
+
+                    articleList.appendChild(articleItem);
+
+                    articleItem.addEventListener('click', () => {
+                        showArticleDetail(article.id);
+                    });
+                });
+
+                window.dispatchEvent(new Event('scroll'));
+
+            } catch (error) {
+                console.error("搜索失败：", error);
+                const articleList = document.getElementById("articleList");
+                articleList.innerHTML = `<div style="text-align:center; padding:40px; color:#999;">搜索失败，请稍后重试</div>`;
+            }
+        }
+
+        // 绑定点击和回车事件
+        searchBtn.addEventListener('click', doSearch);
+        searchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                doSearch();
+            }
+        });
+    }
+
+    // 10. 关闭详情弹窗（无修改）
+    function bindCloseModal() {
+        const closeBtn = document.getElementById("closeModal");
+        const modal = document.getElementById("articleDetailModal");
+        if (!modal) return;
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                modal.style.display = "none";
+            });
+        }
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+
+    // 11. 页面初始化（无修改）
+    window.addEventListener('load', function() {
+        // 初始化移植的滚动动画检测
+        checkScroll();
+        // 初始化原有功能
+        renderCategories();
+        renderArticles();
+        bindSearch();
+        bindCloseModal();
+    });
+</script>
+</body>
+</html>

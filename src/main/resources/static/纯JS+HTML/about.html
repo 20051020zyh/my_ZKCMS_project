@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我的CMS系统项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 页面整体淡入动画 */
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 导航栏（修改布局：logo靠左，导航居中） */
+        header {
+            display: flex;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+            /* 关键修改：设置宽度100%，并通过定位实现导航居中 */
+            width: 100%;
+            position: sticky;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 关于页主容器 */
+        .about-wrap {
+            padding: 80px 15%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* 标题区动画 */
+        .about-title {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .about-title h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .about-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 内容模块通用样式（滚动渐入） */
+        .about-section {
+            margin-bottom: 100px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        .about-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 公司简介模块 */
+        .company-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .intro-img {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .intro-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .intro-img:hover img {
+            transform: scale(1.05);
+        }
+        .intro-text h3 {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 20px;
+        }
+        .intro-text p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* 发展历程模块 */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #eee;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 4px solid #000;
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
+        }
+        .left {
+            left: 0;
+        }
+        .right {
+            left: 50%;
+        }
+        .left::after {
+            right: -12px;
+        }
+        .right::after {
+            left: -12px;
+        }
+        .timeline-content {
+            padding: 30px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        .timeline-content h4 {
+            font-size: 1.4rem;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .timeline-year {
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .timeline-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 团队介绍模块 */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+        .team-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        .team-card:hover {
+            transform: translateY(-10px);
+        }
+        .team-img {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .team-info {
+            padding: 25px;
+            text-align: center;
+        }
+        .team-info h4 {
+            font-size: 1.3rem;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .team-position {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        .team-desc {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* 企业文化模块 */
+        .culture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .culture-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .culture-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f5f5f5;
+            border-radius: 50%;
+        }
+        .culture-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #333;
+        }
+        .culture-card h4 {
+            font-size: 1.5rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .culture-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 页面跳转淡出动画 */
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        /* 通用上滑动画 */
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 页脚 */
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+                position: relative;
+            }
+            .logo {
+                left: 5%; /* 移动端logo左间距调整 */
+                font-size: 1.5rem;
+            }
+            .nav-container {
+                justify-content: center;
+                padding-left: 0;
+            }
+            nav ul {
+                gap: 15px;
+            }
+            nav a {
+                font-size: 1rem;
+            }
+            .about-wrap { padding: 40px 5%; }
+            .company-intro { grid-template-columns: 1fr; }
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item.right { left: 0; }
+            .left::after, .right::after { left: 18px; }
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏（修改布局结构） -->
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="http://localhost:5173/" class="nav-link">首页</a></li>
+                <li><a href="product(yb).html">产品</a></li>
+                <li><a href="about.html" class="active">关于</a></li>
+                <li><a href="contact.html" class="nav-link">联系</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 关于页主内容 -->
+<div class="about-wrap">
+    <!-- 标题区 -->
+    <div class="about-title">
+        <h2>我的CMS系统开发历程</h2>
+        <p>从Java基础到SpringBoot实战，独立完成前后端全栈的开发，逐步迭代完善功能，持续优化用户体验,致力于打造企业级的CMS系统项目。</p>
+    </div>
+
+    <!-- 公司简介（滚动渐入） -->
+    <section class="about-section company-intro">
+        <div class="intro-img">
+            <img src="../image/生成%20CMS%20系统图片.png" alt="公司环境">
+        </div>
+        <div class="intro-text">
+            <h3>项目简介</h3>
+            <p>这是一套由我独立开发的CMS内容管理系统，涵盖用户管理模块、文章分类模块、文章管理模块等核心功能，前后端均由我一人完成开发与迭代。</p>
+            <p>项目从零基础起步，先夯实Java基础，再快速上手SpringBoot框架搭建项目骨架，通过分阶段迭代的方式，逐步实现接口限流、AOP追踪日志、全文检索等核心功能。</p>
+            <p>整个开发过程注重实用性和可扩展性，每一个功能模块都经过精心设计，后续将持续优化用户体验，新增更多实用功能，让系统更加完善。</p>
+        </div>
+    </section>
+
+    <!-- 发展历程（滚动渐入） -->
+    <section class="about-section">
+        <h3 style="text-align: center; font-size: 1.8rem; color: #222; margin-bottom: 50px;">开发历程</h3>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <span class="timeline-year">3月9日 - 3月23日</span>
+                    <h4>Java基础夯实</h4>
+                    <p>开学后集中补充Java基础知识，从面向对象核心概念系统学习至Map双列集合，为后续框架学习打下坚实基础。</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <span class="timeline-year">3月24日-3月30日</span>
+                    <h4>SpringBoot入门与项目搭建</h4>
+                    <p>自学SpringBoot框架核心知识点，快速完成CMS项目基本骨架搭建，确定核心模块的技术方案。</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <span class="timeline-year">4月15日</span>
+                    <h4>核心功能升级</h4>
+                    <p>完成接口限流功能开发，基于AOP实现系统追踪日志功能，提升系统稳定性和可维护性。</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <span class="timeline-year">4月28日</span>
+                    <h4>接口功能拓展</h4>
+                    <p>新增5个核心接口：显示所有分类名、浏览量自增、全文关键词搜索、批量操作状态、根据分类id获取对应文章。</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <span class="timeline-year">4月29日-4月30日</span>
+                    <h4>前后端交互实现</h4>
+                    <p>完成前后端数据交互开发，打通前端页面与后端接口，实现核心功能的可视化操作。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 核心团队（滚动渐入） -->
+    <section class="about-section">
+        <h3 style="text-align: center; font-size: 1.8rem; color: #222; margin-bottom: 50px;">核心技术栈</h3>
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="../image/生成科技风图片%20(1).png" alt="CEO">
+                </div>
+                <div class="team-info">
+                    <h4>Java基础</h4>
+                    <div class="team-position">核心编程语言</div>
+                    <div class="team-desc">掌握面向对象、集合框架（List/Set/Map）、IO流、多线程等核心知识点，为项目开发奠定基础。</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="../image/生成科技风图片%20(2).png" alt="CTO">
+                </div>
+                <div class="team-info">
+                    <h4>SpringBoot</h4>
+                    <div class="team-position">后端框架</div>
+                    <div class="team-desc">基于SpringBoot快速搭建项目，实现自动配置、依赖管理，结合MyBatis-Plus实现数据持久化操作。</div>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-img">
+                    <img src="../image/生成科技风图片%20(3).png" alt="COO">
+                </div>
+                <div class="team-info">
+                    <h4>前后端交互</h4>
+                    <div class="team-position">交互技术</div>
+                    <div class="team-desc">基于纯HTML+原生JS实现前端页面，JSON格式数据传输，完成前端页面与后端接口的无缝对接。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 企业文化（滚动渐入） -->
+    <section class="about-section">
+        <h3 style="text-align: center; font-size: 1.8rem; color: #222; margin-bottom: 50px;">后续规划</h3>
+        <div class="culture-grid">
+            <div class="culture-card">
+                <div class="culture-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h4>内容推荐功能</h4>
+                <p>开发推荐精选文章、热门文章模块，基于浏览量、发布时间等维度实现智能推荐，提升内容曝光率。</p>
+            </div>
+            <div class="culture-card">
+                <div class="culture-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                <h4>用户与数据模块</h4>
+                <p>开发个人中心、后台基础统计功能，支持用户信息管理、数据可视化展示，完善系统的管理能力。</p>
+            </div>
+            <div class="culture-card">
+                <div class="culture-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <h4>互动功能升级</h4>
+                <p>新增文章点赞、收藏、评论功能，支持用户互动交流，提升系统的用户粘性和使用体验。</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- 页脚 -->
+<footer>
+    © 2025 我的CMS系统 保留所有权利
+</footer>
+
+<script>
+    // 1. 页面平滑跳转（和首页/联系页统一）
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 2. 导航栏滚动样式变化（适配新布局）
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // 3. 滚动时内容模块渐入显示（核心功能）
+    const aboutSections = document.querySelectorAll('.about-section');
+
+    function checkScroll() {
+        aboutSections.forEach(section => {
+            // 获取模块顶部到视口顶部的距离
+            const sectionTop = section.getBoundingClientRect().top;
+            // 触发点：模块顶部进入视口80%的位置时显示
+            const triggerPoint = window.innerHeight * 0.8;
+
+            if (sectionTop < triggerPoint) {
+                section.classList.add('show');
+            }
+        });
+    }
+
+    // 初始加载检查 + 滚动时检查
+    window.addEventListener('load', checkScroll);
+    window.addEventListener('scroll', checkScroll);
+</script>
+</body>
+</html>

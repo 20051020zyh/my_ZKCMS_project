@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 注册页主内容 */
+        .register-wrap {
+            padding: 80px 15%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .title-box {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .title-box h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .title-box p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .register-form {
+            background: #fff;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: slideUp 0.8s ease 0.4s forwards;
+        }
+        .form-item {
+            margin-bottom: 25px;
+        }
+        .form-item input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border 0.3s ease;
+            outline: none;
+        }
+        .form-item input:focus {
+            border-color: #333;
+        }
+        .form-tips {
+            color: #ff4444;
+            font-size: 0.9rem;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            height: 18px;
+            visibility: hidden;
+        }
+        .form-tips.show {
+            visibility: visible;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: #000;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .submit-btn:hover {
+            background: #333;
+            transform: scale(1.02);
+        }
+        .link-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .link-group a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .link-group a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 页面淡出跳转 */
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { gap: 20px; }
+            .register-wrap { padding: 40px 5%; }
+            .register-form { padding: 30px; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container" >
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <!-- 当前页面设为 active -->
+                <li><a href="product.html" class="active">产品</a></li>
+                <li><a href="about.html" class="nav-link">关于</a></li>
+                <li><a href="contact.html" class="nav-link">联系</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="register-wrap">
+    <div class="title-box">
+        <h2>用户注册</h2>
+        <p>创建账号，开启全新体验</p>
+    </div>
+
+    <div class="register-form">
+        <div class="form-item">
+            <input type="text" id="username" placeholder="请输入用户名(2-16位，无空)">
+            <div class="form-tips" id="usernameTips"></div>
+        </div>
+        <div class="form-item">
+            <input type="password" id="password" placeholder="请输入密码(5-16位，无空)）">
+            <div class="form-tips" id="passwordTips"></div>
+        </div>
+        <div class="form-item">
+            <input type="password" id="confirmPwd" placeholder="请确认密码">
+            <div class="form-tips" id="confirmTips"></div>
+        </div>
+        <button class="submit-btn" id="registerBtn">注册</button>
+        <div class="link-group">
+            <a href="login.html" class="nav-link">已有账号？立即登录</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    © 2025 我的网站 保留所有权利
+</footer>
+
+<script>
+    // 页面平滑淡出跳转
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 导航栏滚动效果
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // 注册逻辑
+    const registerBtn = document.getElementById('registerBtn');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const confirmPwdInput = document.getElementById('confirmPwd');
+    const usernameTips = document.getElementById('usernameTips');
+    const passwordTips = document.getElementById('passwordTips');
+    const confirmTips = document.getElementById('confirmTips');
+
+    // 清空提示
+    function clearTips() {
+        usernameTips.classList.remove('show');
+        passwordTips.classList.remove('show');
+        confirmTips.classList.remove('show');
+        usernameTips.textContent = '';
+        passwordTips.textContent = '';
+        confirmTips.textContent = '';
+    }
+
+    // 显示提示
+    function showTips(el, text) {
+        el.textContent = text;
+        el.classList.add('show');
+    }
+
+    registerBtn.addEventListener('click', async () => {
+        clearTips();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const confirmPwd = confirmPwdInput.value.trim();
+
+        // 前端验证（和后端RegisterDTO规则一致：5-16位非空白字符）
+        if (!username) {
+            showTips(usernameTips, '请输入用户名');
+            return;
+        }
+        // 用户名长度校验（2-16位）
+        if (username.length < 2 || username.length > 16) {
+            showTips(usernameTips, '用户名必须为2~16位非空白字符');
+            return;
+        }
+        // 检查用户名是否包含空格
+        if (username.includes(' ')) {
+            showTips(usernameTips, '用户名不能包含空格');
+            return;
+        }
+        if (!password) {
+            showTips(passwordTips, '请输入密码');
+            return;
+        }
+        // 密码长度校验（5-16位）
+        if (password.length < 5 || password.length > 16) {
+            showTips(passwordTips, '密码必须为5~16位非空白字符');
+            return;
+        }
+        if (password.includes(' ')) {
+            showTips(passwordTips, '密码不能包含空格');
+            return;
+        }
+        if (!confirmPwd) {
+            showTips(confirmTips, '请确认密码');
+            return;
+        }
+        if (password !== confirmPwd) {
+            showTips(confirmTips, '两次输入的密码不一致');
+            return;
+        }
+
+        try {
+            // 调用后端注册接口
+            const response = await fetch('/user/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    username: username,
+                    password: password
+                })
+            });
+
+            // 关键：先判断HTTP状态码是否正常（200-299）
+            if (!response.ok) {
+                // 解析后端返回的错误信息（即使状态码500/400，也尝试读取）
+                let errorMsg = '服务器处理失败';
+                try {
+                    const errorData = await response.json();
+                    errorMsg = errorData.msg || errorMsg;
+                } catch (e) {
+                    // 如果后端返回非JSON格式，读取文本
+                    const errorText = await response.text();
+                    errorMsg = errorText.substring(0, 50) || errorMsg;
+                }
+                showTips(usernameTips, errorMsg);
+                return;
+            }
+
+            // 状态码正常，解析响应
+            const result = await response.json();
+            if (result.code === 'success' || result.code === 0) { // 兼容后端常见的成功码
+                alert('注册成功！即将跳转到登录页');
+                // 平滑跳转到登录页
+                document.body.classList.add('page-fade-out');
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 1000);
+            } else {
+                // 注册失败（如用户名已存在）
+                showTips(usernameTips, result.message || '注册失败，请重试');
+            }
+        } catch (error) {
+            console.error('注册请求失败:', error);
+            // 区分网络错误和其他错误
+            if (error.message.includes('Failed to fetch')) {
+                alert('网络异常，无法连接服务器，请检查后端服务是否启动');
+            } else {
+                showTips(usernameTips, '请求处理异常：' + error.message.substring(0, 50));
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BigEvent AI 代码助手</title>
+    <style>
+        body{max-width:800px;margin:50px auto;padding:0 20px;font-family:Microsoft YaHei}
+        .chat{border:1px solid #eee;padding:25px;border-radius:12px;background:#fefefe}
+        h3{color:#2d8cf0;margin-top:0}
+        #question{width:72%;padding:12px;border:1px solid #ddd;border-radius:6px;font-size:14px}
+        button{padding:12px 20px;background:#2d8cf0;color:white;border:none;border-radius:6px;cursor:pointer;margin-left:5px}
+        #answer{margin-top:20px;padding:20px;background:#f7f8fa;border-radius:8px;white-space:pre-wrap;line-height:1.6}
+    </style>
+</head>
+<body>
+<div class="chat">
+    <h3>🧠 DeepSeek V4 Flash - 项目代码问答</h3>
+    <input type="text" id="question" placeholder="请输入你的问题，例如：项目登录怎么实现？">
+    <button onclick="ask()">发送问题</button>
+    <div id="answer"></div>
+</div>
+
+<script>
+    async function ask() {
+        let q = document.getElementById("question").value.trim();
+        if(!q) return alert("请输入问题");
+
+        let btn = document.querySelector("button");
+        btn.disabled = true;
+        btn.innerText = "思考中...";
+
+        let res = await fetch("/api/ai/chat", {
+            method: "POST",
+            headers: { "Content-Type": "text/plain" },
+            body: q
+        });
+
+        let ans = await res.text();
+        document.getElementById("answer").innerText = ans;
+
+        btn.disabled = false;
+        btn.innerText = "发送问题";
+    }
+</script>
+</body>
+</html>

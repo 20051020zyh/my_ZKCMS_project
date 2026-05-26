@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企业官网示例</title>
+    <style>
+        /* 全局重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        /* 页面过渡动画 */
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* 导航栏 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover {
+            color: #000;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* 轮播/首屏区域 */
+        .hero {
+            height: 70vh;
+            background: url("../image/流星2.jpg") center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            position: relative;
+            transition: transform 0.5s ease;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+        }
+        .hero > * {
+            position: relative;
+            z-index: 1;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.3s forwards;
+        }
+        .hero .btn {
+            padding: 15px 40px;
+            background: #fff;
+            color: #000;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.6s forwards;
+            transition: all 0.3s ease;
+        }
+        .hero .btn:hover {
+            background: #000;
+            color: #fff;
+            transform: scale(1.05);
+        }
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 功能卡片区域 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 15%;
+            margin-top: -80px;
+            position: relative;
+            z-index: 2;
+        }
+        .feature-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.5s ease;
+        }
+        .feature-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+        }
+        .feature-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+        .feature-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .feature-content p {
+            font-size: 1.2rem;
+            color: #666;
+            line-height: 1.6;
+        }
+        /* 消除下划线 */
+        .no-underline-link {
+            text-decoration: none;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 100px;
+        }
+        .footer-links {
+            display: flex;
+            gap: 20px;
+        }
+        .footer-links a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            header {
+                padding: 15px 5%;
+            }
+            nav ul {
+                gap: 20px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .features {
+                padding: 0 5%;
+            }
+            footer {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+        /* 页面跳转淡出动画 */
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li><a href="index.html" class="active">首页</a></li>
+                <li><a href="product(yb).html">产品</a></li>
+                <li><a href="about.html">关于</a></li>
+                <li><a href="contact.html" class="nav-link">联系</a></li>
+                <li><a href="login.html" class="nav-link">登录</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 首屏区域 -->
+<section class="hero">
+    <h1>欢迎来到曾煜皓的CMS系统网站</h1>
+    <a href="product(yb).html">
+        <button  class="btn">立即体验</button>
+    </a>
+</section>
+
+<!-- 功能卡片区域 -->
+<section class="features">
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+            </svg>
+        </div>
+        <a href="updateUser.html" class="no-underline-link">
+            <div class="feature-content">
+                <h3>用户管理</h3>
+                <p>数据加密,隐私保护</p>
+            </div>
+        </a>
+
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+        </div>
+        <a href="category-manage.html" class="no-underline-link">
+            <div class="feature-content">
+                <h3>文章分类</h3>
+                <p>增删改查,企业标准</p>
+            </div>
+        </a>
+    </div>
+    <div class="feature-card">
+        <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+            </svg>
+        </div>
+        <a href="article-manage.html" class="no-underline-link">
+            <div class="feature-content">
+                <h3>文章管理</h3>
+                <p>功能齐全,稳定可靠</p>
+            </div>
+        </a>
+    </div>
+</section>
+
+<!-- 页脚 -->
+<footer>
+    <div class="copyright">© 2026 我的网站 保留所有权利</div>
+    <div class="footer-links">
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+    </div>
+</footer>
+
+<script>
+    // 页面滚动时卡片渐入动画
+    const featureCards = document.querySelectorAll('.feature-card');
+    function checkCards() {
+        const triggerBottom = window.innerHeight * 0.8;
+        featureCards.forEach((card, index) => {
+            const cardTop = card.getBoundingClientRect().top;
+            if (cardTop < triggerBottom) {
+                setTimeout(() => {
+                    card.classList.add('show');
+                }, index * 150);
+            }
+        });
+    }
+    window.addEventListener('load', checkCards);
+    window.addEventListener('scroll', checkCards);
+
+    // 导航栏滚动变化效果
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+    // 页面平滑过渡跳转
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 检测登录态，替换导航栏登录/退出
+    const loginLink = document.querySelector('a[href="login.html"]');
+    const token = localStorage.getItem('token');
+    if (token) {
+        // 已登录，替换为退出按钮
+        loginLink.href = 'javascript:void(0)';
+        loginLink.textContent = '退出';
+        loginLink.addEventListener('click', () => {
+            localStorage.removeItem('token');
+            alert('已退出登录');
+            window.location.reload();
+        });
+    }
+</script>
+</body>
+</html>

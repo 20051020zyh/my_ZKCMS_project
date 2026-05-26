@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人信息管理</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+
+        body {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            background-color: #f9f9f9;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 15%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #000;
+            /* logo 固定在左侧 */
+            position: absolute;
+            left: 15%;
+        }
+        /* 新增导航容器，实现居中 */
+        .nav-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+            align-items: center;
+        }
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1.2rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+        nav a:hover::after {
+            width: 100%;
+        }
+        nav a.active {
+            color: #000;
+        }
+        nav a.active::after {
+            width: 100%;
+        }
+
+        .profile-wrap {
+            padding: 80px 15%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .profile-title {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s ease 0.2s forwards;
+        }
+        .profile-title h2 {
+            font-size: 2.4rem;
+            color: #222;
+            margin-bottom: 15px;
+        }
+        .profile-title p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .profile-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            padding: 40px;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        .profile-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .profile-section h3 {
+            font-size: 1.8rem;
+            color: #222;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .avatar-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .avatar-preview {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 4px solid #fff;
+        }
+        .avatar-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .avatar-upload-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #avatar-input {
+            display: none;
+        }
+        .btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #000;
+            color: #fff;
+        }
+        .btn:hover {
+            background: #333;
+            transform: translateY(-2px);
+        }
+        .btn-outline {
+            background: #fff;
+            color: #000;
+            border: 1px solid #000;
+        }
+        .btn-outline:hover {
+            background: #f5f5f5;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #222;
+            font-size: 1.1rem;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #000;
+        }
+        .form-hint {
+            margin-top: 8px;
+            font-size: 0.9rem;
+            color: #999;
+        }
+
+        .password-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) {
+            .password-group {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        /* 提示样式优化 */
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .message.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .message.error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page-fade-out {
+            animation: fadeOut 0.4s ease forwards;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 40px 15%;
+            text-align: center;
+            margin-top: 80px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 5%; }
+            nav ul { gap: 20px; }
+            .profile-wrap { padding: 40px 5%; }
+            .profile-section { padding: 25px; }
+            .profile-title h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="logo">我的CMS系统</div>
+    <div class="nav-container" >
+        <nav>
+            <ul>
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <!-- 当前页面设为 active -->
+                <li><a href="product.html" class="active">产品</a></li>
+                <li><a href="about.html" class="nav-link">关于</a></li>
+                <li><a href="contact.html" class="nav-link">联系</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<div class="profile-wrap">
+    <div class="profile-title">
+        <h2>个人信息管理</h2>
+        <p>更新您的个人资料、密码和头像，所有信息修改后即时生效</p>
+    </div>
+
+    <section class="profile-section">
+        <h3>更新头像</h3>
+        <div class="avatar-upload">
+            <div class="avatar-preview">
+                <img id="avatar-img" src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="当前头像">
+            </div>
+            <div class="avatar-upload-btn">
+                <label for="avatar-input" class="btn btn-outline">选择图片</label>
+                <input type="file" id="avatar-input" accept="image/*">
+                <button id="save-avatar" class="btn">保存头像</button>
+            </div>
+            <div id="avatar-message" class="message"></div>
+        </div>
+    </section>
+
+    <section class="profile-section">
+        <h3>更新基本信息</h3>
+        <form id="info-form">
+            <div class="form-group">
+                <label class="form-label" for="username">姓名</label>
+                <input type="text" class="form-input" id="username" placeholder="请输入您的姓名">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="nickname">座右铭</label>
+                <input type="text" class="form-input" id="nickname" placeholder="请输入您的座右铭">
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="email">邮箱</label>
+                <input type="email" class="form-input" id="email" placeholder="请输入您的邮箱">
+                <div class="form-hint">我们将通过此邮箱发送重要通知，请确保准确</div>
+            </div>
+            <button type="submit" class="btn submit-btn">保存基本信息</button>
+            <div id="info-message" class="message"></div>
+        </form>
+    </section>
+
+    <section class="profile-section">
+        <h3>更新密码</h3>
+        <form id="password-form">
+            <div class="form-group">
+                <label class="form-label" for="old-password">当前密码</label>
+                <input type="password" class="form-input" id="old-password" placeholder="请输入当前密码" required>
+            </div>
+            <div class="password-group">
+                <div class="form-group">
+                    <label class="form-label" for="new-password">新密码</label>
+                    <input type="password" class="form-input" id="new-password" placeholder="请输入新密码" required>
+                    <div class="form-hint">密码长度不少于6位</div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="confirm-password">确认新密码</label>
+                    <input type="password" class="form-input" id="confirm-password" placeholder="请再次输入新密码" required>
+                </div>
+            </div>
+            <button type="submit" class="btn submit-btn">更新密码</button>
+            <div id="password-message" class="message"></div>
+        </form>
+    </section>
+</div>
+
+<footer>
+    © 2025 我的网站 保留所有权利
+</footer>
+
+<script>
+    // 基础配置
+    const BASE_URL = 'http://' + window.location.host;
+    const API_PREFIX = '/user';
+
+    // 页面加载 → 自动获取用户信息 → 显示最新头像
+    window.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const res = await request('/userInfo', { method: 'GET' });
+            const user = res.data;
+
+            if (user.userPic) {
+                // 防缓存 + 显示最新头像
+                avatarImg.src = user.userPic + "?t=" + Date.now();
+            }
+
+            // 自动回填表单（姓名、座右铭、邮箱）
+            document.getElementById('username').value = user.username || '';
+            document.getElementById('motto').value = user.motto || '';
+            document.getElementById('email').value = user.email || '';
+
+        } catch (err) {
+            console.log('获取用户信息失败', err);
+        }
+    });
+
+
+    // 获取Token
+    const getToken = () => {
+        return localStorage.getItem('token') || sessionStorage.getItem('token') || '';
+    };
+
+    // 核心修复：把成功判定从code===200改为code===0（匹配你的后端）
+    const request = async (url, options = {}) => {
+        const token = getToken();
+        if (!token) {
+            window.location.href = 'login.html';
+            throw new Error('请先登录');
+        }
+
+        if (!(options.body instanceof  FormData)){
+            options.headers = {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+        } else {
+            options.headers = {
+                'Authorization': `Bearer ${token}`,
+                ...options.headers
+            };
+        }
+
+
+        try {
+            const response = await fetch(`${BASE_URL}${API_PREFIX}${url}`, options);
+
+            // Token失效处理
+            if (response.status === 401) {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                alert('登录已过期，请重新登录');
+                window.location.href = 'login.html';
+                throw new Error('Token已失效');
+            }
+
+            // 404处理
+            if (response.status === 404) {
+                throw new Error('接口地址错误，请检查后端接口路径');
+            }
+
+            const result = await response.json();
+
+            // 关键修改：后端成功code是0，不是200！
+            if (result.code === 0) {
+                return result; // 成功直接返回
+            } else {
+                throw new Error(result.message || '操作失败');
+            }
+        } catch (error) {
+            console.error('请求错误：', error);
+            throw error;
+        }
+    };
+
+    // 通用提示函数
+    const showMessage = (elementId, text, isSuccess) => {
+        const messageEl = document.getElementById(elementId);
+        messageEl.className = 'message';
+        messageEl.classList.add(isSuccess ? 'success' : 'error');
+        messageEl.classList.add('show');
+        messageEl.textContent = isSuccess ? text : `更新失败：${text}`;
+        // 3秒后自动隐藏
+        setTimeout(() => {
+            messageEl.classList.remove('show');
+        }, 3000);
+    };
+
+    // 导航栏跳转逻辑
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetUrl = this.href;
+            document.body.classList.add('page-fade-out');
+            setTimeout(() => {
+                window.location.href = targetUrl;
+            }, 400);
+        });
+    });
+
+    // 导航栏滚动样式
+    const header = document.querySelector('header');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.style.padding = '15px 15%';
+            header.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 15%';
+            header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+        }
+    });
+
+    // 滚动渐入
+    const profileSections = document.querySelectorAll('.profile-section');
+    function checkScroll() {
+        profileSections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const triggerPoint = window.innerHeight * 0.8;
+            if (sectionTop < triggerPoint) {
+                section.classList.add('show');
+            }
+        });
+    }
+    window.addEventListener('load', checkScroll);
+    window.addEventListener('scroll', checkScroll);
+
+    // 头像上传
+    const avatarInput = document.getElementById('avatar-input');
+    const avatarImg = document.getElementById('avatar-img');
+    const saveAvatarBtn = document.getElementById('save-avatar');
+
+    avatarInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(file.type)) {
+                showMessage('avatar-message', '请选择jpg、png、gif格式的图片', false);
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                avatarImg.src = e.target.result;
+                showMessage('avatar-message', '图片预览成功，点击保存头像生效', true);
+            }
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // 保存头像（最终完美版）
+    saveAvatarBtn.addEventListener('click', async function () {
+        const file = avatarInput.files[0];
+        if (!file) {
+            showMessage('avatar-message', '请先选择要上传的头像图片', false);
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('file', file); // 必须和后端 @RequestParam("file") 一致
+
+            // 调用你的接口
+            const result = await request('/updateAvatar', {
+                method: 'PATCH',
+                body: formData
+            });
+
+            showMessage('avatar-message', '头像更新成功！', true);
+            avatarInput.value = '';
+
+            // 【关键】更新完立刻重新拉取最新头像
+            const userRes = await request('/userInfo', { method: 'GET' });
+            avatarImg.src = userRes.data.userPic + "?t=" + Date.now();
+
+        } catch (error) {
+            showMessage('avatar-message', error.message || '上传失败', false);
+        }
+    });
+
+    // 基本信息更新
+    const infoForm = document.getElementById('info-form');
+
+    infoForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value.trim();
+        const nickname = document.getElementById('nickname').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        const updateData = {};
+        if (username) updateData.username = username;
+        if (nickname) updateData.nickname = nickname;
+        if (email) updateData.email = email;
+
+        if (Object.keys(updateData).length === 0) {
+            showMessage('info-message', '请至少填写一项信息进行更新', false);
+            return;
+        }
+
+        try {
+            const result = await request('/update', {
+                method: 'PUT',
+                body: JSON.stringify(updateData)
+            });
+
+            // 成功：绿色提示
+            showMessage('info-message', result.message || '基本信息更新成功！', true);
+        } catch (error) {
+            // 失败：红色提示
+            showMessage('info-message', error.message, false);
+        }
+    });
+
+    // 密码更新
+    const passwordForm = document.getElementById('password-form');
+
+    passwordForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const oldPwd = document.getElementById('old-password').value;
+        const newPwd = document.getElementById('new-password').value;
+        const confirmPwd = document.getElementById('confirm-password').value;
+
+        // 前端校验
+        if (newPwd.length < 6) {
+            showMessage('password-message', '新密码长度不能少于6位', false);
+            return;
+        }
+        // if (!/^(?=.*[a-zA-Z])(?=.*\d)/.test(newPwd)) {
+        //     showMessage('password-message', '新密码必须包含字母和数字', false);
+        //     return;
+        // }
+        if (newPwd !== confirmPwd) {
+            showMessage('password-message', '两次输入的新密码不一致', false);
+            return;
+        }
+        if (oldPwd === newPwd) {
+            showMessage('password-message', '新密码不能与当前密码相同', false);
+            return;
+        }
+
+        try {
+            const result = await request('/updatePwd', {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    old_pwd: oldPwd,
+                    new_pwd: newPwd,
+                    re_pwd: confirmPwd
+                })
+            });
+
+            showMessage('password-message', result.message || '密码更新成功！请重新登录', true);
+            passwordForm.reset();
+
+            setTimeout(() => {
+                localStorage.removeItem('token');
+                sessionStorage.removeItem('token');
+                window.location.href = 'login.html';
+            }, 2000);
+        } catch (error) {
+            showMessage('password-message', error.message, false);
+        }
+    });
+
+    // 页面加载时获取用户信息（注释掉避免404干扰）
+    window.addEventListener('load', async () => {
+        try {
+            // 如需启用，请确保后端有/user/info接口
+            // const userInfo = await request('/info');
+            // if (userInfo.data) {
+            //     document.getElementById('username').value = userInfo.data.username || '';
+            //     document.getElementById('nickname').value = userInfo.data.nickname || '';
+            //     document.getElementById('email').value = userInfo.data.email || '';
+            //     if (userInfo.data.userPic) {
+            //         document.getElementById('avatar-img').src = userInfo.data.userPic;
+            //     }
+            // }
+        } catch (error) {
+            console.log('获取用户信息失败：', error);
+        }
+    });
+</script>
+</body>
+</html>
