@@ -1,15 +1,18 @@
 package com.heima.big_event.utils.Others;
 
 import com.heima.big_event.pojo.LeaveMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-    //发送留言通知
     @Component
     public class EmailUtil {
+
+        private static final Logger log = LoggerFactory.getLogger(EmailUtil.class);
 
         @Autowired
         private JavaMailSender mailSender;
@@ -33,6 +36,8 @@ import org.springframework.stereotype.Component;
                     "内容：" + message.getContent();
 
             msg.setText(content);
+            log.info("正在发送邮件到: {}", toEmail);
             mailSender.send(msg);
+            log.info("邮件发送成功");
         }
     }

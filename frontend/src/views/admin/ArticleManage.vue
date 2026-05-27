@@ -186,8 +186,7 @@ const confirmToggleStatus = async () => {
   const { id, status, actionText } = statusDialogTarget.value;
   statusDialogLoading.value = true;
   try {
-    const state = status === 0 ? '已发布' : '草稿';
-    await batchUpdateStatus({ articleId: [id], state });
+    await request.post('/article/batch/updateStatus', { ids: [id], status });
     ElMessage.success({ message: `${actionText}成功`, duration: 2000 });
     statusDialogVisible.value = false;
     fetchArticles();
