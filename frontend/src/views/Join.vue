@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useRouter } from 'vue-router'
+import { addLeaveMessage } from '@/api/leaveMessage'
 
 const router = useRouter()
 
@@ -47,15 +48,45 @@ const benefits = [
 ]
 
 const handleSubmit = async () => {
-  if (!form.value.name || !form.value.email || !form.value.message) {
-    ElMessage.warning('请填写姓名、邮箱和留言内容')
+  if (!form.value.name) {
+    ElMessage.warning('请填写姓名')
+    return
+  }
+  if (form.value.name.length > 50) {
+    ElMessage.warning('姓名不能超过50个字符')
+    return
+  }
+  if (!form.value.phone || form.value.phone.length !== 11) {
+    ElMessage.warning('请填写正确的11位电话号码')
+    return
+  }
+  if (!form.value.email) {
+    ElMessage.warning('请填写邮箱')
+    return
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email)) {
+    ElMessage.warning('请填写正确的邮箱格式')
+    return
+  }
+  if (!form.value.message) {
+    ElMessage.warning('请填写留言内容')
     return
   }
   submitting.value = true
-  await new Promise(r => setTimeout(r, 1200))
-  submitting.value = false
-  ElMessage.success('留言已提交，我们会尽快回复你！')
-  form.value = { name: '', phone: '', email: '', message: '' }
+  try {
+    await addLeaveMessage({
+      name: form.value.name,
+      phone: form.value.phone,
+      email: form.value.email,
+      content: form.value.message
+    })
+    ElMessage.success('留言已提交，我们会尽快回复你！')
+    form.value = { name: '', phone: '', email: '', message: '' }
+  } catch {
+    // 错误已在 request.ts 拦截器中处理
+  } finally {
+    submitting.value = false
+  }
 }
 
 let sectionObserver: IntersectionObserver | null = null

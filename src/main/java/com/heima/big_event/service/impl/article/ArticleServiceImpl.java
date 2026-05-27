@@ -154,6 +154,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper , Article> imp
 
         if (state == null) {
             wrapper.eq(Article::getState, "已发布");
+            wrapper.eq(Article::getStatus, 0);
         } else if (!state.trim().isEmpty()) {
             wrapper.eq(Article::getState, state);
         }

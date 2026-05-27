@@ -690,8 +690,13 @@ public class ArticleController {
          wrapper.set(Article::getStatus , dto.getStatus());
          articleService.update(wrapper);
 
+        //清除文章列表缓存
         redisUtil.deleteByPattern("article:list:*");
         redisUtil.deleteByPattern("article:search:*");
+        //清除单篇文章的详情缓存
+        for (Integer id : dto.getIds()) {
+            redisUtil.delete("article:" + id);
+        }
 
          return Result.success("批量操作成功");
     }
