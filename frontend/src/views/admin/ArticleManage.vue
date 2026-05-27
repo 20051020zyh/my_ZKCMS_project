@@ -57,12 +57,17 @@ const editorConfig = {
   placeholder: '请输入文章内容...',
   MENU_CONF: {
     uploadImage: {
-      server: '/api/upload',
-      fieldName: 'file',
       maxFileSize: 10 * 1024 * 1024,
-      customInsert(res: any, insertFn: any) {
-        if (res && res.data) {
-          insertFn(res.data);
+      customUpload: async (file: File, insertFn: any) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        try {
+          const res = await request.post('/upload', formData)
+          if (res.data && res.data.data) {
+            insertFn(res.data.data)
+          }
+        } catch (e) {
+          ElMessage.error('图片上传失败')
         }
       }
     }
@@ -181,7 +186,8 @@ const confirmToggleStatus = async () => {
   const { id, status, actionText } = statusDialogTarget.value;
   statusDialogLoading.value = true;
   try {
-    await request.post('/article/batch/updateStatus', { ids: [id], status });
+    const state = status === 0 ? '已发布' : '草稿';
+    await batchUpdateStatus({ articleId: [id], state });
     ElMessage.success({ message: `${actionText}成功`, duration: 2000 });
     statusDialogVisible.value = false;
     fetchArticles();

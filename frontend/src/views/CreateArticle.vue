@@ -6,6 +6,7 @@ import { getAllCategories } from '@/api/category'
 import { getAllTags, addTag } from '@/api/tags'
 import { addArticle, scheduleArticle, updateArticle, getArticleDetail } from '@/api/article'
 import { useUserStore } from '@/stores/user'
+import request from '@/utils/request'
 
 const route = useRoute()
 const router = useRouter()
@@ -290,13 +291,13 @@ const handleCoverUpload = () => {
     formData.append('file', file)
 
     try {
-      const { default: request } = await import('@/utils/request')
       const res: any = await request.post('/upload', formData)
       const url = res.data || res
       form.value.coverImg = url
       coverPreview.value = url
-    } catch {
-      ElMessage.error('图片上传失败')
+    } catch (e: any) {
+      console.error('封面上传失败:', e)
+      ElMessage.error(e?.response?.data?.message || '图片上传失败')
     } finally {
       imageUploading.value = false
     }

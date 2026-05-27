@@ -18,7 +18,7 @@ public class FileUploadController {
     }
 
     @PostMapping("/upload")
-    @RequirePermission("/upload")
+    @RequirePermission(value = "/upload", checkPermission = false)
     public Result<String> upload(MultipartFile file) throws IOException {
         //原文件的内容
         String originalFilename = file.getOriginalFilename();

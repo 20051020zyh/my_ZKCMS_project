@@ -12,6 +12,12 @@ import java.util.Properties;
 @Configuration
 public class MailConfig {
 
+    @Value("${spring.mail.host:smtp.qq.com}")
+    private String host;
+
+    @Value("${spring.mail.port:465}")
+    private Integer port;
+
     @Value("${spring.mail.username}")
     private String username;
 
@@ -22,8 +28,8 @@ public class MailConfig {
     @Primary
     public JavaMailSender javaMailSender() {
         JavaMailSenderImpl sender = new JavaMailSenderImpl();
-        sender.setHost("2408:8756:f50:4::7c");
-        sender.setPort(465);
+        sender.setHost(host);
+        sender.setPort(port);
         sender.setUsername(username);
         sender.setPassword(password);
 
