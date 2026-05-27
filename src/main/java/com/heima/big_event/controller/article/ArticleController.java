@@ -105,7 +105,7 @@ public class ArticleController {
             state = "已发布";
         }
         String cateIdStr = (categoryId == null) ? "-1" : categoryId.toString();
-        String stateStr = state;
+        String stateStr = (serviceState == null) ? "已发布_status0" : state;
         String keywordStr = (keyword == null || keyword.trim().isEmpty()) ? "-" : keyword.trim();
         String key = "article:list:" + pageNum + ":" + pageSize + ":" + cateIdStr + ":" + stateStr + ":" + keywordStr;
         //拆分key:分别存文章列表和总条数
