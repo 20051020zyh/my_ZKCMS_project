@@ -97,6 +97,9 @@ public class ArticleController {
             }
         }
 
+        //保存原始state传给service（用于判断是否需要过滤status=0）
+        String serviceState = state;
+
         //拼接缓存key(默认值代替null,保证key唯一)
         if (state == null) {
             state = "已发布";
@@ -127,7 +130,7 @@ public class ArticleController {
             if (!LockSuccess) {
                 //没抢到锁
                 Thread.sleep(200);
-                return list(pageNum , pageSize , categoryId , state,categoryName,keyword);
+                return list(pageNum , pageSize , categoryId , serviceState,categoryName,keyword);
             }
             //加锁之后再去查一次redis
             Object cacheListAfterLock = redisUtil.get(keyList);
@@ -136,7 +139,7 @@ public class ArticleController {
                 return buildPageFromCache(cacheListAfterLock , cacheTotalAfterLock ,pageNum ,pageSize);
             }
             //只有一个线程到这查数据库
-            pd = articleService.list( pageNum , pageSize , categoryId , state , keyword);
+            pd = articleService.list( pageNum , pageSize , categoryId , serviceState , keyword);
             //缓存穿透
             if (pd.getTotal() == 0) {
                 //存-1为空标记
