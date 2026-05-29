@@ -144,6 +144,12 @@ const routes: RouteRecordRaw[] = [
         component: () => import('@/views/admin/PermissionManage.vue')
       },
       {
+        path: 'leaveMessages',
+        name: 'AdminLeaveMessages',
+        meta: { title: '管理后台 - 留言管理' },
+        component: () => import('@/views/admin/LeaveMessageManage.vue')
+      },
+      {
         path: 'settings',
         name: 'AdminSettings',
         meta: { title: '管理后台 - 系统设置' },

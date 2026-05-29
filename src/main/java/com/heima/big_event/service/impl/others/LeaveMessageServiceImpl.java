@@ -1,5 +1,6 @@
 package com.heima.big_event.service.impl.others;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.heima.big_event.mapper.LeaveMessageMapper;
 import com.heima.big_event.pojo.LeaveMessage;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service("leaveMessageService")
 public class LeaveMessageServiceImpl extends ServiceImpl<LeaveMessageMapper, LeaveMessage> implements LeaveMessageService {
@@ -38,5 +40,14 @@ public class LeaveMessageServiceImpl extends ServiceImpl<LeaveMessageMapper, Lea
             }
         }).start();
     }
+
+    //批量删除留言
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void batchDelete(List<Integer> ids){
+        //deleteBatchIds集成了IN 和 Delete 语句
+        leaveMessageMapper.deleteBatchIds(ids);
+    }
+
 }
 

@@ -20,6 +20,7 @@ import {
   Monitor,
   Key,
   WarningFilled,
+  ChatDotSquare,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -37,6 +38,7 @@ const menuItems = [
   { index: '/admin/categories', title: '分类管理', icon: Folder, permKey: 'category/add' },
   { index: '/admin/comments', title: '评论管理', icon: ChatDotRound, permKey: '/article/comment/audit' },
   { index: '/admin/reports', title: '举报管理', icon: WarningFilled, permKey: '' },
+  { index: '/admin/leaveMessages', title: '留言管理', icon: ChatDotSquare, permKey: '' },
   { index: '/admin/users', title: '用户管理', icon: User, permKey: 'user/alluserPage' },
   { index: '/admin/notices', title: '公告管理', icon: Bell, permKey: 'sysNotice/adimin/list' },
   { index: '/admin/roles', title: '角色权限', icon: Avatar, permKey: '/sysRole/list' },
