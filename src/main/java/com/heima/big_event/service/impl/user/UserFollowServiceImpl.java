@@ -79,11 +79,12 @@ public class UserFollowServiceImpl extends ServiceImpl<UserFollowMapper, UserFol
         redisUtil.delete("user:fans:" + followedUserId);
         redisUtil.delete("user:profile:" + followedUserId);
 
+        User current = userMapper.selectById(userId);
         User other = userMapper.selectById(followedUserId);
 
         FollowVO vo = new FollowVO();
         vo.setIsFollowed(isFollowed);
-        vo.setFollowCount(other.getFollowCount());
+        vo.setFollowCount(current.getFollowCount());
         vo.setFansCount(other.getFansCount());
         return vo;
     }

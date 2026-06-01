@@ -68,7 +68,6 @@ const handleToggleFollow = async () => {
   try {
     const res = await toggleFollow(profile.value.id)
     profile.value.isFollowed = res.data.isFollowed
-    profile.value.followCount = res.data.followCount
     profile.value.fansCount = res.data.fansCount
   } catch {
     // 错误信息已在请求拦截器中统一提示
