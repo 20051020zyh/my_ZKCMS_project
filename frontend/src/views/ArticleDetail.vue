@@ -168,6 +168,12 @@ const fetchComments = async () => {
   }
 }
 
+const goToUserProfile = () => {
+  if (article.value.createUser) {
+    router.push(`/user/${article.value.createUser}`)
+  }
+}
+
 const handleLike = async () => {
   if (!userStore.checkLogin('请先登录')) return
   try {
@@ -449,7 +455,7 @@ onUnmounted(() => {
         <aside class="layout-right">
           <div class="sidebar-sticky">
             <!-- 作者卡片 -->
-            <div class="profile-card">
+            <div class="profile-card" style="cursor:pointer;" @click="goToUserProfile">
               <div class="profile-glow"></div>
               <div class="profile-avatar">
                 <el-avatar :size="60" :src="article.user_pic || ''">

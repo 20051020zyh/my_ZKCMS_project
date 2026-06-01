@@ -32,4 +32,6 @@ public class User {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;//更新时间
     private Integer status;//用户状态
+    private Integer followCount;//关注数
+    private Integer fansCount;//粉丝数
 }

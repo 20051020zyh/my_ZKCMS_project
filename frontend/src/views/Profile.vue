@@ -4,7 +4,9 @@ import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/stores/user'
 import { getUserCenterInfo, updateUserInfo, updateAvatar, updatePassword } from '@/api/user'
-import { getUserArticles, getUserCollects, trashArticle, getTrashList, recoverArticle, foreverDeleteArticle } from '@/api/article'
+import { getUserArticles, getUserCollects, trashArticle, getTrashList, recoverArticle, foreverDeleteArticle, moveCollectFolder } from '@/api/article'
+import { getFollowList, getFansList } from '@/api/follow'
+import { getFolderList, addFolder, updateFolder, deleteFolder } from '@/api/collectFolder'
 import { navigateTo } from '@/utils/navigate'
 import {
   EditPen, Lock, ArrowLeft, Camera,
@@ -20,6 +22,29 @@ const myArticles = ref<any[]>([])
 const loadingArticles = ref(false)
 const articlesPage = ref({ pageNum: 1, pageSize: 10, total: 0 })
 const loadingInfo = ref(false)
+
+const drawerVisible = ref(false)
+const drawerTab = ref<'follow' | 'fans'>('follow')
+const drawerList = ref<any[]>([])
+const drawerLoading = ref(false)
+const drawerPage = ref({ pageNum: 1, pageSize: 10, total: 0 })
+
+const folders = ref<any[]>([])
+const selectedFolderId = ref<number | undefined>(undefined)
+const showFolderModal = ref(false)
+const folderModalMode = ref<'create' | 'rename'>('create')
+const folderModalName = ref('')
+const editingFolderId = ref<number | null>(null)
+const folderSaving = ref(false)
+const showFolderDelete = ref(false)
+const deletingFolderId = ref<number | null>(null)
+const deletingFolderName = ref('')
+
+const showMoveFolder = ref(false)
+const moveArticleId = ref<number | null>(null)
+const moveFolderId = ref<number | undefined>(undefined)
+const movingFolder = ref(false)
+
 const savingProfile = ref(false)
 const savingPwd = ref(false)
 const uploadingAvatar = ref(false)
@@ -37,6 +62,7 @@ const articleFilter = ref<'all' | 'published' | 'draft'>('all')
 const myCollects = ref<any[]>([])
 const loadingCollects = ref(false)
 const collectsPage = ref({ pageNum: 1, pageSize: 10, total: 0 })
+const folderOverrides = ref<Record<number, number | null>>({})
 
 // 回收站
 const trashList = ref<any[]>([])
@@ -74,6 +100,181 @@ const fetchCenterInfo = async () => {
   }
 }
 
+const openDrawer = (tab: 'follow' | 'fans') => {
+  drawerTab.value = tab
+  drawerPage.value = { pageNum: 1, pageSize: 10, total: 0 }
+  drawerList.value = []
+  drawerVisible.value = true
+  if (tab === 'follow') {
+    fetchFollowList()
+  } else {
+    fetchFansList()
+  }
+}
+
+const switchDrawerTab = (tab: 'follow' | 'fans') => {
+  drawerTab.value = tab
+  drawerPage.value.pageNum = 1
+  drawerList.value = []
+  if (tab === 'follow') {
+    fetchFollowList()
+  } else {
+    fetchFansList()
+  }
+}
+
+const fetchFollowList = async () => {
+  drawerLoading.value = true
+  try {
+    const res: any = await getFollowList(drawerPage.value.pageNum, drawerPage.value.pageSize)
+    drawerList.value = res.data?.records || res.data || []
+    drawerPage.value.total = res.data?.total || res.data?.length || 0
+  } catch {
+    ElMessage.error('获取关注列表失败')
+  } finally {
+    drawerLoading.value = false
+  }
+}
+
+const fetchFansList = async () => {
+  drawerLoading.value = true
+  try {
+    const res: any = await getFansList(drawerPage.value.pageNum, drawerPage.value.pageSize)
+    drawerList.value = res.data?.records || res.data || []
+    drawerPage.value.total = res.data?.total || res.data?.length || 0
+  } catch {
+    ElMessage.error('获取粉丝列表失败')
+  } finally {
+    drawerLoading.value = false
+  }
+}
+
+const handleDrawerPageChange = (page: number) => {
+  drawerPage.value.pageNum = page
+  if (drawerTab.value === 'follow') {
+    fetchFollowList()
+  } else {
+    fetchFansList()
+  }
+}
+
+const fetchFolders = async () => {
+  try {
+    const res: any = await getFolderList()
+    folders.value = res.data || []
+  } catch {
+    // ignore
+  }
+}
+
+const handleSelectFolder = (folderId: number | undefined) => {
+  selectedFolderId.value = folderId
+  collectsPage.value.pageNum = 1
+  fetchCollects()
+}
+
+const openCreateFolder = () => {
+  folderModalMode.value = 'create'
+  folderModalName.value = ''
+  editingFolderId.value = null
+  showFolderModal.value = true
+}
+
+const openRenameFolder = (e: Event, folder: any) => {
+  e.stopPropagation()
+  folderModalMode.value = 'rename'
+  folderModalName.value = folder.name
+  editingFolderId.value = folder.id
+  showFolderModal.value = true
+}
+
+const confirmFolder = async () => {
+  if (!folderModalName.value.trim()) {
+    ElMessage.warning('请输入文件夹名称')
+    return
+  }
+  folderSaving.value = true
+  try {
+    if (folderModalMode.value === 'create') {
+      await addFolder(folderModalName.value.trim())
+      ElMessage.success('文件夹创建成功')
+    } else if (editingFolderId.value) {
+      await updateFolder(editingFolderId.value, folderModalName.value.trim())
+      ElMessage.success('文件夹已重命名')
+    }
+    showFolderModal.value = false
+    fetchFolders()
+  } catch {
+    ElMessage.error('操作失败')
+  } finally {
+    folderSaving.value = false
+  }
+}
+
+const openDeleteFolder = (e: Event, folder: any) => {
+  e.stopPropagation()
+  deletingFolderId.value = folder.id
+  deletingFolderName.value = folder.name
+  showFolderDelete.value = true
+}
+
+const confirmDeleteFolder = async () => {
+  if (deletingFolderId.value === null) return
+  try {
+    await deleteFolder(deletingFolderId.value)
+    ElMessage.success('文件夹已删除')
+    showFolderDelete.value = false
+    deletingFolderId.value = null
+    if (selectedFolderId.value === deletingFolderId.value) {
+      selectedFolderId.value = undefined
+    }
+    fetchFolders()
+    fetchCollects()
+  } catch {
+    ElMessage.error('删除失败')
+  }
+}
+
+const openMoveFolder = (articleId: number) => {
+  moveArticleId.value = articleId
+  moveFolderId.value = selectedFolderId.value
+  showMoveFolder.value = true
+}
+
+const confirmMoveFolder = async () => {
+  if (moveArticleId.value === null) return
+  movingFolder.value = true
+  try {
+    await moveCollectFolder(moveArticleId.value, moveFolderId.value)
+    ElMessage.success('移入成功')
+    showMoveFolder.value = false
+    delete folderOverrides.value[moveArticleId.value]
+    fetchCollects()
+  } catch {
+    ElMessage.error('操作失败')
+  } finally {
+    movingFolder.value = false
+  }
+}
+
+const handleRemoveFolder = async (articleId: number) => {
+  try {
+    await moveCollectFolder(articleId)
+    ElMessage.success('已移出分类')
+    folderOverrides.value[articleId] = null
+    const item = myCollects.value.find((i: any) => i.articleId === articleId)
+    if (item) {
+      item.folderId = null
+    }
+    if (selectedFolderId.value !== undefined) {
+      myCollects.value = myCollects.value.filter((i: any) => i.articleId !== articleId)
+      if (collectsPage.value.total > 0) collectsPage.value.total -= 1
+    }
+  } catch {
+    ElMessage.error('操作失败')
+  }
+}
+
 const fetchMyArticles = async () => {
   loadingArticles.value = true
   try {
@@ -105,12 +306,29 @@ const filteredArticles = computed(() => {
 const fetchCollects = async () => {
   loadingCollects.value = true
   try {
-    const res: any = await getUserCollects({
+    const params: any = {
       pageNum: collectsPage.value.pageNum,
-      pageSize: collectsPage.value.pageSize
-    })
-    myCollects.value = res.data?.records || []
-    collectsPage.value.total = res.data?.total || 0
+      pageSize: collectsPage.value.pageSize,
+      _t: Date.now()
+    }
+    if (selectedFolderId.value) {
+      params.folderId = selectedFolderId.value
+    }
+    const res: any = await getUserCollects(params)
+    const records = res.data?.records || []
+    const filtered: any[] = []
+    for (const record of records) {
+      if (record.articleId in folderOverrides.value) {
+        record.folderId = folderOverrides.value[record.articleId]
+      }
+      if (selectedFolderId.value !== undefined && record.folderId !== selectedFolderId.value) {
+        continue
+      }
+      filtered.push(record)
+    }
+    myCollects.value = filtered
+    const removedCount = (res.data?.records?.length || 0) - filtered.length
+    collectsPage.value.total = Math.max(0, (res.data?.total || 0) - removedCount)
   } catch {
     ElMessage.error('获取收藏列表失败')
   } finally {
@@ -330,6 +548,8 @@ watch(activeTab, (tab) => {
     articlesPage.value.pageNum = 1
     fetchMyArticles()
   } else if (tab === 'collects') {
+    selectedFolderId.value = undefined
+    fetchFolders()
     fetchCollects()
   } else if (tab === 'trash') {
     fetchTrashList()
@@ -344,17 +564,13 @@ onMounted(() => {
 
 <template>
   <div class="profile-page">
-    <div class="bg-orb orb-1" />
-    <div class="bg-orb orb-2" />
-    <div class="bg-orb orb-3" />
-
     <button class="btn-back" @click="goBack">
       <el-icon><ArrowLeft /></el-icon>
     </button>
 
-    <div class="profile-container">
+    <div class="profile-layout">
       <aside class="profile-sidebar">
-        <div class="sidebar-card">
+        <div class="sidebar-user">
           <div class="sidebar-avatar" @click="handleAvatarUpload" v-loading="uploadingAvatar">
             <div class="avatar-ring">
               <div class="avatar-inner">
@@ -370,10 +586,23 @@ onMounted(() => {
 
           <h2 class="sidebar-name">{{ centerInfo.username || '未设置用户名' }}</h2>
           <p class="sidebar-bio">{{ centerInfo.nickname || '这个人很懒，什么都没写' }}</p>
-
           <p v-if="centerInfo.email" class="sidebar-email">{{ centerInfo.email }}</p>
 
           <div class="profile-stats">
+            <div class="pstat-item" @click="openDrawer('follow')">
+              <div class="pstat-icon" style="color: #6366f1; background: rgba(99,102,241,0.1); box-shadow: 0 0 12px rgba(99,102,241,0.15)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+              </div>
+              <span class="pstat-val">{{ centerInfo.followCount ?? 0 }}</span>
+              <span class="pstat-label">关注</span>
+            </div>
+            <div class="pstat-item" @click="openDrawer('fans')">
+              <div class="pstat-icon" style="color: #c4806a; background: rgba(196,128,106,0.1); box-shadow: 0 0 12px rgba(196,128,106,0.15)">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              </div>
+              <span class="pstat-val">{{ centerInfo.fansCount ?? 0 }}</span>
+              <span class="pstat-label">粉丝</span>
+            </div>
             <div class="pstat-item">
               <div class="pstat-icon" style="color: #6a9b8a; background: rgba(106,155,138,0.1); box-shadow: 0 0 12px rgba(106,155,138,0.15)">
                 <el-icon :size="14"><Postcard /></el-icon>
@@ -389,14 +618,7 @@ onMounted(() => {
               <span class="pstat-label">草稿</span>
             </div>
             <div class="pstat-item">
-              <div class="pstat-icon" style="color: #6366f1; background: rgba(99,102,241,0.1); box-shadow: 0 0 12px rgba(99,102,241,0.15)">
-                <el-icon :size="14"><Comment /></el-icon>
-              </div>
-              <span class="pstat-val">{{ centerInfo.commentCount ?? 0 }}</span>
-              <span class="pstat-label">评论</span>
-            </div>
-            <div class="pstat-item">
-              <div class="pstat-icon" style="color: #c4806a; background: rgba(196,128,106,0.1); box-shadow: 0 0 12px rgba(196,128,106,0.15)">
+              <div class="pstat-icon" style="color: #8b7dd8; background: rgba(139,125,216,0.1); box-shadow: 0 0 12px rgba(139,125,216,0.15)">
                 <el-icon :size="14"><Star /></el-icon>
               </div>
               <span class="pstat-val">{{ centerInfo.collectCount ?? 0 }}</span>
@@ -404,12 +626,28 @@ onMounted(() => {
             </div>
           </div>
 
-          <button class="btn-edit-sidebar" @click="activeTab = 'edit'">
-            <el-icon><EditPen /></el-icon>
-            <span>编辑资料</span>
-          </button>
-        </div>
-      </aside>
+          <div v-if="centerInfo.collectFolders?.length" class="sidebar-section">
+            <h4 class="sidebar-section-title">收藏分类</h4>
+            <div class="folder-list">
+              <div
+                v-for="folder in centerInfo.collectFolders"
+                :key="folder.id"
+                class="folder-item"
+                @click="activeTab = 'collects'"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                <span class="folder-name">{{ folder.name }}</span>
+                <span class="folder-count">{{ folder.articleCount }}</span>
+              </div>
+            </div>
+          </div>
+
+            <button class="btn-edit-sidebar" @click="activeTab = 'edit'">
+              <el-icon><EditPen /></el-icon>
+              <span>编辑资料</span>
+            </button>
+          </div>
+        </aside>
 
       <main class="profile-content">
         <div class="tab-nav">
@@ -496,6 +734,35 @@ onMounted(() => {
 
           <Transition name="fade-slide">
             <div v-if="activeTab === 'collects'" class="tab-panel">
+              <div class="collect-toolbar">
+                <div class="collect-folders">
+                  <button
+                    :class="['folder-chip', { active: selectedFolderId === undefined }]"
+                    @click="handleSelectFolder(undefined)"
+                  >全部</button>
+                  <button
+                    v-for="folder in folders"
+                    :key="folder.id"
+                    :class="['folder-chip', { active: selectedFolderId === folder.id }]"
+                    @click="handleSelectFolder(folder.id)"
+                  >
+                    {{ folder.name }}
+                    <div class="folder-chip-actions">
+                      <span class="folder-chip-action" @click.stop="openRenameFolder($event, folder)" title="重命名">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                      </span>
+                      <span class="folder-chip-action danger" @click.stop="openDeleteFolder($event, folder)" title="删除">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                      </span>
+                    </div>
+                  </button>
+                  <button class="folder-chip folder-add" @click="openCreateFolder">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                    新建分类
+                  </button>
+                </div>
+              </div>
+
               <div v-if="loadingCollects" class="empty-state">
                 <el-icon class="empty-icon" :size="44"><Star /></el-icon>
                 <p>加载中...</p>
@@ -518,6 +785,16 @@ onMounted(() => {
                     <div class="ai-meta">
                       <span class="ai-date">{{ formatDate(item.update_time) }}</span>
                     </div>
+                  </div>
+                  <div class="ai-actions">
+                    <button v-if="selectedFolderId !== undefined || (item.articleId in folderOverrides ? folderOverrides[item.articleId] : item.folderId)" class="ai-btn del" @click.stop="handleRemoveFolder(item.articleId)" title="移出分类">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                      <span>移出分类</span>
+                    </button>
+                    <button v-else class="ai-btn edit" @click.stop="openMoveFolder(item.articleId)" title="移入分类">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                      <span>分类</span>
+                    </button>
                   </div>
                 </article>
               </div>
@@ -765,73 +1042,165 @@ onMounted(() => {
       </Transition>
     </div>
   </Transition>
+
+  <!-- 关注/粉丝抽屉 -->
+  <Transition name="drawer-fade">
+    <div v-if="drawerVisible" class="drawer-overlay" @click.self="drawerVisible = false">
+      <Transition name="drawer-slide" appear>
+        <div v-if="drawerVisible" class="drawer-panel">
+          <div class="drawer-header">
+            <div class="drawer-tabs">
+              <button :class="['drawer-tab', { active: drawerTab === 'follow' }]" @click="switchDrawerTab('follow')">关注</button>
+              <button :class="['drawer-tab', { active: drawerTab === 'fans' }]" @click="switchDrawerTab('fans')">粉丝</button>
+            </div>
+            <button class="drawer-close" @click="drawerVisible = false">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          <div class="drawer-body">
+            <div v-if="drawerLoading" class="drawer-loading">
+              <span class="drawer-spinner"></span>
+              <p>加载中...</p>
+            </div>
+            <div v-else-if="!drawerList.length" class="drawer-empty">
+              <p>{{ drawerTab === 'follow' ? '还没有关注任何人' : '还没有粉丝' }}</p>
+            </div>
+            <div v-else class="drawer-list">
+              <div
+                v-for="item in drawerList"
+                :key="item.id || item.userId"
+                class="drawer-item"
+              >
+                <img :src="item.userPic || item.avatar || '/default-avatar.png'" class="drawer-item-avatar" />
+                <div class="drawer-item-info">
+                  <span class="drawer-item-name">{{ item.nickname || item.username || '未知用户' }}</span>
+                  <span class="drawer-item-desc">{{ item.bio || item.email || '' }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div v-if="drawerPage.total > drawerPage.pageSize" class="drawer-footer">
+            <button class="drawer-page-btn" :disabled="drawerPage.pageNum <= 1" @click="handleDrawerPageChange(drawerPage.pageNum - 1)">上一页</button>
+            <span class="drawer-page-info">{{ drawerPage.pageNum }} / {{ Math.ceil(drawerPage.total / drawerPage.pageSize) }}</span>
+            <button class="drawer-page-btn" :disabled="drawerPage.pageNum * drawerPage.pageSize >= drawerPage.total" @click="handleDrawerPageChange(drawerPage.pageNum + 1)">下一页</button>
+          </div>
+        </div>
+      </Transition>
+    </div>
+  </Transition>
+
+  <!-- 新建/重命名文件夹弹窗 -->
+  <Transition name="modal-fade">
+    <div v-if="showFolderModal" class="delete-overlay" @click.self="showFolderModal = false">
+      <Transition name="modal-scale" appear>
+        <div v-if="showFolderModal" class="delete-modal" style="width: 340px">
+          <div class="delete-modal-icon" style="color: #c8a45c; border-color: rgba(200,164,92,0.15)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          </div>
+          <h3 class="delete-modal-title">{{ folderModalMode === 'create' ? '新建收藏分类' : '重命名文件夹' }}</h3>
+          <div style="padding: 0 24px 20px">
+            <input
+              v-model="folderModalName"
+              type="text"
+              class="field-input"
+              :placeholder="folderModalMode === 'create' ? '输入文件夹名称' : '输入新名称'"
+              maxlength="20"
+               @keyup.enter="confirmFolder"
+             />
+          </div>
+          <div class="delete-modal-actions">
+            <button class="dbtn dbtn-cancel" @click="showFolderModal = false" :disabled="folderSaving">取消</button>
+            <button class="dbtn dbtn-edit" @click="confirmFolder" :disabled="folderSaving">
+              {{ folderSaving ? '保存中...' : '确定' }}
+            </button>
+          </div>
+          <button class="delete-modal-close" @click="showFolderModal = false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </Transition>
+    </div>
+  </Transition>
+
+  <!-- 删除文件夹确认弹窗 -->
+  <Transition name="modal-fade">
+    <div v-if="showFolderDelete" class="delete-overlay" @click.self="showFolderDelete = false">
+      <Transition name="modal-scale" appear>
+        <div v-if="showFolderDelete" class="delete-modal">
+          <div class="delete-modal-icon icon-danger">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.02" y2="17"/></svg>
+          </div>
+          <h3 class="delete-modal-title">确认删除文件夹</h3>
+          <p class="delete-modal-desc">
+            确定要删除 <strong>{{ deletingFolderName }}</strong> 吗？<br/>
+            文件夹内的收藏文章将变为未分类
+          </p>
+          <div class="delete-modal-actions">
+            <button class="dbtn dbtn-cancel" @click="showFolderDelete = false">取消</button>
+            <button class="dbtn dbtn-confirm" @click="confirmDeleteFolder">删除</button>
+          </div>
+          <button class="delete-modal-close" @click="showFolderDelete = false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </Transition>
+    </div>
+  </Transition>
+
+  <!-- 移入分类弹窗 -->
+  <Transition name="modal-fade">
+    <div v-if="showMoveFolder" class="delete-overlay" @click.self="showMoveFolder = false">
+      <Transition name="modal-scale" appear>
+        <div v-if="showMoveFolder" class="delete-modal" style="width: 340px">
+          <div class="delete-modal-icon" style="color: #c8a45c; border-color: rgba(200,164,92,0.15)">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          </div>
+          <h3 class="delete-modal-title">移入分类</h3>
+          <div class="move-folder-list">
+            <button
+              :class="['move-folder-item', { active: moveFolderId === undefined }]"
+              @click="moveFolderId = undefined"
+            >未分类</button>
+            <button
+              v-for="folder in folders"
+              :key="folder.id"
+              :class="['move-folder-item', { active: moveFolderId === folder.id }]"
+              @click="moveFolderId = folder.id"
+            >{{ folder.name }}</button>
+          </div>
+          <div class="delete-modal-actions">
+            <button class="dbtn dbtn-cancel" @click="showMoveFolder = false" :disabled="movingFolder">取消</button>
+            <button class="dbtn dbtn-edit" @click="confirmMoveFolder" :disabled="movingFolder">
+              {{ movingFolder ? '移入中...' : '确定' }}
+            </button>
+          </div>
+          <button class="delete-modal-close" @click="showMoveFolder = false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+      </Transition>
+    </div>
+  </Transition>
 </template>
 
 <style scoped>
 .profile-page {
   min-height: 100vh;
   background: linear-gradient(175deg, #fdfaf3 0%, #f8f2e7 30%, #faf5ed 60%, #fdf9f2 100%);
-  padding: 32px 32px 80px;
+  padding-left: 300px;
   position: relative;
-  overflow-x: clip;
-}
-
-.bg-orb {
-  position: fixed;
-  border-radius: 50%;
-  filter: blur(100px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-  animation: orbFloat 14s ease-in-out infinite;
-}
-
-.orb-1 {
-  width: 420px;
-  height: 420px;
-  top: -100px;
-  right: -80px;
-  background: radial-gradient(circle, rgba(200,164,92,0.13), transparent 70%);
-  animation-delay: 0s;
-}
-
-.orb-2 {
-  width: 340px;
-  height: 340px;
-  bottom: -80px;
-  left: -60px;
-  background: radial-gradient(circle, rgba(122,154,142,0.08), transparent 70%);
-  animation-delay: -4s;
-  animation-duration: 16s;
-}
-
-.orb-3 {
-  width: 260px;
-  height: 260px;
-  top: 38%;
-  left: 50%;
-  background: radial-gradient(circle, rgba(99,102,241,0.06), transparent 70%);
-  animation-delay: -8s;
-  animation-duration: 18s;
-}
-
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0,0) scale(1); }
-  25% { transform: translate(32px,-22px) scale(1.06); }
-  50% { transform: translate(-12px,-42px) scale(0.94); }
-  75% { transform: translate(-28px,12px) scale(1.04); }
 }
 
 .btn-back {
   position: fixed;
-  top: 32px;
-  left: 32px;
-  z-index: 10;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  border: 1px solid rgba(180,140,100,0.12);
-  background: rgba(255,255,255,0.8);
+  top: 20px;
+  left: 320px;
+  z-index: 20;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(200,180,150,0.12);
+  background: rgba(255,255,255,0.85);
   backdrop-filter: blur(20px);
   color: #8a7d6e;
   cursor: pointer;
@@ -850,53 +1219,34 @@ onMounted(() => {
   transform: translateX(-3px);
 }
 
-/* ========== Container ========== */
-.profile-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
+/* ========== Layout ========== */
+.profile-layout {
   display: flex;
-  gap: 36px;
-  align-items: flex-start;
+  min-height: 100vh;
 }
 
 /* ========== Sidebar ========== */
 .profile-sidebar {
   width: 300px;
   flex-shrink: 0;
-  position: sticky;
-  top: 32px;
-  margin-top: 86px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: rgba(255,253,249,0.92);
+  border-right: 1px solid rgba(200,180,150,0.1);
+  padding: 40px 24px 32px;
+  display: flex;
+  flex-direction: column;
 }
 
-.sidebar-card {
-  background: rgba(255,253,249,0.88);
-  backdrop-filter: blur(24px);
-  border: 1px solid rgba(200,180,150,0.1);
-  border-radius: 24px;
-  padding: 40px 26px 28px;
-  text-align: center;
-  box-shadow:
-    0 1px 2px rgba(160,140,110,0.02),
-    0 8px 32px rgba(180,150,110,0.07);
-  position: relative;
-  overflow: hidden;
-  animation: cardEntrance 0.6s cubic-bezier(0.22,1,0.36,1);
-}
-
-@keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.sidebar-card::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 24px;
-  background: linear-gradient(135deg, rgba(200,164,92,0.04) 0%, transparent 60%, rgba(122,154,142,0.03) 100%);
-  pointer-events: none;
+.sidebar-user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  gap: 4px;
 }
 
 .sidebar-avatar {
@@ -904,7 +1254,7 @@ onMounted(() => {
   position: relative;
   cursor: pointer;
   transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   z-index: 1;
 }
 
@@ -968,36 +1318,31 @@ onMounted(() => {
   z-index: 1;
 }
 
-/* ========== Inline Stats ========== */
+/* ========== Sidebar Stats ========== */
 .profile-stats {
-  display: flex;
-  justify-content: center;
-  gap: 0;
-  padding: 8px 4px;
-  margin-bottom: 14px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  padding: 16px 8px;
+  margin: 12px 0;
   background: rgba(200,180,150,0.04);
   border-radius: 16px;
   position: relative;
   z-index: 1;
+  width: 100%;
 }
 
 .pstat-item {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
   padding: 10px 4px;
   border-radius: 12px;
-  cursor: default;
+  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
   animation: statPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
 }
-
-.pstat-item:nth-child(1) { animation-delay: 0s; }
-.pstat-item:nth-child(2) { animation-delay: 0.08s; }
-.pstat-item:nth-child(3) { animation-delay: 0.16s; }
-.pstat-item:nth-child(4) { animation-delay: 0.24s; }
 
 @keyframes statPop {
   from { opacity: 0; transform: scale(0.6); }
@@ -1054,6 +1399,7 @@ onMounted(() => {
   align-items: center;
   gap: 8px;
   padding: 11px 28px;
+  margin-top: auto;
   border-radius: 14px;
   border: 1.5px solid rgba(200,164,92,0.22);
   background: rgba(200,164,92,0.06);
@@ -1075,10 +1421,300 @@ onMounted(() => {
   transform: translateY(-1px);
 }
 
+/* ========== Sidebar Section ========== */
+.sidebar-section {
+  text-align: left;
+  padding: 16px 0 8px;
+  margin-bottom: 8px;
+  border-top: 1px solid rgba(200,180,150,0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.sidebar-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #a0927c;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin: 0 0 12px;
+}
+
+.folder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.folder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.25s;
+  color: #8a7d6e;
+}
+
+.folder-item:hover {
+  background: rgba(200,164,92,0.06);
+  color: #a0774a;
+}
+
+.folder-name {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.folder-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: #c8bda8;
+  background: rgba(200,180,150,0.08);
+  padding: 1px 8px;
+  border-radius: 8px;
+}
+
+/* ========== Drawer ========== */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(30,25,20,0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.drawer-panel {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 380px;
+  max-width: 90vw;
+  background: linear-gradient(175deg, #fdfaf3, #f8f2e7);
+  box-shadow: -8px 0 40px rgba(30,25,20,0.1);
+  display: flex;
+  flex-direction: column;
+  z-index: 10000;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid rgba(200,180,150,0.1);
+  flex-shrink: 0;
+}
+
+.drawer-tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(200,180,150,0.08);
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.drawer-tab {
+  padding: 8px 24px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: #a0927c;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: inherit;
+}
+
+.drawer-tab.active {
+  background: #fff;
+  color: #3d3629;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.drawer-tab:hover:not(.active) {
+  color: #8a7d6e;
+}
+
+.drawer-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: none;
+  background: rgba(200,180,150,0.06);
+  color: #a0927c;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s;
+  flex-shrink: 0;
+}
+
+.drawer-close:hover {
+  background: rgba(200,180,150,0.12);
+  color: #8a7d6e;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.drawer-loading,
+.drawer-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  color: #a0927c;
+  gap: 12px;
+}
+
+.drawer-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2.5px solid rgba(200,180,150,0.12);
+  border-top-color: #c8a45c;
+  border-radius: 50%;
+  animation: drSpin .7s linear infinite;
+}
+
+@keyframes drSpin { to { transform: rotate(360deg); } }
+
+.drawer-empty p {
+  font-size: 14px;
+  margin: 0;
+}
+
+.drawer-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background 0.25s;
+}
+
+.drawer-item:hover {
+  background: rgba(200,164,92,0.04);
+}
+
+.drawer-item-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(200,180,150,0.12);
+  flex-shrink: 0;
+}
+
+.drawer-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.drawer-item-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #3d3629;
+}
+
+.drawer-item-desc {
+  font-size: 12px;
+  color: #a0927c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.drawer-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid rgba(200,180,150,0.08);
+  flex-shrink: 0;
+}
+
+.drawer-page-info {
+  font-size: 13px;
+  color: #a0927c;
+  font-weight: 500;
+}
+
+.drawer-page-btn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(200,180,150,0.12);
+  background: transparent;
+  color: #8a7d6e;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: all 0.25s;
+}
+
+.drawer-page-btn:hover:not(:disabled) {
+  border-color: rgba(200,164,92,0.3);
+  color: #a0774a;
+}
+
+.drawer-page-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* drawer transitions */
+.drawer-fade-enter-active,
+.drawer-fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.drawer-fade-enter-from,
+.drawer-fade-leave-to {
+  opacity: 0;
+}
+
+.drawer-slide-enter-active {
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+
+.drawer-slide-leave-active {
+  transition: transform 0.25s ease-in;
+}
+
+.drawer-slide-enter-from,
+.drawer-slide-leave-to {
+  transform: translateX(100%);
+}
+
 /* ========== Content ========== */
 .profile-content {
   flex: 1;
   min-width: 0;
+  padding: 80px 48px 60px;
+  max-width: 860px;
   animation: contentSlideIn 0.5s 0.1s cubic-bezier(0.22,1,0.36,1) both;
 }
 
@@ -1406,6 +2042,130 @@ onMounted(() => {
   padding: 16px;
 }
 
+/* ========== Collect Folders ========== */
+.collect-toolbar {
+  margin-bottom: 20px;
+}
+
+.collect-folders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.folder-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(200,180,150,0.12);
+  background: rgba(255,253,249,0.88);
+  color: #8a7d6e;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.folder-chip:hover {
+  border-color: rgba(200,164,92,0.25);
+  color: #a0774a;
+}
+
+.folder-chip.active {
+  background: rgba(200,164,92,0.1);
+  border-color: rgba(200,164,92,0.3);
+  color: #a0774a;
+  font-weight: 600;
+}
+
+.folder-chip.folder-add {
+  border-style: dashed;
+  color: #b8a894;
+  font-weight: 400;
+}
+
+.folder-chip.folder-add:hover {
+  border-color: rgba(200,164,92,0.3);
+  color: #a0774a;
+}
+
+.folder-chip-actions {
+  display: inline-flex;
+  gap: 2px;
+  margin-left: 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.folder-chip:hover .folder-chip-actions {
+  opacity: 1;
+}
+
+.folder-chip-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+  color: #a0927c;
+  transition: all 0.2s;
+}
+
+.folder-chip-action:hover {
+  background: rgba(200,180,150,0.12);
+  color: #8a7d6e;
+}
+
+.folder-chip-action.danger:hover {
+  background: rgba(196,80,60,0.1);
+  color: #c4503c;
+}
+
+/* ========== Move Folder Modal ========== */
+.move-folder-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 24px 20px;
+}
+
+.move-folder-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(200,180,150,0.1);
+  background: #fefcf8;
+  color: #8a7d6e;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
+}
+
+.move-folder-item:hover {
+  border-color: rgba(200,164,92,0.25);
+  background: rgba(200,164,92,0.04);
+  color: #a0774a;
+}
+
+.move-folder-item.active {
+  border-color: rgba(200,164,92,0.3);
+  background: rgba(200,164,92,0.1);
+  color: #a0774a;
+  font-weight: 600;
+}
+
 .page-btn {
   padding: 10px 24px;
   border-radius: 12px;
@@ -1580,21 +2340,22 @@ onMounted(() => {
 
 /* ========== Responsive ========== */
 @media (max-width: 900px) {
-  .profile-page { padding: 20px 16px 60px; }
+  .profile-page { padding-left: 0; padding: 20px 16px 60px; }
 
-  .profile-container {
+  .profile-layout {
     flex-direction: column;
-    gap: 24px;
   }
 
   .profile-sidebar {
     width: 100%;
     position: static;
-    margin-top: 0;
+    height: auto;
+    border-right: none;
+    padding: 24px 16px;
   }
 
-  .sidebar-card {
-    padding: 32px 24px;
+  .sidebar-user {
+    gap: 0;
   }
 
   .edit-grid {
@@ -1608,12 +2369,11 @@ onMounted(() => {
     height: 40px;
     border-radius: 12px;
   }
-
-  .bg-orb { display: none; }
 }
 
 @media (max-width: 560px) {
   .profile-page {
+    padding-left: 0;
     padding: 16px 12px 60px;
   }
 
@@ -1625,14 +2385,16 @@ onMounted(() => {
     border-radius: 12px;
   }
 
-  .profile-container {
+  .profile-layout {
     flex-direction: column;
   }
 
   .profile-sidebar {
     width: 100%;
     position: static;
-    margin-top: 0;
+    height: auto;
+    border-right: none;
+    padding: 20px 12px;
   }
 
   .edit-grid {

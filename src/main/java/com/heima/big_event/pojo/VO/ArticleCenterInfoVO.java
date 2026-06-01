@@ -1,8 +1,9 @@
 package com.heima.big_event.pojo.VO;
 
-import jakarta.validation.constraints.Email;
 import lombok.Data;
-import org.springframework.boot.autoconfigure.info.ProjectInfoAutoConfiguration;
+
+import java.util.List;
+import java.util.Map;
 
 @Data
 public class ArticleCenterInfoVO {
@@ -10,13 +11,11 @@ public class ArticleCenterInfoVO {
     private String nickname;
     private String email;
     private String user_pic;
-    //已发布文章数
     private Long fabuCount;
-    //草稿文章数
     private Long caogaoCount;
-    //我的评论总数
     private Long commentCount;
-    //我的收藏总数
     private Long collectCount;
-
+    private Integer followCount;
+    private Integer fansCount;
+    private List<Map<String, Object>> collectFolders;
 }

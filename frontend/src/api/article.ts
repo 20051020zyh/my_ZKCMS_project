@@ -31,8 +31,10 @@ export const checkLike = (articleId: number) => {
 }
 
 // 收藏/取消收藏
-export const toggleCollect = (articleId: number) => {
-  return request.post('/article/collect/toggle', null, { params: { articleId } })
+export const toggleCollect = (articleId: number, folderId?: number) => {
+  const params: any = { articleId }
+  if (folderId) params.folderId = folderId
+  return request.post('/article/collect/toggle', null, { params })
 }
 
 // 检查是否已收藏
@@ -43,6 +45,17 @@ export const checkCollect = (articleId: number) => {
 // 获取用户收藏列表
 export const getUserCollects = (params?: any) => {
   return request.get('/article/collect/user/list', { params })
+}
+
+// 移入/移出收藏文件夹
+export const moveCollectFolder = (articleId: number, folderId?: number) => {
+  const params: any = { articleId }
+  if (folderId !== undefined) params.folderId = folderId
+  return request({
+    method: 'put',
+    url: '/article/collect/moveFolder',
+    params
+  })
 }
 
 // 新增文章

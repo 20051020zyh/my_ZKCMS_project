@@ -32,7 +32,7 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
 
     //收藏/取消收藏
     @Override
-    public ArticleCollectVO toggleCollect(Integer articleId, Integer userId) {
+    public ArticleCollectVO toggleCollect(Integer articleId, Integer userId, Integer folderId) {
         //检查文章是否存在,是否"已发布"
         Article article = articleMapper.selectById(articleId);
         if (article == null || article.getState().equals("草稿")) {
@@ -47,7 +47,6 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
         ArticleCollect articleCollect = articleCollectMapper.selectOne(wrapper);
 
         boolean isCollect;
-        Integer newCollectCount;
 
         //如果收藏表里面有数据
         if (articleCollect != null) {
@@ -65,6 +64,9 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
             ArticleCollect exisCollect = new ArticleCollect();
             exisCollect.setArticleId(articleId);
             exisCollect.setUserId(userId);
+            if (folderId != null && folderId > 0) {
+                exisCollect.setFolderId(folderId);
+            }
             articleCollectMapper.insert(exisCollect);
 
             //文章表的收藏数+1
@@ -106,14 +108,19 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
 
     //我的收藏列表
     @Override
-    public ArticleCollectUserListVO MyCollectArticleListImpl(Integer pageNum, Integer pageSize, Integer userId) {
+    public ArticleCollectUserListVO MyCollectArticleListImpl(Integer pageNum, Integer pageSize, Integer userId, Integer folderId) {
         Page<ArticleCollect> page = new Page<>(pageNum, pageSize);
 
-
-        //从收藏表中把当前id收藏的文章都取出来
         LambdaQueryWrapper<ArticleCollect> wrapper1 = new LambdaQueryWrapper<>();
-        wrapper1.eq(ArticleCollect::getUserId, userId)
-                .orderByDesc(ArticleCollect::getCreateTime);
+        wrapper1.eq(ArticleCollect::getUserId, userId);
+
+        if (folderId != null && folderId > 0) {
+            wrapper1.eq(ArticleCollect::getFolderId, folderId);
+        } else if (folderId != null && folderId == -1) {
+            wrapper1.isNull(ArticleCollect::getFolderId);
+        }
+
+        wrapper1.orderByDesc(ArticleCollect::getCreateTime);
 
         //分页查询用户的收藏记录
         Page<ArticleCollect> collectResult = articleCollectMapper.selectPage(page, wrapper1);
@@ -148,6 +155,7 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
                 vo.setCover_img(article.getCoverImg());
                 vo.setUpdate_time(collect.getCreateTime());
                 vo.setArticleId(article.getId());
+                vo.setFolderId(collect.getFolderId());
                 vos.add(vo);
             }
         }
@@ -163,5 +171,23 @@ public class ArticleCollectServiceImpl extends ServiceImpl<ArticleCollectMapper 
         result.setPageSize(pageSize);
 
         return result;
+    }
+
+    //将收藏的文章移入/移出指定文件夹
+    @Override
+    public void moveFolder(Integer articleId, Integer userId, Integer folderId) {
+        LambdaQueryWrapper<ArticleCollect> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(ArticleCollect::getArticleId, articleId)
+                .eq(ArticleCollect::getUserId, userId);
+        ArticleCollect collect = articleCollectMapper.selectOne(wrapper);
+        if (collect == null) {
+            throw new BusinessException("收藏记录不存在");
+        }
+        if (folderId != null && folderId > 0) {
+            collect.setFolderId(folderId);
+        } else {
+            collect.setFolderId(null);
+        }
+        articleCollectMapper.updateById(collect);
     }
 }

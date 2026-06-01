@@ -6,6 +6,8 @@ import com.heima.big_event.pojo.VO.AdminHomeStatsVO;
 import com.heima.big_event.pojo.VO.ArticleCenterInfoVO;
 import com.heima.big_event.pojo.VO.UserWithRolesVO;
 
+import com.heima.big_event.pojo.VO.UserProfileVO;
+
 public interface UserService extends IService<User> {
     //根据用户名查询用户
     User findByUserName(String username);
@@ -38,4 +40,7 @@ public interface UserService extends IService<User> {
 
     //获取用户状态统计（正常/禁用）
     java.util.Map<String, Long> getUserStatusStats();
+
+    //查看用户主页：展示用户信息、已发布文章列表（分页）、关注数、粉丝数、当前用户是否已关注
+    UserProfileVO getUserProfileImpl(Integer targetUserId, Integer currentUserId, Integer pageNum, Integer pageSize);
 }

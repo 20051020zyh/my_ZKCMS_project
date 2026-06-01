@@ -11,9 +11,11 @@ import com.heima.big_event.mapper.article.ArticleMapper;
 import com.heima.big_event.mapper.article.ArticleReportMapper;
 import com.heima.big_event.mapper.article.ArticleTagsMapper;
 import com.heima.big_event.mapper.category.CategoryMapper;
+import com.heima.big_event.mapper.category.CollectFolderMapper;
 import com.heima.big_event.mapper.comment.CommentLikeMapper;
 import com.heima.big_event.mapper.comment.CommentReportMapper;
 import com.heima.big_event.mapper.dataStatistics.VisitLogMapper;
+import com.heima.big_event.mapper.user.UserFollowMapper;
 import com.heima.big_event.mapper.user.UserMapper;
 import com.heima.big_event.pojo.Article;
 import com.heima.big_event.pojo.ArticleCollect;
@@ -22,13 +24,16 @@ import com.heima.big_event.pojo.ArticleLike;
 import com.heima.big_event.pojo.ArticleReport;
 import com.heima.big_event.pojo.ArticleTag;
 import com.heima.big_event.pojo.Category;
+import com.heima.big_event.pojo.CollectFolder;
 import com.heima.big_event.pojo.CommentLike;
 import com.heima.big_event.pojo.CommentReport;
 import com.heima.big_event.pojo.SysRole;
 import com.heima.big_event.pojo.SysUserRole;
 import com.heima.big_event.pojo.User;
+import com.heima.big_event.pojo.UserFollow;
 import com.heima.big_event.pojo.VO.AdminHomeStatsVO;
 import com.heima.big_event.pojo.VO.ArticleCenterInfoVO;
+import com.heima.big_event.pojo.VO.UserProfileVO;
 import com.heima.big_event.pojo.VO.UserWithRolesVO;
 import com.heima.big_event.pojo.VisitLog;
 import com.heima.big_event.mapper.system.SysRoleMapper;
@@ -90,6 +95,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Autowired
+    private UserFollowMapper userFollowMapper;
+
+    @Autowired
+    private CollectFolderMapper collectFolderMapper;
     //查询用户
     @Override
     public User findByUserName(String username) {
@@ -165,35 +176,40 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
     //个人中心接口
     @Override
     public ArticleCenterInfoVO UserCenterInfoImpl(Integer userId){
-        //查对应用户基础数据
         User user = userMapper.selectById(userId);
-
-        //查询已发布文章数
         LambdaQueryWrapper<Article> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Article::getCreateUser , userId)
-                .eq(Article::getState , "已发布");
+        wrapper.eq(Article::getCreateUser , userId).eq(Article::getState , "已发布");
         Long fabuCount = articleMapper.selectCount(wrapper);
-
-        //查询草稿文章数
         LambdaQueryWrapper<Article> wrapper1 = new LambdaQueryWrapper<>();
-        wrapper.eq(Article::getCreateUser , userId)
-                .eq(Article::getState , "草稿");
-        Long caogaoCount = articleMapper.selectCount(wrapper);
-
-        //查询我的评论总数
+        wrapper1.eq(Article::getCreateUser , userId).eq(Article::getState , "草稿");
+        Long caogaoCount = articleMapper.selectCount(wrapper1);
         LambdaQueryWrapper<ArticleComment> articleCommentLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        articleCommentLambdaQueryWrapper.eq(ArticleComment::getUserId , userId)
-                .eq(ArticleComment::getIsDelete , 0);
+        articleCommentLambdaQueryWrapper.eq(ArticleComment::getUserId , userId).eq(ArticleComment::getIsDelete , 0);
         Long commentCount = articleCommentMapper.selectCount(articleCommentLambdaQueryWrapper);
-
-
-        //查询我的收藏总数
         LambdaQueryWrapper<ArticleCollect> articleCollectLambdaQueryWrapper = new LambdaQueryWrapper<>();
         articleCollectLambdaQueryWrapper.eq(ArticleCollect::getUserId , userId);
         Long collectCount = articleCollectMapper.selectCount(articleCollectLambdaQueryWrapper);
 
+        //查询关注数和粉丝数
+        Integer followCount = Math.toIntExact(userFollowMapper.selectCount(
+                new LambdaQueryWrapper<UserFollow>().eq(UserFollow::getUserId, userId)));
+        Integer fansCount = Math.toIntExact(userFollowMapper.selectCount(
+                new LambdaQueryWrapper<UserFollow>().eq(UserFollow::getFollowedUserId, userId)));
 
-        //打包返回咯
+        //查询收藏文件夹列表（含每个文件夹下的文章数量）
+        List<CollectFolder> folders = collectFolderMapper.selectList(
+                new LambdaQueryWrapper<CollectFolder>().eq(CollectFolder::getUserId, userId));
+        List<Map<String, Object>> collectFolders = new ArrayList<>();
+        for (CollectFolder folder : folders) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", folder.getId());
+            map.put("name", folder.getName());
+            Long articleCount = articleCollectMapper.selectCount(
+                    new LambdaQueryWrapper<ArticleCollect>().eq(ArticleCollect::getFolderId, folder.getId()));
+            map.put("articleCount", articleCount);
+            collectFolders.add(map);
+        }
+
         ArticleCenterInfoVO vo = new ArticleCenterInfoVO();
         vo.setUsername(user.getUsername());
         vo.setNickname(user.getNickname());
@@ -203,7 +219,57 @@ public class UserServiceImpl extends ServiceImpl<UserMapper,User> implements Use
         vo.setCaogaoCount(caogaoCount);
         vo.setCommentCount(commentCount);
         vo.setCollectCount(collectCount);
+        vo.setFollowCount(followCount);
+        vo.setFansCount(fansCount);
+        vo.setCollectFolders(collectFolders);
+        return vo;
+    }
 
+    //查看用户主页：根据targetUserId查询用户信息、已发布文章列表（分页）、关注数、粉丝数、当前登录用户是否已关注
+    @Override
+    public UserProfileVO getUserProfileImpl(Integer targetUserId, Integer currentUserId, Integer pageNum, Integer pageSize) {
+        User user = userMapper.selectById(targetUserId);
+        if (user == null) {
+            throw new RuntimeException("用户不存在");
+        }
+
+        LambdaQueryWrapper<Article> articleWrapper = new LambdaQueryWrapper<>();
+        articleWrapper.eq(Article::getCreateUser, targetUserId)
+                .eq(Article::getState, "已发布")
+                .eq(Article::getIsDelete, 0)
+                .orderByDesc(Article::getCreateTime);
+        Long totalArticles = articleMapper.selectCount(articleWrapper);
+
+        Page<Article> page = new Page<>(pageNum, pageSize);
+        Page<Article> articlePage = articleMapper.selectPage(page, articleWrapper);
+
+        for (Article a : articlePage.getRecords()) {
+            a.setUsername(user.getUsername());
+            a.setUser_pic(user.getUserPic());
+        }
+
+        boolean isFollowed = false;
+        if (currentUserId != null && !currentUserId.equals(targetUserId)) {
+            LambdaQueryWrapper<UserFollow> fw = new LambdaQueryWrapper<>();
+            fw.eq(UserFollow::getUserId, currentUserId)
+                    .eq(UserFollow::getFollowedUserId, targetUserId);
+            isFollowed = userFollowMapper.selectOne(fw) != null;
+        }
+
+        UserProfileVO vo = new UserProfileVO();
+        vo.setId(user.getId());
+        vo.setUsername(user.getUsername());
+        vo.setNickname(user.getNickname());
+        vo.setUserPic(user.getUserPic());
+        vo.setEmail(user.getEmail());
+        vo.setArticleCount(totalArticles);
+        vo.setFollowCount(user.getFollowCount());
+        vo.setFansCount(user.getFansCount());
+        vo.setIsFollowed(isFollowed);
+        vo.setArticles(articlePage.getRecords());
+        vo.setTotal((int) articlePage.getTotal());
+        vo.setPageNum(pageNum);
+        vo.setPageSize(pageSize);
         return vo;
     }
 

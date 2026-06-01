@@ -5,15 +5,14 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+//用户关注关系表实体类
 @Data
-@TableName("article_collect")
-public class ArticleCollect {
-    //收藏表
+@TableName("user_follow")
+public class UserFollow {
     @TableId(type = IdType.AUTO)
     private Integer id;
-    private Integer articleId;
-    private Integer userId;
-    private Integer folderId;
+    private Integer userId;//关注者ID
+    private Integer followedUserId;//被关注者ID
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private LocalDateTime createTime;//关注时间
 }

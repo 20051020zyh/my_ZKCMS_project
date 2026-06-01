@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.heima.big_event.pojo.*;
 import com.heima.big_event.pojo.VO.AdminHomeStatsVO;
 import com.heima.big_event.pojo.VO.ArticleCenterInfoVO;
+import com.heima.big_event.pojo.VO.UserProfileVO;
 import com.heima.big_event.pojo.VO.UserWithRolesVO;
 import com.heima.big_event.pojo.dto.PasswordDTO;
 import com.heima.big_event.pojo.dto.RegisterDTO;
@@ -513,5 +514,16 @@ public class UserController {
         }
         userService.deleteUserWithAllData(userId);
         return Result.success("用户已注销，所有相关数据已清除");
+    }
+
+    //查看用户主页（包含用户信息、已发布文章列表、关注数、粉丝数、是否已关注等）
+    @GetMapping("/profile/{userId}")
+    @RequirePermission(value = "/user/profile", checkPermission = false)
+    public Result<UserProfileVO> getUserProfile(@PathVariable Integer userId,
+                                                  @RequestParam(defaultValue = "1") Integer pageNum,
+                                                  @RequestParam(defaultValue = "10") Integer pageSize) {
+        Integer currentUserId = ThreadLocalUtil.getUserId();
+        UserProfileVO vo = userService.getUserProfileImpl(userId, currentUserId, pageNum, pageSize);
+        return Result.success(vo);
     }
 }

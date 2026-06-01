@@ -14,6 +14,7 @@ public class ArticleCollectUserListVO {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime update_time;
     private Integer articleId;
+    private Integer folderId;
     private Integer Total;
     private List<ArticleCollectUserListVO> records;
     private Integer pageNum;
