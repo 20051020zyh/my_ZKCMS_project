@@ -21,6 +21,7 @@ import {
   Key,
   WarningFilled,
   ChatDotSquare,
+  PieChart,
 } from '@element-plus/icons-vue'
 
 const route = useRoute()
@@ -43,6 +44,7 @@ const menuItems = [
   { index: '/admin/notices', title: '公告管理', icon: Bell, permKey: 'sysNotice/adimin/list' },
   { index: '/admin/roles', title: '角色权限', icon: Avatar, permKey: '/sysRole/list' },
   { index: '/admin/permissions', title: '权限菜单', icon: Key, permKey: '/sysPermission/list' },
+  { index: '/admin/browser-device-stats', title: '设备统计', icon: PieChart, permKey: '' },
   { index: '/admin/settings', title: '系统设置', icon: Setting, permKey: '/sysConfig/get' },
 ]
 

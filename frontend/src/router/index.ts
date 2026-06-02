@@ -154,6 +154,12 @@ const routes: RouteRecordRaw[] = [
         name: 'AdminSettings',
         meta: { title: '管理后台 - 系统设置' },
         component: () => import('@/views/admin/Settings.vue')
+      },
+      {
+        path: 'browser-device-stats',
+        name: 'AdminBrowserDeviceStats',
+        meta: { title: '管理后台 - 浏览器设备统计' },
+        component: () => import('@/views/admin/BrowserDeviceStats.vue')
       }
     ]
   },
