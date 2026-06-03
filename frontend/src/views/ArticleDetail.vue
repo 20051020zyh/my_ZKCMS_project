@@ -1128,6 +1128,15 @@ onUnmounted(() => {
   box-shadow: 0 4px 20px rgba(140, 110, 80, 0.1);
 }
 
+.article-body :deep(video) {
+  max-width: 100%;
+  border-radius: 14px;
+  margin: 28px 0;
+  box-shadow: 0 4px 20px rgba(140, 110, 80, 0.1);
+  display: block;
+  background: #000;
+}
+
 .article-body :deep(h2) {
   font-size: 26px;
   font-weight: 700;
@@ -1138,11 +1147,26 @@ onUnmounted(() => {
   border-bottom: 2px solid rgba(200, 164, 92, 0.12);
 }
 
+.article-body :deep(h1) {
+  font-size: 30px;
+  font-weight: 800;
+  color: #1d160e;
+  margin: 48px 0 20px;
+  letter-spacing: -0.5px;
+}
+
 .article-body :deep(h3) {
   font-size: 20px;
   font-weight: 700;
   color: #3d3629;
   margin: 36px 0 14px;
+}
+
+.article-body :deep(h4) {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4a4033;
+  margin: 28px 0 12px;
 }
 
 .article-body :deep(blockquote) {
@@ -1180,6 +1204,56 @@ onUnmounted(() => {
   background: transparent;
   padding: 0;
   color: inherit;
+}
+
+.article-body :deep(ul),
+.article-body :deep(ol) {
+  margin: 16px 0;
+  padding-left: 28px;
+  line-height: 1.8;
+}
+
+.article-body :deep(li) {
+  margin-bottom: 8px;
+}
+
+.article-body :deep(ul li) {
+  list-style: disc;
+}
+
+.article-body :deep(ol li) {
+  list-style: decimal;
+}
+
+.article-body :deep(hr) {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 164, 92, 0.2), transparent);
+  margin: 40px 0;
+}
+
+.article-body :deep(table) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  font-size: 15px;
+}
+
+.article-body :deep(table th),
+.article-body :deep(table td) {
+  border: 1px solid rgba(200, 164, 92, 0.15);
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.article-body :deep(table th) {
+  background: rgba(200, 164, 92, 0.06);
+  font-weight: 600;
+  color: #2d2418;
+}
+
+.article-body :deep(table td) {
+  color: #4a4033;
 }
 
 .article-body :deep(a) {

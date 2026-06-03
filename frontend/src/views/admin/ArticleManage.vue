@@ -63,11 +63,26 @@ const editorConfig = {
         formData.append('file', file)
         try {
           const res = await request.post('/upload', formData)
-          if (res.data && res.data.data) {
-            insertFn(res.data.data)
+          if (res.data) {
+            insertFn(res.data)
           }
         } catch (e) {
           ElMessage.error('图片上传失败')
+        }
+      }
+    },
+    uploadVideo: {
+      maxFileSize: 200 * 1024 * 1024,
+      customUpload: async (file: File, insertFn: any) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        try {
+          const res = await request.post('/upload', formData)
+          if (res.data) {
+            insertFn(res.data)
+          }
+        } catch (e) {
+          ElMessage.error('视频上传失败')
         }
       }
     }

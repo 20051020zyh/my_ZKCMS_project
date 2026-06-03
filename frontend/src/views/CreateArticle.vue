@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { ref, shallowRef, computed, watch, onMounted, onUnmounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { getAllCategories } from '@/api/category'
@@ -7,6 +7,8 @@ import { getAllTags, addTag } from '@/api/tags'
 import { addArticle, scheduleArticle, updateArticle, getArticleDetail } from '@/api/article'
 import { useUserStore } from '@/stores/user'
 import request from '@/utils/request'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import '@wangeditor/editor/dist/css/style.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -27,6 +29,57 @@ const remainingTags = computed(() => MAX_TAGS - selectedTagNames.value.length)
 
 const submitting = ref(false)
 const imageUploading = ref(false)
+const editorRef = shallowRef<any>(null)
+
+const toolbarConfig = {
+  excludeKeys: []
+}
+
+const editorConfig = {
+  placeholder: '开始写作...',
+  MENU_CONF: {
+    uploadImage: {
+      maxFileSize: 10 * 1024 * 1024,
+      customUpload: async (file: File, insertFn: any) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        try {
+          const res = await request.post('/upload', formData)
+          if (res.data) {
+            insertFn(res.data)
+          }
+        } catch (e) {
+          ElMessage.error('图片上传失败')
+        }
+      }
+    },
+    uploadVideo: {
+      maxFileSize: 200 * 1024 * 1024,
+      customUpload: async (file: File, insertFn: any) => {
+        const formData = new FormData()
+        formData.append('file', file)
+        try {
+          const res = await request.post('/upload', formData)
+          if (res.data) {
+            insertFn(res.data)
+          }
+        } catch (e) {
+          ElMessage.error('视频上传失败')
+        }
+      }
+    }
+  }
+}
+
+const handleCreated = (editor: any) => {
+  editorRef.value = editor
+}
+
+onBeforeUnmount(() => {
+  if (editorRef.value) {
+    editorRef.value.destroy()
+  }
+})
 
 const form = ref({
   title: '',
@@ -45,11 +98,13 @@ const coverPreview = ref('')
 const wordCount = computed(() => {
   const t = form.value.content.trim()
   if (!t) return 0
-  return t.length
+  const text = t.replace(/<[^>]*>/g, '')
+  return text.length
 })
 
 const canSubmit = computed(() => {
-  return form.value.title.trim().length > 0 && form.value.content.trim().length > 10 && form.value.categoryId !== null
+  const text = form.value.content.replace(/<[^>]*>/g, '').trim()
+  return form.value.title.trim().length > 0 && text.length > 10 && form.value.categoryId !== null
 })
 
 const seoOpen = ref(false)
@@ -910,12 +965,19 @@ onUnmounted(() => {
             <div class="field-group">
               <label class="field-label">内容 <span class="required">*</span></label>
               <div class="editor-wrap">
-                <textarea
+                <div class="editor-toolbar">
+                  <Toolbar
+                    :editor="editorRef"
+                    :defaultConfig="toolbarConfig"
+                    mode="default"
+                  />
+                </div>
+                <Editor
                   v-model="form.content"
-                  class="input-content"
-                  placeholder="开始写作..."
-                  rows="16"
-                ></textarea>
+                  :defaultConfig="editorConfig"
+                  mode="default"
+                  @onCreated="handleCreated"
+                />
                 <div class="editor-footer">
                   <span class="char-count">{{ wordCount }} 字</span>
                   <span class="char-hint">至少 10 个字</span>
@@ -972,7 +1034,10 @@ onUnmounted(() => {
                 </span>
               </div>
               <h3 class="preview-title">{{ form.title || '文章标题' }}</h3>
-              <p class="preview-text">{{ form.content ? form.content.slice(0, 120) + (form.content.length > 120 ? '...' : '') : '开始写作，预览将实时更新...' }}</p>
+              <div class="preview-content" v-if="form.content">
+                <div v-html="form.content"></div>
+              </div>
+              <p class="preview-text" v-else>开始写作，预览将实时更新...</p>
             </div>
           </div>
 
@@ -2111,40 +2176,68 @@ onUnmounted(() => {
 /* ── Editor ── */
 .editor-wrap {
   position: relative;
-}
-
-.input-content {
-  width: 100%;
-  padding: 16px 18px;
-  font-size: 15px;
-  line-height: 1.8;
-  color: #0f172a;
-  background: #fafbfc;
   border: 1.5px solid #e2e8f0;
   border-radius: 12px;
-  outline: none;
-  resize: vertical;
-  min-height: 320px;
+  overflow: hidden;
   transition: all 0.25s ease;
-  font-family: inherit;
-}
-
-.input-content::placeholder {
-  color: #94a3b8;
-}
-
-.input-content:focus {
-  border-color: #0ea5e9;
   background: #fff;
+}
+
+.editor-wrap:focus-within {
+  border-color: #0ea5e9;
   box-shadow: 0 0 0 4px rgba(14,165,233,0.06);
+}
+
+.editor-toolbar {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.editor-toolbar :deep(.w-e-toolbar) {
+  background: #fafbfc;
+  border: none;
+  padding: 4px 8px;
+}
+
+.editor-toolbar :deep(.w-e-bar-item button) {
+  color: #475569;
+  border-radius: 6px;
+  padding: 4px 6px;
+}
+
+.editor-toolbar :deep(.w-e-bar-item button:hover) {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.editor-toolbar :deep(.w-e-bar-item svg) {
+  width: 16px;
+  height: 16px;
+}
+
+.editor-wrap :deep(.w-e-text-container) {
+  min-height: 380px;
+  background: #fff;
+  color: #0f172a;
+}
+
+.editor-wrap :deep(.w-e-text-container .w-e-scroll) {
+  padding: 0 18px;
+}
+
+.editor-wrap :deep(.w-e-text-container [data-slate-editor]) {
+  padding: 16px 0;
+  font-size: 15px;
+  line-height: 1.8;
 }
 
 .editor-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 4px 0;
+  padding: 8px 18px;
   font-size: 12px;
+  border-top: 1px solid #f1f5f9;
+  background: #fafbfc;
 }
 
 .char-count {
@@ -2341,10 +2434,34 @@ onUnmounted(() => {
   color: #64748b;
   line-height: 1.6;
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+}
+
+.preview-content {
+  font-size: 13px;
+  color: #64748b;
+  line-height: 1.6;
+  margin: 0;
   overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}
+
+.preview-content :deep(p) {
+  margin: 0 0 6px;
+}
+
+.preview-content :deep(img) {
+  display: none;
+}
+
+.preview-content :deep(h1),
+.preview-content :deep(h2),
+.preview-content :deep(h3),
+.preview-content :deep(h4) {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 0 0 4px;
 }
 
 /* Schedule Card */
