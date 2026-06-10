@@ -187,7 +187,7 @@ public class ArticleDataSeeder {
                 article.setIsHot(viewCount > 3000 ? 1 : 0);
                 article.setIsBest(random.nextDouble() < 0.15 ? 1 : 0);
                 article.setIsDelete(0);
-                article.setStatus(1);
+                article.setStatus(0);
 
                 // 随机时间（过去90天内）
                 LocalDateTime randomTime = LocalDateTime.now()
