@@ -1,0 +1,335 @@
+[
+  {
+    "title": "卡普空新作《鬼武者：剑之道》确认登陆任天堂 Switch 2，9 月 25 日发售",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，卡普空新游《鬼武者：剑之道》今天亮相任天堂新一期直面会。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"卡普空新作《鬼武者：剑之道》确认登陆任天堂 Switch 2，9 月 25 日发售\"/></p><p>IT之家从发布会直播获悉，本作将于 2026 年 9 月 25 日发售，登陆 PC、PS5、Xbox Series X|S、Switch 2 和 PC（Steam、Epic）平台。<strong>其中 Switch 2 平台的预购将在直面会结束后开始</strong>。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"卡普空新作《鬼武者：剑之道》确认登陆任天堂 Switch 2，9 月 25 日发售\"/></p><p>剧情方面，本作依旧保留了《鬼武者》系列经典的刀剑动作玩法，玩家将操控宫本武藏（Musashi），在融合奇幻元素的日本战国时代中一路斩杀妖魔，预告中可以看到大量魑魅魍魉般的敌人、充满压迫感的场景设计，以及更加高速、华丽的近战动作。</p><p>此外，本作并非开放世界，而是采用关卡推进，玩家将在不同场景中不断击败敌人、破解机关谜题，体验紧凑的节奏和丰富变化。开发团队透露，主线流程约 20 小时，还包含大量可选支线和隐藏内容，满足探索型玩家的需求。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/8e348b17-a5be-455e-9d19-0a7a413598d2.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，卡普空新游《鬼武者：剑之道》今天亮相任天堂新一期直面会。IT之家从发布会直播获悉，本作将于 2026 年 9 月 25 日发售，登陆 PC、PS5、Xbox Series X|S、Switch 2 和 PC（Steam、Epic）平台。其中 Switch 2 平台的预购将",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962125
+  },
+  {
+    "title": "摩尔线程 MTT AIBOOK 推送 AIOS 1.4.1 版本，核心场景流畅度提升 30%",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，摩尔线程今日宣布，正式向 MTT AIBOOK（摩尔线程专为 Agent 打造的 AI 算力本）用户推送了 <strong>MTT AIOS 1.4.1</strong> 版本系统更新。用户可通过 OTA 在线升级方式获取本次更新，进入系统设置，依次点击关于 → 软件更新，即可直接下载并安装 1.4.1 版本。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"摩尔线程 MTT AIBOOK 推送 AIOS 1.4.1 版本，核心场景流畅度提升 30%\"/></p><p>据介绍，本次更新围绕底层性能、跨系统生态、视觉交互、浏览器能力与操控体验五大维度进行升级：</p><h3>底层性能深度优化</h3><blockquote><p>依托全新升级的专属驱动与核心调度优化，MTT AIOS 1.4.1 为 MTT AIBOOK 带来更充分的硬件性能释放。经过专业基准测试验证，<strong>核心场景流畅度提升 30%，GPU 综合性能提升 17%</strong>，图形渲染、多任务运行、动态场景切换等场景表现进阶。</p><p>与此同时，<strong>新版本搭载全新 CPU Boost 调度方案</strong>，在全核心满载工作状态下，可实现主频额外提升 100MHz，处理器极限算力得到充分释放，高强度办公、多程序并行、轻量化创作等场景的响应速度提升。</p></blockquote><h3>虚拟机生态重大升级</h3><blockquote><p>本次版本上架全新升级的铠大师 Windows 虚拟机方案，采用全新可视化交互页面，简化系统安装流程，支持极速装机、驱动自动化安装配置，降低用户操作门槛。</p><p>性能层面，<strong>全面支持 vGPU 硬件加速与 DirectX 12 驱动适配</strong>，虚拟机图形处理能力升级，复杂场景运行效果接近物理机表现。同时迭代跨系统生态能力，<strong>实现 MTT AIOS 与 Windows 双向文件共享</strong>，外设设备跨系统兼容复用，MTT AIBOOK 单台设备即可完成双系统切换与资源互通，满足用户多元化办公与娱乐需求。</p></blockquote><h3>视觉交互全面焕新</h3><blockquote><p>新版本对系统 UI 交互体系进行全方位重塑。<strong>全新设计的灵动 Dock 栏支持鼠标焦点放大特效</strong>，鼠标悬浮即可聚焦图标；应用开启与图标交互新增书卷式过渡动画，操作过渡更加平滑自然。<strong>状态栏 Toolbar 迎来极简升级</strong>，将 Wi-Fi 开关、蓝牙配置、电源模式、窗口切换等高频操作功能集中整合，一键直达核心功能。同时优化电量显示逻辑，实时呈现设备充放电状态。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"摩尔线程 MTT AIBOOK 推送 AIOS 1.4.1 版本，核心场景流畅度提升 30%\"/></p><p>此外，<strong>系统新增动态壁纸功能</strong>，搭配全新改版的应用列表 UI，统一全局应用图标视觉风格。同时适配全局高斯模糊特效，界面视觉层次更加清晰。</p></blockquote><h3>浏览器能力全面进阶</h3><blockquote><p><strong>新版系统预装适配优化的最新版 Chromium 浏览器</strong>，并设为系统默认浏览器，全面兼容主流网页生态标准。同时深度适配 WebGL 图形渲染能力与硬件级视频解码技术，有效提升网页图形渲染精度、降低高清视频播放功耗，实现网页浏览、在线影音与 Web 应用运行的高效稳定输出，带来极速、高清、流畅的沉浸式上网体验。</p></blockquote><h3>操控手感深度优化</h3><blockquote><p>新版本针对触控板操作场景完成专项迭代升级，<strong>采用多分区加速曲线调校方案</strong>，优化单指移动、双指滑动等核心触控手势。精准适配不同操作场景的滑动节奏，有效缓解滑动滞涩与手感脱节问题，触控响应更加及时，日常办公与页面浏览的操控舒适度提升。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"摩尔线程 MTT AIBOOK 推送 AIOS 1.4.1 版本，核心场景流畅度提升 30%\"/></p></blockquote><p>据IT之家此前报道，<a href=\"https://www.ithome.com/0/906/512.htm\">去年 12 月，摩尔线程首款 AIPC 算力本 MTT AIBOOK 发布</a>，集成长江智能 SoC 芯片，内置 2D 数字人“小麦”，32GB 内存 + 1TB 固态硬盘版本显示为 9999 元。该算力本已于今年 1 月 10 日正式开售。</p><p style=\"text-align: center;\"><img alt=\"图片 68\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"摩尔线程 MTT AIBOOK 推送 AIOS 1.4.1 版本，核心场景流畅度提升 30%\"/></p><figcaption>▲ IT之家评测室：摩尔线程 MTT AIBOOK 全面评测</figcaption><p><strong>相关阅读：</strong></p><ul><li><p>《<a href=\"https://www.ithome.com/0/912/422.htm\">【IT之家评测室】让 AI 开发更简单 —— 摩尔线程 MTT AIBOOK 全面评测</a>》</p></li><li><p>《<a href=\"https://www.ithome.com/0/906/512.htm\">9999 元摩尔线程首款 AIPC 算力本 MTT AIBOOK 发布：集成长江智能 SoC 芯片，内置 2D 数字人“小麦”</a>》</p></li></ul>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/282cb38c-b09a-485e-b31b-43c3ea2d20d6.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，摩尔线程今日宣布，正式向 MTT AIBOOK（摩尔线程专为 Agent 打造的 AI 算力本）用户推送了MTT AIOS 1.4.1版本系统更新。用户可通过 OTA 在线升级方式获取本次更新，进入系统设置，依次点击关于 → 软件更新，即可直接下载并安装 1.4.1 版本",
+    "tags": [
+      "AI",
+      "iOS",
+      "GPU"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962127
+  },
+  {
+    "title": "IDC 分析师：WWDC26 是苹果 AI 的“可信度”测试",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，彭博社记者马克 · 古尔曼 9 日（今天）撰文称，苹果在全球开发者大会上为新一代产品铺路，试图向外界证明，在经历多年 AI 功能延期和落地不顺之后，自己仍有能力在 AI 时代参与竞争。</p><p>苹果最新一代操作系统的核心，是经过全面改造的<strong> Siri AI</strong>，覆盖 iOS 27、macOS 27 Golden Gate、watchOS 27 和 visionOS 27。Siri AI 被设计得<strong>更智能、更可靠，可以理解上下文</strong>，并能更精准地控制多种应用。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"IDC 分析师：WWDC26 是苹果 AI 的“可信度”测试\"/></p><p>IDC 分析师弗朗西斯科 · 杰罗尼莫在报告中提到：“<a href=\"https://www.ithome.com/tag/wwdc26/\">WWDC26</a> 是苹果的 AI 可信度测试。苹果不需要靠最大模型或最夸张的演示赢下 AI，苹果需要让 AI <strong>在整个生态系统中变得可信、有用，而且无处不在却不打扰用户</strong>。”</p><p>苹果仍要面对投资者对 AI 战略的怀疑。发布会期间，<strong>苹果股价下跌，收盘跌幅达到 1.9%</strong>。</p><p>苹果也承认，新功能不会一次性全面铺开。Siri AI 初期只支持英语，今年秋季面向消费者推出时<strong>仍将标注为测试版</strong>，中国和欧盟用户最初也无法使用最新 AI 功能。</p><p>古尔曼称，发布会不仅是在展示未来，也是在弥补过去的短板。通过重建 Siri、升级 AI 技术，苹果正在为未来一批更依赖 AI 能力的产品打基础。</p><p>IT之家从报道中获悉，IDC 分析师纳比拉 · 波帕尔表示：“这些功能将成为推动 <a href=\"https://iphone.ithome.com/\">iPhone</a> 14 <strong>及更早机型用户升级的巨大催化剂</strong>，尤其是那些原本可能因为通胀压力或经济不确定性而推迟购机的用户。说服<strong>持有旧机但仍在犹豫的消费者升级</strong>，将帮助苹果维持当前势头。在智能手机市场走弱的背景下，这是一项重要成就。”</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/99495992-4129-49c5-817c-92d9b3e750b6.png?x-bce-process=image/format,f_webp/quality,q_75/auto-orient,o_1",
+    "summary": "IT之家6 月 9 日消息，彭博社记者马克 · 古尔曼 9 日（今天）撰文称，苹果在全球开发者大会上为新一代产品铺路，试图向外界证明，在经历多年 AI 功能延期和落地不顺之后，自己仍有能力在 AI 时代参与竞争。苹果最新一代操作系统的核心，是经过全面改造的Siri AI，覆盖 iOS 27、macO",
+    "tags": [
+      "AI",
+      "大模型",
+      "iOS"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962129
+  },
+  {
+    "title": "《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，在今天的任天堂直面会上，FromSoftware 类魂新作《The Duskbloods》确认今年夏天开启封闭测试，这是一款最多支持 8 人的 PvPvE 多人动作游戏。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占\"/></p><p>《The Duskbloods》最初亮相于去年的任天堂 Switch 2 直面会，此后鲜有新消息曝光。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占\"/></p><p>角川集团在财报中表示：“FromSoftware 目前仍有多款作品在开发，其中包括《艾尔登法环：褪色者版》和《The Duskbloods》（<strong>两者均计划于 2026 年登陆任天堂 Switch 2</strong>）”。</p><p>在后续的问答环节中，官方透露了《The Duskbloods》的更多消息：“目前我们并未公布具体发售日期，本作将与任天堂联合销售，职责按地区划分。<strong>并且该作品将只在 Switch 2 上发售</strong>”。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《The Duskbloods》今夏季举行游戏封闭测试，任天堂 Switch 2 独占\"/></p><p>根据官方的说法，《The Duskbloods》是一款“以多人玩法为核心”的类魂作品，支持 8 名玩家同台竞技，玩家在游戏中既要彼此争夺至高地位，也要对抗强大的敌人。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/e74bf143-86d3-4105-adbb-af6127a0a277.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，在今天的任天堂直面会上，FromSoftware 类魂新作《The Duskbloods》确认今年夏天开启封闭测试，这是一款最多支持 8 人的 PvPvE 多人动作游戏。《The Duskbloods》最初亮相于去年的任天堂 Switch 2 直面会，此后鲜有新消息曝光。",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962133
+  },
+  {
+    "title": "《任天堂 Switch 运动度假胜地》官宣，10 月 22 日发售",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，《任天堂 Switch 运动度假胜地》（Nintendo Switch Sports Resort）今天在新一期直面会中亮相，登陆 Switch 2 平台。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《任天堂 Switch 运动度假胜地》官宣，10 月 22 日发售\"/></p><p>IT之家从发布会直播中获悉，<strong>《任天堂 Switch 运动度假胜地》是《Wii 运动度假胜地》的精神续作</strong>。新作主打体感玩法，收录拳击、乒乓球、射箭、网球、排球、保龄球、篮球、高尔夫、拇指摔跤、滑板、动力巡航、螺旋桨飞机、跳绳等 12 项运动。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《任天堂 Switch 运动度假胜地》官宣，10 月 22 日发售\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《任天堂 Switch 运动度假胜地》官宣，10 月 22 日发售\"/></p><p>同时，本作的剧情将发生在乌富岛（Wuhu Island），玩家将使用 Joy-Con 2 手柄完成一系列运动游戏，10 月 22 日发售。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《任天堂 Switch 运动度假胜地》官宣，10 月 22 日发售\"/></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/67a4ac00-d34e-48af-9662-ff0c87c2ae30.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，《任天堂 Switch 运动度假胜地》（Nintendo Switch Sports Resort）今天在新一期直面会中亮相，登陆 Switch 2 平台。IT之家从发布会直播中获悉，《任天堂 Switch 运动度假胜地》是《Wii 运动度假胜地》的精神续作。新作主打体感",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962135
+  },
+  {
+    "title": "任天堂直面会汇总：《王国之心 4》《塞尔达传说：时之笛重制版》《勇者斗恶龙怪物仙境 4》《东方红魔乡》",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，在今晚的直面会上，任天堂公布了一系列新作以及新情报，并宣布《塞尔达传说：时之笛》重制版将于 2026 年登陆 Switch 2 平台。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"任天堂直面会汇总：《王国之心 4》《塞尔达传说：时之笛重制版》《勇者斗恶龙怪物仙境 4》《东方红魔乡》\"/></p><p>IT之家汇总此次直面会主要内容如下：</p><ul><li><p>任天堂《节奏天国：奇迹之星》最新预告公开，7 月 2 日发售</p></li><li><p>卡普空《鬼武者：剑之道》9 月 25 日一同登陆任天堂 Switch 2</p></li><li><p>《龙之信条 2》DLC《黑暗觉者》宣传片公开，本体＋DLC 的完整版将于 10 月 9 日登陆任天堂 Switch 2</p></li><li><p>《轨道双子星》将于 9 月 3 日作为任天堂 Switch 2 独占游戏发布</p></li><li><p>育碧经典重制《雷曼：传奇再叙》10 月 1 日同步登陆任天堂 Switch 2</p></li><li><p>开罗游戏《海贼王：美食大冒险》正式宣传片公开，10 月 22 日登陆 NS1/2。</p></li><li><p>《暗喻幻想：ReFantazio》Switch2 版 11 月 12 日发售</p></li><li><p>《地球防卫军 5》Switch2 版 10 月 8 日发售，《地球防卫军 6》Switch2 版今冬发售</p></li><li><p>《剑星》Switch2 版 2026 年内发售</p></li><li><p>《匹诺曹的谎言：完全版》Switch2 版 8 月 6 日发售</p></li><li><p>《宝可梦 Pokopia》免费 DLC 正式公开，8 月上线，同时宣布推出“拓展通行证”</p></li><li><p>《火焰之纹章：万紫千红》宣传片公开，确认 9 月 17 日发售，登陆 NS2</p></li><li><p>《信长的野望：飞翔》今冬发售</p></li><li><p>《Ninjala 2 未知星球》正式公开，2027 年春季推出登陆 NS2</p></li><li><p>《咚奇刚挑战》今日晚些时候登陆 NS2 的 NSO</p></li><li><p>《炼金工房》系列新作《卡莉亚的炼金工房 ~ 夜之王国与记忆的路标 ~》正式公开，2027 年初发售</p></li><li><p>《悠米雅的炼金工房》现已登陆 NS2</p></li><li><p>《异度神剑》系列新作《异度神剑 Genesis》正式公开，2027 年发售，NS2 独占</p></li><li><p>《异度神剑》NS2 数字版即刻上线，实体版 7 月 30 日发售</p></li><li><p>《异度神剑 2》NS2 数字版 7 月 30 日上线，实体版 10 月 1 日发售</p></li><li><p>《异度神剑 3》NS2 版 12 月 3 日发售，均支持 60 帧、4K/1080P 分辨率。</p></li><li><p>《NS 运动 Resort》最新宣传片公开，共计 12 项可玩运动，10 月 22 日发售登陆 NS2。</p></li><li><p>东方 Project 系列新作《东方红魔乡 New Classic～the Embodiment of Scarlet Devil.》宣传片公开，9 月 10 日登陆 NS / NS2</p></li><li><p>香草社《胧村正：怪奇谭》正式公开，本作为本体移植版，将于 2027 年发售。</p></li><li><p>《吸血鬼幸存者》团队新作《咒术回战 Rumble Survivaton》正式公开，2026 年内发售</p></li><li><p>《三丽鸥派对乐园》10 月 29 日发售</p></li><li><p>《永恒传说：复刻版》10 月 15 日发售</p></li><li><p><span>《斯普拉遁 涂击队》</span>最新宣传片公开，专属直面会将于 6 月 30 日开启，游戏将于 7 月 23 日正式发售。</p></li><li><p>卡普空《鬼泣 5 恶魔猎人版》6 月 23 日登陆 NS2</p></li><li><p>SE《最终幻想 Resonance》正式公开，10 月 22 日发售</p></li><li><p>《Deltarune 第五章》正式公开，6 月 24 日免费上线。</p></li><li><p>《勇者斗恶龙：怪物仙境 4 枯木国的碧安卡与芙萝拉》最新宣传片公开，12 月 3 日正式发售。</p></li><li><p>《王国之心 4》最新宣传片公开，首发登陆 NS2，还将登陆 PS5、Xbox Series X|S、PC 平台</p></li><li><p>《王国之心合集 [I~III]》10 月 8 日登陆 NS2。</p></li><li><p>《塞尔达传说：时之笛》重制版正式公开，2026 年内发售</p></li><li><p>《星际火狐》NS2 版宣传片公开，游戏将于 6 月 25 日正式发售，今天开放免费试玩 DEMO</p></li><li><p>FromSoftware 类魂新作《The Duskbloods》将于今年夏季开启封闭测试。</p></li><li><p>《我的世界》NS2 版将于今年年内发布。</p></li></ul>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/e7a895d9-7fcf-4dae-ad39-6850f73dab91.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，在今晚的直面会上，任天堂公布了一系列新作以及新情报，并宣布《塞尔达传说：时之笛》重制版将于 2026 年登陆 Switch 2 平台。IT之家汇总此次直面会主要内容如下：任天堂《节奏天国：奇迹之星》最新预告公开，7 月 2 日发售卡普空《鬼武者：剑之道》9 月 25 日一",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962139
+  },
+  {
+    "title": "谷歌发布实时语音互译模型 Gemini 3.5 Live Translate：可识别 70 余种语言，谷歌翻译 App 就能用",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，北京时间 9 日（今天）晚间，谷歌正式发布<strong>最新的实时语音互译音频模型</strong> Gemini 3.5 Live Translate，迈出实时翻译的下一步。</p><p>Gemini 3.5 Live Translate <strong>可自动识别 70 多种语言，并生成流畅、自然的翻译语音，同时保留说话者的语调、语速和音高</strong>。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"谷歌发布实时语音互译模型 Gemini 3.5 Live Translate：可识别 70 余种语言，谷歌翻译 App 就能用\"/></p><p>根据介绍，传统轮流式系统通常要等说话者说完后才开始翻译，Gemini 3.5 Live Translate 则会连续生成语音，在“等待更多上下文以提升翻译质量”和“即时翻译以跟上说话者节奏”之间取得平衡。整个会话过程中，翻译音频可以保持流畅，避免尴尬停顿，并始终只比说话者慢几秒。</p><p>Gemini 3.5 Live Translate 今起陆续登陆谷歌产品：</p><ul><li><p>开发者可通过 Gemini Live API 和 Google AI Studio 使用公开预览版</p></li><li><p>企业客户可从本月起在 Google Meet 中使用私有预览版</p></li><li><p>普通用户可通过 <a href=\"https://android.ithome.com/\">Android</a> 和 iOS 版谷歌翻译使用</p></li></ul><p>Gemini 3.5 Live Translate 会在语音流式传输过程中同步处理内容，让跨语言交流更加顺畅。模型可以自动处理多语言输入，无需手动调整设置，抗噪能力也能帮助应用适应嘈杂、复杂和不可预测的环境。开发者可以把 Gemini 3.5 Live Translate 用于<strong>多语言通话、会议、课程、直播和广播</strong>等场景，提供实时口译体验。</p><p>据IT之家了解，Gemini 3.5 Live Translate 将登陆<strong>全球 Android 和 iOS 版谷歌翻译应用</strong>。用户使用实时翻译功能时，只需连接任意耳机，就可以在 70 多种语言中获得更顺畅的翻译，并让译文语音更接近说话者的语气。</p><p>Android 用户还将陆续获得基于 3.5 Live Translate 的全新“聆听模式”。用户可以<strong>像接电话一样把手机贴到耳边</strong>，直接通过手机听筒收听翻译音频。在没有耳机、又不希望旁人听见翻译内容时，这种模式会更方便。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/065081e4-ccf2-4e56-b1c5-9b801eb296d1.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，北京时间 9 日（今天）晚间，谷歌正式发布最新的实时语音互译音频模型Gemini 3.5 Live Translate，迈出实时翻译的下一步。Gemini 3.5 Live Translate可自动识别 70 多种语言，并生成流畅、自然的翻译语音，同时保留说话者的语调、语",
+    "tags": [
+      "谷歌"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962143
+  },
+  {
+    "title": "一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 9 日消息，<span>一加 Turbo 6</span>X 系列手机已定档 6 月 10 日 14:30 正式发布，瞄准 1500 元档位。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p><p>IT之家注意到，一加手机官方今日下午公布了一加 Turbo 6X 手机三色官图，包括「白里挑一」、「踏青云」和「星耀黑」。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p><p>据介绍，<strong>一加 Turbo 6X 配备 144Hz LCD 护眼屏</strong>，支持无频闪护眼特性；<strong>内置 7000mAh 大电池</strong>，宣称“六年耐用”；<strong>搭载天玑 7360 SUPER 处理器</strong>，预装 ColorOS 16 系统。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p><p>一加 Turbo 6X Pro 则是可选「心想事橙」和「跃马黑」两种配色，带来了 8000mAh 大电池 + 天玑 7400 SUPER 处理器，还有 1.5K 三星护眼屏和满级防水。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"一加 Turbo 6X 手机三色官图发布：搭载 144Hz LCD 护眼屏，6 月 10 日发布\"/></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/fdd45870-5a1e-446a-8256-5b2893bf61c7.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 9 日消息，一加 Turbo 6X 系列手机已定档 6 月 10 日 14:30 正式发布，瞄准 1500 元档位。IT之家注意到，一加手机官方今日下午公布了一加 Turbo 6X 手机三色官图，包括「白里挑一」、「踏青云」和「星耀黑」。据介绍，一加 Turbo 6X 配备 144H",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962145
+  },
+  {
+    "title": "OPPO PYD110 新机入网：配备 7755mAh 额定容量大电池",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，型号为 PYD110 的 OPPO 新机已通过电信设备进网许可，未公布证件照。</p><p>这款新机机身尺寸为 158.3 × 75.13 × 8.27 mm，重量 205 克，采用一块 6.59 英寸 AMOLED 显示屏，屏幕分辨率为 1256 × 2760，支持 107374 万色深。</p><p>核心配置方面，该机搭载主频 2.5 GHz 的 8 核处理器，提供 8 GB、12 GB 两种 RAM 内存可选，存储容量提供 256 GB、512 GB 两种选项，不支持存储扩展，运行<a href=\"https://android.ithome.com/\">安卓</a>系统，电池额定容量为 7755 mAh。</p><p>影像方面，该机配备三颗摄像头，前置为 5000 万像素，后置两颗均为 5000 万像素，支持超高清摄像。</p><p>连接与功能方面，该机支持 GSM 、 WCDMA 、 LTEFDD 、 TDLTE 、 NR SA 网络制式，支持双卡双待，具备红外、蓝牙、 USB 连接方式，拥有重力感应器、距离感应器、光线感应器，支持屏下指纹识别与人脸识别。</p><p>更多详细参数信息如下：</p><p style=\"text-align: center;\"><img alt=\"OPPO PYD110 入网参数截图\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"OPPO PYD110 新机入网：配备 7755mAh 额定容量大电池\"/></p><p style=\"text-align: center;\"><img alt=\"OPPO PYD110 入网参数截图\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"OPPO PYD110 新机入网：配备 7755mAh 额定容量大电池\"/></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/5e480ef9-1330-4d80-838f-94a391a6735b.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，型号为 PYD110 的 OPPO 新机已通过电信设备进网许可，未公布证件照。这款新机机身尺寸为 158.3 × 75.13 × 8.27 mm，重量 205 克，采用一块 6.59 英寸 AMOLED 显示屏，屏幕分辨率为 1256 × 2760，支持 107374 ",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962147
+  },
+  {
+    "title": "苹果更新 App Store 审核指南，劣质、低人气应用面临下架风险",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，苹果向开发者发出提醒：部分应用或将无法继续在 App Store 上架运营。本周，这家科技巨头更新了应用审核指南，其中明确表示，对于一些成熟赛道内的应用，若未能完成版本更新、功能优化，也无法吸引用户，苹果或将对其做下架处理。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果更新 App Store 审核指南，劣质、低人气应用面临下架风险\"/></p><p>此前的规则仅规定，苹果会直接驳回仿冒类应用，以及扎堆于饱和赛道的应用申请。</p><p>旧版指南曾提醒开发者，不要涌入应用数量已然过多的分类。其中有一段表述颇为有趣：“App Store 里的放屁、打嗝、手电筒、占卜、交友、酒桌游戏、情爱类等应用早已饱和。除非能带来独特且优质的使用体验，否则这类应用将一律被拒。”</p><p>IT之家注意到，本次更新恰逢苹果全球开发者大会（WWDC）举办，新版指南警示开发者不要跟风仿制现有应用品类或热门应用。除交友、手电筒、占卜类应用外，壁纸、简易计时器、音效类应用也被列入重点管控名单。</p><p>指南中写道：“今后，若这类应用长期不更新、不优化，且缺乏用户吸引力，我们会将其从 App Store 下架。”</p><p>苹果公司表示，这些应用“在 App Store 上已拥有稳定地位”，除非能提供“有意义的不同或更优”体验，否则将不再接受新的提交申请。</p><p>此次规则调整，正值苹果着力优化 App Store 的应用曝光机制。在本届全球开发者大会上，苹果推出了个性化应用推荐与运营推广工具，助力开发者拓展业务、召回老用户。清理低质应用能够精简平台内容，让用心打磨产品的开发者获得更多曝光机会。</p><p>此外，苹果将酒桌游戏、情爱、放屁、打嗝类应用定性为低质、平庸、粗制滥造产品，并警告：反复提交此类应用的开发者，可能会被彻底取消苹果开发者账号权限。</p><p>苹果向科技资讯网站 TechCrunch 表示，平台现有的 App Store 优化机制，会主动提醒开发者其应用版本老旧、下载量低迷，开发者可提前优化产品，避免应用遭到下架。</p><p>简言之，本次应用审核指南的新规进一步明确：以往被划入“恶搞低俗应用条款”范畴的产品，如今都面临下架风险，苹果已向开发者发出了明确警告。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/c7db9514-4ad7-446b-8111-7b7f1061debe.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，苹果向开发者发出提醒：部分应用或将无法继续在 App Store 上架运营。本周，这家科技巨头更新了应用审核指南，其中明确表示，对于一些成熟赛道内的应用，若未能完成版本更新、功能优化，也无法吸引用户，苹果或将对其做下架处理。此前的规则仅规定，苹果会直接驳回仿冒类应用，以",
+    "tags": [
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962151
+  },
+  {
+    "title": "消息称三星电子计划在韩国光州新建先进半导体封装工厂，强化 AI 芯片产业链布局",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，据韩国经济日报援引业内消息人士报道称，随着 AI 相关芯片需求持续爆发，三星电子正进一步强化自身产业链布局，计划在韩国光州建设一座先进半导体封装工厂。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"消息称三星电子计划在韩国光州新建先进半导体封装工厂，强化 AI 芯片产业链布局\"/></p><p>报道称，该投资计划有望于 6 月 29 日总统会谈期间公布。此次会议预计将聚焦韩国未来经济增长战略转型，参与者包括三星会长李在镕、SK 集团会长崔泰源等。不过对于相关消息，三星方面拒绝置评，而韩国总统办公室则表示“企业投资决策仍由公司自行决定”。</p><p>当前随着 AI 半导体供应链快速演进，先进封装已经成为决定芯片性能与竞争力的关键环节之一。如果该项目最终落地，将意味着三星继续加码先进封装领域。事实上，该公司目前正持续扩大在 HBM 市场的投入，希望挑战行业龙头 SK 海力士的领先地位。当前三星电子的客户已经涵盖英伟达、AMD 以及谷歌等主要 AI 企业。今年 5 月，三星还宣布已开始向客户提供最新 12 层 HBM4E 内存样品，显示其正在加速推进下一代 AI 内存产品竞争。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/210e0ccb-b6f0-4c47-8787-b9db80608a18.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，据韩国经济日报援引业内消息人士报道称，随着 AI 相关芯片需求持续爆发，三星电子正进一步强化自身产业链布局，计划在韩国光州建设一座先进半导体封装工厂。报道称，该投资计划有望于 6 月 29 日总统会谈期间公布。此次会议预计将聚焦韩国未来经济增长战略转型，参与者包括三星会",
+    "tags": [
+      "AI",
+      "芯片"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962153
+  },
+  {
+    "title": "《辐射 76》上线八周年，B 社宣布为游戏加入全新宠物机制实现“一人一狗探索废土”",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，多年以来，玩家一直希望《辐射 76》能够像前几作《辐射》一样，加入能够陪伴玩家在废土中冒险的“伙伴系统”。而在本作上线八周年之际，B 社终于宣布将为游戏开发全新的“CAMPanion”系统，允许玩家“一人一狗”探索废土。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"《辐射 76》上线八周年，B 社宣布为游戏加入全新宠物机制实现“一人一狗探索废土”\"/></p><figcaption>▲ 《辐射 4》的经典伙伴“狗肉（Dogmeat）”</figcaption><p>事实上，玩家此前已可在营地 CAMP 中饲养猫狗及部分变异生物，但这些宠物基本只能作为营地装饰存在。而在“CAMPanion”系统上线后，玩家饲养的宠物将真正成为废土冒险中的伙伴，它们会陪玩家在整张地图中行动、探索、冒险，还能参与战斗。宠物可以执行待命、跟随等命令，也能被指挥攻击敌人，甚至还拥有技能树系统。</p><p>B 社表示，这套 CAMPanion 系统即将率先登陆 PTS（公共测试服务器），在此过程中，团队将持续优化宠物移动逻辑以及开放世界中的战斗表现。从长期规划来看，B 社甚至设想过未来大型 Boss 战中，所有玩家都带着不同宠物一同参战的场景，从而进一步提升战场混乱感和娱乐性。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/f4e8670a-4026-400a-95ec-68b01ace0312.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，多年以来，玩家一直希望《辐射 76》能够像前几作《辐射》一样，加入能够陪伴玩家在废土中冒险的“伙伴系统”。而在本作上线八周年之际，B 社终于宣布将为游戏开发全新的“CAMPanion”系统，允许玩家“一人一狗”探索废土。▲ 《辐射 4》的经典伙伴“狗肉（Dogmeat）",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962155
+  },
+  {
+    "title": "苹果为三款 AirPods 推出测试版固件 9A5292e，支持全新 Siri 与自定义均衡器",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，苹果今日推出了适用于第四代 AirPods、第二代 AirPods Pro 以及第三代 AirPods Pro 的新版测试版固件。该固件目前仅面向开发者开放，版本号为 9A5292e。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果为三款 AirPods 推出测试版固件 9A5292e，支持全新 Siri 与自定义均衡器\"/></p><p>在 iOS 27、<a href=\"https://ipad.ithome.com/\">iPad</a>OS 27 以及 macOS Golden Gate 系统中，苹果为 AirPods 新增了全新操作界面，并支持自定义均衡器功能。同时，AirPods 还兼容全新的人工智能版 Siri。</p><p>IT之家注意到，苹果此前已在 iOS 26、iPadOS 26 和 macOS Tahoe 系统中，加入了测试版固件安装入口。当 AirPods 连接至 <a href=\"https://iphone.ithome.com/\">iPhone</a>、iPad 或 Mac 设备后，用户可在耳机设置界面完成固件测试版更新，进一步简化了测试流程。</p><p>开发者可通过对应的测试版开关，开启固件测试版下载权限。</p><p style=\"text-align:center;\"><a href=\"https://www.ithome.com/zt/wwdc2026/\">苹果 WWDC26 全球开发者大会专题</a></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/01cbd8d2-535f-4520-8e03-63e04af636a2.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，苹果今日推出了适用于第四代 AirPods、第二代 AirPods Pro 以及第三代 AirPods Pro 的新版测试版固件。该固件目前仅面向开发者开放，版本号为 9A5292e。在 iOS 27、iPadOS 27 以及 macOS Golden Gate 系统中",
+    "tags": [
+      "AI",
+      "人工智能",
+      "iOS"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962159
+  },
+  {
+    "title": "有望为触控 MacBook 铺路：苹果 macOS 27 引入“下拉刷新”手势",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，科技媒体 MacRumors 昨日（6 月 9 日）发布博文，报道称在 macOS 27 Golden Gate 系统中，<strong>苹果引入了“下拉刷新”手势，首次把 <a href=\"https://iphone.ithome.com/\">iPhone</a> 与 <a href=\"https://ipad.ithome.com/\">iPad</a> 上常见的内容更新交互带到 Mac。</strong></p><p>苹果官方称该功能为 Swipe down to refresh，在实际操作场景下可视为“下拉刷新”。用户无需再借助键盘快捷键，也不必打开菜单寻找刷新选项，在应用内部向下滑动后，即可抓取最新内容，操作路径更短。IT之家附上相关截图如下：</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"有望为触控 MacBook 铺路：苹果 macOS 27 引入“下拉刷新”手势\"/></p><p>下拉刷新早已是 iOS 与 iPadOS 的基础交互之一，多年来一直被视为简单、直接、几乎无需学习成本的内容更新方式。</p><p>在应用适配方面，包括 Safari、邮件、新闻、播客和日历等应用已确认支持该手势，让用户通过下拉更新的方式获取最新的网页内容、邮箱收件、新闻流、节目列表以及日程信息。</p><p>该媒体还认为这项设计变化，可能为后续推出的触控 MacBook Ultra 铺路。现有消息称苹果据称正筹备一款定位更高端的 MacBook Ultra，可能配备触控 OLED 屏幕、M6 系列芯片、灵动岛以及更轻薄的设计。现有消息认为，受全球存储芯片短缺影响，该产品较可能在 2027 年初亮相。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/b5b608a6-21ed-432e-9598-e672ec91489f.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，科技媒体 MacRumors 昨日（6 月 9 日）发布博文，报道称在 macOS 27 Golden Gate 系统中，苹果引入了“下拉刷新”手势，首次把iPhone与iPad上常见的内容更新交互带到 Mac。苹果官方称该功能为 Swipe down to refre",
+    "tags": [
+      "iOS",
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962161
+  },
+  {
+    "title": "苹果 iOS 27 修复歌手比伯反馈的问题，可设置关闭语音输入按钮",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，科技媒体 MacRumors 昨日（6 月 9 日）发布博文，报道称在 iOS 27 系统中，<strong>苹果修复了歌手贾斯汀 · 比伯（Justin Bieber）反馈的语音输入按钮问题。</strong></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 iOS 27 修复歌手比伯反馈的问题，可设置关闭语音输入按钮\"/></p><p>IT之家曾于 2025 年 12 月报道，<a href=\"https://www.ithome.com/0/903/036.htm\">比伯在 Instagram 和 X 平台发帖</a>：</p><blockquote><p>如果我发完短信后不小心又碰到这个语音输入按钮，导致它发出提示音并中断我的音乐播放，那我就要找到苹果公司的所有人，挨个给他们来个背后裸绞（rear naked choke hold）。</p><p>即使我关掉了语音输入功能，还是会莫名其妙地触发语音备忘录。发送按钮不应该在同一位置承担多种功能。</p></blockquote><p>他特别提到，由于语音输入按钮和发送按钮位于同一位置，他经常在发送短信后误触该按钮。苹果似乎听取了该反馈，在 iOS 27 系统中，允许用户在“设置”应用中的“应用” → “信息” → “在文本字段中显示”下关闭语音输入按钮。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 iOS 27 修复歌手比伯反馈的问题，可设置关闭语音输入按钮\"/></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2025/12/db42095d-ad0e-485f-8bc6-54fe0b4fe2cf.jpg?x-bce-process=image/format,f_auto/auto-orient,o_1",
+    "summary": "IT之家6 月 10 日消息，科技媒体 MacRumors 昨日（6 月 9 日）发布博文，报道称在 iOS 27 系统中，苹果修复了歌手贾斯汀 · 比伯（Justin Bieber）反馈的语音输入按钮问题。IT之家曾于 2025 年 12 月报道，比伯在 Instagram 和 X 平台发帖：如果",
+    "tags": [
+      "iOS",
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962165
+  },
+  {
+    "title": "苹果 App Store 推出跨开发者应用订阅捆绑服务",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，今年早些时候，苹果在 App Store 推出了一项全新订阅方案：需承诺使用 12 个月的月度套餐。而在本周的苹果全球开发者大会（WWDC）上，苹果又推出了另一项订阅新功能：跨开发者应用订阅组合包。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 App Store 推出跨开发者应用订阅捆绑服务\"/></p><p>2026 年苹果全球开发者大会将持续一整周，本次面向开发者公布的更新中，就包含这项可与其他应用厂商合作推出订阅组合包的新功能。</p><p>以下内容来自苹果开发者官网：</p><blockquote><p>借助全新的组合包与套装配置功能，用户可在多款应用的自动续期订阅服务中获得更多实惠。通过组合包功能，用户只需通过苹果应用内购服务一次性购买，就能解锁多款应用的订阅权限，无需逐个单独订阅。开发者也可配置订阅套装，推出不单独售卖的系列订阅服务，用户同样可通过苹果应用内购一站式购买。</p></blockquote><p>苹果表示：“今年夏季晚些时候，我们将公布申请开通订阅组合包与订阅套装功能的详细说明。”</p><p>IT之家注意到，在此之前，开发者仅能将自家旗下应用打包组合；而本次更新后，<strong>开发者可联合其他厂商，打造涵盖多方应用的跨平台订阅组合包。</strong></p><p>据科技媒体 TechCrunch 报道：“开发者不再局限于打包自家应用，还能相互合作推出联合应用组合包，<strong>用户购买这类套餐的花费，远低于单独订阅每一款应用的总价</strong>。”</p><p>如果多款应用的目标用户群体高度重合，联手推出优惠力度可观的组合包会是十分合理的选择。流媒体领域早已普遍采用这种模式，例如 Apple TV 联合 Peacock 推出的套餐，用户每月仅需额外支付 2 美元即可开通该流媒体服务。</p><p>此外，相比单独订阅，组合包模式通常能提升用户留存率，这也是众多开发者看好该功能的另一大原因。</p><p style=\"text-align:center;\"><a href=\"https://www.ithome.com/zt/wwdc2026/\">苹果 WWDC26 全球开发者大会专题</a></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/c7db9514-4ad7-446b-8111-7b7f1061debe.png?x-bce-process=image/format,f_auto/auto-orient,o_1",
+    "summary": "IT之家6 月 10 日消息，今年早些时候，苹果在 App Store 推出了一项全新订阅方案：需承诺使用 12 个月的月度套餐。而在本周的苹果全球开发者大会（WWDC）上，苹果又推出了另一项订阅新功能：跨开发者应用订阅组合包。2026 年苹果全球开发者大会将持续一整周，本次面向开发者公布的更新中，",
+    "tags": [
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962167
+  },
+  {
+    "title": "苹果高管回应为何 iOS 27 推出 Siri 独立应用：方便查看历史对话",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，作为 iOS 27 的更新内容之一，苹果推出了全新的 Siri 应用，方便用户管理与 Siri AI 的各类交互。本周在苹果园区举办的发布会后技术分享会上，苹果高管克雷格 · 费德里吉（Craig Federighi）解释了公司推出这款聊天机器人风格应用的缘由。苹果此前曾表示，聊天机器人并非其发展战略的一部分。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果高管回应为何 iOS 27 推出 Siri 独立应用：方便查看历史对话\"/></p><p>IT之家注意到，去年，费德里吉与格雷格 · 乔斯维亚克在接受乔安娜 · 斯特恩采访时称，Apple Intelligence 的设计思路是将智能体验融入用户的各项操作之中，而非额外增设一个独立的聊天机器人。</p><p>昨日在苹果园区的问答环节，现场有人直接问及上述过往表态。费德里吉就此回应，苹果希望为用户打造一个可以回看、查阅过往 Siri 对话记录的入口，最终判定在主屏幕设置一款独立应用，是实现这一需求的最佳方式。</p><p>以下是费德里吉的完整发言：</p><blockquote><p>我们并不将 Siri 视作一个孤立的聊天工具，也不是供人闲聊的独立入口。它是一款深度融入日常使用场景、随用随取的交互式工具。</p><p>Siri 能够识别屏幕内容并联动操作，不会割裂使用场景。比如你正在编辑文档、需要校对或获取修改建议时，它可以直接在文档内提供协助。这类交互都是对话式的，本质上是系统体验的延伸，深度贴合用户的使用习惯。</p><p>我们也曾反复斟酌，该以何种形式让用户找回历史对话、继续交流或是查阅过往内容。说实话，在我们的系统生态里，对用户而言最直观便捷的方式，就是在主屏幕放置一款可自主管理、随时打开查看的应用。因此我们推出了这款 Siri 应用，它只是将系统原生的核心交互能力重新整合呈现。</p></blockquote><p style=\"text-align:center;\"><a href=\"https://www.ithome.com/zt/wwdc2026/\">苹果 WWDC26 全球开发者大会专题</a></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/6a7a273d-b785-4da9-8fbd-8ffdb855c7d2.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，作为 iOS 27 的更新内容之一，苹果推出了全新的 Siri 应用，方便用户管理与 Siri AI 的各类交互。本周在苹果园区举办的发布会后技术分享会上，苹果高管克雷格 · 费德里吉（Craig Federighi）解释了公司推出这款聊天机器人风格应用的缘由。苹果此前",
+    "tags": [
+      "AI",
+      "iOS",
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962169
+  },
+  {
+    "title": "消息称三星正开发 Galaxy Tab Active 6 平板，新增支持 5G 网络通信",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，据外媒 SamMobile 报道，三星正在开发 Galaxy Tab Active 6 平板，型号为 SM-X316B，新增支持 5G 网络通信。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"消息称三星正开发 Galaxy Tab Active 6 平板，新增支持 5G 网络通信\"/></p><p>目前，这款平板的更多规格信息暂不知悉，作为比较，现款 Galaxy Tab Active 5 平板于 2024 年 1 月上市，该机拥有 IP68 和 MIL-STD-810H 认证，配备一块 8 英寸 1920x1200 分辨率 120Hz LCD 面板，使用 Exynos 1380 芯片，配备至高 8GB RAM 和 256GB 存储空间。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/aec22238-500a-40c0-94bd-ab1c5b7c3bec.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，据外媒 SamMobile 报道，三星正在开发 Galaxy Tab Active 6 平板，型号为 SM-X316B，新增支持 5G 网络通信。目前，这款平板的更多规格信息暂不知悉，作为比较，现款 Galaxy Tab Active 5 平板于 2024 年 1 月上",
+    "tags": [
+      "5G",
+      "芯片"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962171
+  },
+  {
+    "title": "苹果 iOS 27 可调整锁屏设置，缩小时钟解决遮挡壁纸痛点",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，科技媒体 9to5Mac 昨日（6 月 9 日）发布博文，报道称在 iOS 27 系统中，苹果新增一项锁屏个性化设置，<strong>支持用户缩小 <a href=\"https://iphone.ithome.com/\">iPhone</a> 锁屏时钟并收纳到顶部小组件栏，为壁纸释放更多完整显示空间。</strong></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 iOS 27 可调整锁屏设置，缩小时钟解决遮挡壁纸痛点\"/></p><p>IT之家援引博文介绍，在 iOS 26 系统，苹果为液态玻璃风格，为锁屏引入更大的锁屏时钟，强调时间显示的存在感。而在 iOS 27 系统中，苹果调整个性化思路，提供“更小更靠边”的新选项。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 iOS 27 可调整锁屏设置，缩小时钟解决遮挡壁纸痛点\"/></p><p>操作方面，用户在自定义锁屏或壁纸后，进入“字体与颜色”面板，会看到右上角新增的一个图标。点按该图标后，原本居中的大时钟会缩小，并进入顶部小组件一行，以很小的字体显示，尽量不干扰壁纸主体内容。</p><p style=\"text-align: center;\"><a contenteditable=\"false\" href=\"https://weibo.com/tv/show/1034:5308168637710369?mid=5308168747090634\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果 iOS 27 可调整锁屏设置，缩小时钟解决遮挡壁纸痛点\"/></a></p><p>该媒体指出很多用户会挑选人物、建筑或风景照片当壁纸，但传统大时钟常常压住画面主体。现在，锁屏终于能更完整地展示照片，兼顾信息可读性与视觉完整度。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/0f48d1d2-7635-4343-b36b-9a0695760da0.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，科技媒体 9to5Mac 昨日（6 月 9 日）发布博文，报道称在 iOS 27 系统中，苹果新增一项锁屏个性化设置，支持用户缩小iPhone锁屏时钟并收纳到顶部小组件栏，为壁纸释放更多完整显示空间。IT之家援引博文介绍，在 iOS 26 系统，苹果为液态玻璃风格，为锁",
+    "tags": [
+      "iOS",
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962173
+  },
+  {
+    "title": "Square Enix 回合制 RPG 新作《最终幻想：共鸣》开启预购：Steam 国区 268 元起，10 月 23 日发售",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，Square Enix 宣布旗下 HD-2D 回合制 RPG 新作《最终幻想：共鸣（Final Fantasy Resonance）》预购开启，<strong>Steam 国区标准版 268 元，数字豪华版 348 元</strong>，将于 10 月 23 日发售，确认采用 Denuvo 加密，IT之家附商品页（<a href=\"https://store.steampowered.com/app/3259780/FINAL_FANTASY_RESONANCE/\"><span>https://store.steampowered.com/app/3259780/FINAL_FANTASY_RESONANCE/</span></a>）。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"Square Enix 回合制 RPG 新作《最终幻想：共鸣》开启预购：Steam 国区 268 元起，10 月 23 日发售\"/></p><p>据介绍，本作采用像素风格，讲述一段围绕水晶展开的复仇与牵绊的故事。游戏以回合制指令战斗为基础，融入持续攻击敌人即可使其无法行动的“破防”系统，以及强力必杀技“共鸣”，可令玩家体验更具战略性的战斗。</p><p>此外，克劳德、蒂娜、克莱夫等历代“FINAL FANTASY”的主角们也将在本作登场。玩家可以装备由他们的意志结晶而成的“幻兵水晶”，通过不断战斗习得“能力”。灵活搭配多种“能力”，令战斗局势更加有利。</p><h3>游戏图赏：</h3><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"Square Enix 回合制 RPG 新作《最终幻想：共鸣》开启预购：Steam 国区 268 元起，10 月 23 日发售\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"Square Enix 回合制 RPG 新作《最终幻想：共鸣》开启预购：Steam 国区 268 元起，10 月 23 日发售\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"Square Enix 回合制 RPG 新作《最终幻想：共鸣》开启预购：Steam 国区 268 元起，10 月 23 日发售\"/></p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/db9777a1-817e-4d8a-a20d-fdd135c58519.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，Square Enix 宣布旗下 HD-2D 回合制 RPG 新作《最终幻想：共鸣（Final Fantasy Resonance）》预购开启，Steam 国区标准版 268 元，数字豪华版 348 元，将于 10 月 23 日发售，确认采用 Denuvo 加密，IT之",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962177
+  },
+  {
+    "title": "时隔 4 年：苹果 tvOS 27 收紧兼容性，不再支持初代 Apple TV 4K 等",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，科技媒体 Appleinsider 昨日（6 月 9 日）发布博文，报道称在 tvOS 27 更新中，<strong>苹果公司时隔 4 年，再次收紧 Apple TV 支持范围。</strong></p><p>根据 2026 年全球开发者大会（WWDC）后苹果官方更新的 tvOS 27 兼容性文档，苹果排除 Apple TV HD（2015 年推出，第四代 Apple TV），以及第 1 代 Apple TV 4K（2017 年推出）两款设备。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"时隔 4 年：苹果 tvOS 27 收紧兼容性，不再支持初代 Apple TV 4K 等\"/></p><p>IT之家援引兼容性文档，tvOS 27 目前仅兼容以下 Apple TV 设备：</p><ul><li><p>A2169：第二代 Apple TV 4K (2021)</p></li><li><p>A2843：第三代 Apple TV 4K (2022)</p></li><li><p>A2737：第三代 Apple TV 4K (2022)</p></li></ul><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"时隔 4 年：苹果 tvOS 27 收紧兼容性，不再支持初代 Apple TV 4K 等\"/></p><p>苹果公司收紧支持可以追溯到 2022 年，当时最后一款纤薄版 Apple TV（第 3 代型号），在发布 10 年后停止支持，最后兼容版本为 7.9。</p><p>用户想确认自家设备是否支持 tvOS 27，可在“设置”中进入“通用”，再点开“关于本机”，屏幕上方即可看到型号编号。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/129a6700-94c2-4517-96e4-c463cd1e3066.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，科技媒体 Appleinsider 昨日（6 月 9 日）发布博文，报道称在 tvOS 27 更新中，苹果公司时隔 4 年，再次收紧 Apple TV 支持范围。根据 2026 年全球开发者大会（WWDC）后苹果官方更新的 tvOS 27 兼容性文档，苹果排除 Appl",
+    "tags": [
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962179
+  },
+  {
+    "title": "面向 RDIMM：澜起出样 DDR5-9200 寄存时钟驱动器芯片（RCD）芯片",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，澜起科技 (Montage) 今日宣布，该企业已成功向客户送<strong>样面向 9200MT/s 高速 RDIMM 内存模组</strong> 的 DDR5 第六子代寄存时钟驱动器芯片 RCD06。</p><p>该芯片<strong>支持的数据传输速率较上一代产品提升 15%</strong>，充分满足下一代服务器平台对高带宽的严苛要求。其采用双通道独立架构，两个子通道共享时钟逻辑但保持独立运行，可分别进行奇偶校验而互不干扰。此外，该器件集成了连续时间线性均衡 (CTLE) 与低抖动锁相环 (PLL)，在提升信号完整性的同时确保时钟分配的精确性与稳定性。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"面向 RDIMM：澜起出样 DDR5-9200 寄存时钟驱动器芯片（RCD）芯片\"/></p><p>澜起科技总裁 Stephen Tai 表示：</p><blockquote><p>云计算、人工智能及各类内存密集型工作负载对内存带宽的需求持续攀升，新一代 DDR5 RDIMM 正是满足这一需求的关键环节。凭借在内存接口芯片领域的持续深耕，我们的 RCD06 芯片已顺利完成工程样片研发，并成功向全球主要内存客户送样。我们正与业界领先的内存厂商、CPU 供应商及终端客户等生态伙伴紧密合作，加速 DDR5 最新子代内存技术的产业化进程。</p></blockquote><p><strong>相关阅读：</strong></p><ul><li><p>《<a href=\"https://www.ithome.com/0/896/176.htm\">澜起科技推出 DDR5-9200 时钟驱动器 (CKD) 芯片</a>》</p></li><li><p>《<a href=\"https://www.ithome.com/0/826/928.htm\">澜起送样 DDR5 MRDIMM 第二子代 MRCD、MDB 套片，支持 12800 MT/s</a>》</p></li></ul>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/0ce5c41e-220d-4cfe-887e-ef3754364a07.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，澜起科技 (Montage) 今日宣布，该企业已成功向客户送样面向 9200MT/s 高速 RDIMM 内存模组的 DDR5 第六子代寄存时钟驱动器芯片 RCD06。该芯片支持的数据传输速率较上一代产品提升 15%，充分满足下一代服务器平台对高带宽的严苛要求。其采用双通",
+    "tags": [
+      "AI",
+      "人工智能",
+      "云计算"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962185
+  },
+  {
+    "title": "苹果升级 iOS 27 版地图：AI 优化飞行俯瞰植被显示效果、引入本地榜单",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，科技媒体 Appleinsider 昨日（6 月 9 日）发布博文，报道称在 iOS 27 版地图（Apple Maps）应用中，<strong>苹果升级城市飞行俯瞰（Flyover）植被显示效果，以及增强周边发现。</strong></p><p>在本次 iOS 27 版地图应用更新中，苹果公司重点升级“飞行俯瞰”功能，重点升级植被效果以及 3D 建模。</p><p>在植被方面，以纽约城市为例，iOS 26 版放大后，树木等细节会显得粗糙，尤其像中央公园这类区域，树冠常常呈现明显的方块感。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果升级 iOS 27 版地图：AI 优化飞行俯瞰植被显示效果、引入本地榜单\"/></p><figcaption>iOS 18 中 Apple 地图的飞行预览显示树木呈方形（左图），iOS 27 中树木显示效果更好（右图）。</figcaption><p>而在 iOS 27 系统中，苹果结合航拍图像和人工智能（AI），进一步丰富枝干层次，呈现更高质量的 3D 效果。这项画质升级并未全面铺开，当前仅在纽约和伦敦等部分城市可见。IT之家附上相关图片如下：</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果升级 iOS 27 版地图：AI 优化飞行俯瞰植被显示效果、引入本地榜单\"/></p><figcaption>iOS 18（左）和 iOS 27（右）中的 Apple 地图飞行俯瞰</figcaption><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果升级 iOS 27 版地图：AI 优化飞行俯瞰植被显示效果、引入本地榜单\"/></p><figcaption>iOS 18 [左] 和 iOS 27 [右] 中 Apple 地图的树木特写</figcaption><p>另一项改进是 Local Lists（本地榜单）功能，该功能利用苹果地图应用内的交互数据，统计某一地区或城市中最受欢迎的餐厅。</p><p>该功能会定期刷新，并直接展示餐厅列表、营业时间、价格区间和菜品图片。用户若觉得合适，可通过加号把地点加入地图标记，点进条目还能查看更多信息。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"苹果升级 iOS 27 版地图：AI 优化飞行俯瞰植被显示效果、引入本地榜单\"/></p><figcaption>iOS 27 版 Apple 地图中的本地榜单</figcaption><p>苹果同时强调，这些洞察基于注重隐私的数据推导，不会关联到单个用户。目前该功能先在美国落地，后续会扩展到更多国家和地区。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/7d9a9f42-45c7-4a7d-89bb-2b19be6c985b.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，科技媒体 Appleinsider 昨日（6 月 9 日）发布博文，报道称在 iOS 27 版地图（Apple Maps）应用中，苹果升级城市飞行俯瞰（Flyover）植被显示效果，以及增强周边发现。在本次 iOS 27 版地图应用更新中，苹果公司重点升级“飞行俯瞰”功",
+    "tags": [
+      "AI",
+      "iOS",
+      "苹果"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962187
+  },
+  {
+    "title": "空调维修技师意外发现 AMD 前 CEO 罗里 · 里德个人电脑，由苏姿丰等多名高管签名",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，一名暖通空调维修技师在一位客户家中，意外发现了 AMD 前首席执行官罗里 · 里德曾使用过的一台电脑。据悉，这位客户早年经营过一家电脑门店，地下室里堆放着大量闲置设备，这台电脑也混在其中。机箱上留有多处签名，其中就包括苏姿丰博士的笔迹，旁边还附着手写寄语：“致罗里 ——AMD 全体团队致以最诚挚的祝福。”</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"空调维修技师意外发现 AMD 前 CEO 罗里 · 里德个人电脑，由苏姿丰等多名高管签名\"/></p><p>比对数年前锐龙限量版芯片上苏姿丰博士的签名，二者笔迹完全吻合，但目前暂无官方渠道可以证实这台电脑的真伪。这款机箱为富钧 XEN6329 Mini-ITX 规格机箱，如今在二手市场售价超 1000 美元。此外，整机硬件配置已明显老旧，显卡大概率是蓝宝石推出的 R9 285 迷你 ITX 版。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"空调维修技师意外发现 AMD 前 CEO 罗里 · 里德个人电脑，由苏姿丰等多名高管签名\"/></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"空调维修技师意外发现 AMD 前 CEO 罗里 · 里德个人电脑，由苏姿丰等多名高管签名\"/></p><p>据IT之家了解，这款显卡发布于 2014 年，时间恰好与罗里 · 里德在 AMD 的任职期重合，也进一步说明这台电脑是公司高层赠予他的离职纪念礼。蹊跷的是，这台设备十二年来从未被使用过，机身一尘不染，状态宛如全新。发帖人表示，电脑原包装盒的配件都完好无损，甚至还附带一张未拆封的 Windows 8.1 系统光盘。</p><p>评论区主流猜测认为，罗里 · 里德当年将这台电脑转手卖给了电脑店，之后它便被搁置多年，直到如今才被重新发现。也有人推测，他原本打算送修、调试或做维护后再使用，但这种可能性相对较低。身为企业高管，他也有可能后来彻底忘了这台设备的存在。</p><p>想要理解这台电脑的收藏价值，就先要了解它的主人背后的故事。</p><p>罗里 · 里德在 2011 至 2014 年间执掌 AMD，在公司处境最为艰难的时期力挽狂澜、扭转颓势。彼时 AMD 的推土机（Bulldozer）架构处理器上市后表现惨淡，在与英特尔的竞争中全面落于下风；而在移动计算行业飞速发展的阶段，这家芯片企业也几乎没能分到市场份额。</p><p>里德上任后，成功促成 AMD 与索尼、微软达成新一代游戏主机的合作，这份合作关系延续至今。他还请回传奇芯片架构师吉姆 · 凯勒，联手迈克 · 克拉克主导研发锐龙架构。2012 年，他招揽苏姿丰博士加入 AMD，并亲自悉心培养，笃定唯有技术出身的管理者才能带领公司长远发展，最终促成苏姿丰接掌 AMD。</p><p>说白了，里德的任务就是稳住陷入危机的企业、止住持续亏损，并非长期执掌公司。他在业内素有“企业救场专家”之称，此前也曾在 IBM、联想完成过类似的扭亏工作。可以说，是他为 AMD 日后的强势复苏铺平了道路，让这家芯片企业做好了充分准备，迎接下一任得力领导者带领公司重回巅峰。</p><p>再回到这台电脑，机箱上还留有当年多位 AMD 高管的签名，包括马克 · 帕珀马斯特、拉詹 · 奈克、德文德 · 库马尔、科莱特 · 拉福斯、约翰 · 伯恩以及达雷尔 · 福特。若是刻意伪造藏品，很难做到如此细致。因此，即便无法百分百确认真伪，其也堪称 PC 行业最具意义的纪念品之一，见证了商业运营与芯片技术的交融。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/501c1669-9527-44e3-8a46-be74d3ae7b9d.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，一名暖通空调维修技师在一位客户家中，意外发现了 AMD 前首席执行官罗里 · 里德曾使用过的一台电脑。据悉，这位客户早年经营过一家电脑门店，地下室里堆放着大量闲置设备，这台电脑也混在其中。机箱上留有多处签名，其中就包括苏姿丰博士的笔迹，旁边还附着手写寄语：“致罗里 ——",
+    "tags": [
+      "芯片",
+      "AMD"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962195
+  },
+  {
+    "title": "60° 大倾角：Kensington 推出垂直轨迹球鼠标 Pro Fit Ergo TB675",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，Kensington（肯辛通）美国加州当地时间 9 日宣布推出 Pro Fit Ergo TB675，这是一款<strong>采用 60° 大倾角设计</strong>的拇指轨迹球垂直鼠标，通过人体工学友好设计提升长时间使用中的舒适度。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"60° 大倾角：Kensington 推出垂直轨迹球鼠标 Pro Fit Ergo TB675\"/></p><p>Pro Fit Ergo TB675 面向中尺寸手型用户，<strong>配备 34mm 球体和金属 4D 滚轮</strong>。其 cpi / DPI 支持 400~1600 四档调节，拥有九个可编程按钮，集成按钮式球体抛出机构。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"60° 大倾角：Kensington 推出垂直轨迹球鼠标 Pro Fit Ergo TB675\"/></p><p>Kensington 在 Pro Fit Ergo TB675 上提供有线单模和无线三模版本。后者单次续航四个月，可同时蓝牙连接至 2 款设备。其两个版本的售价分别为 49.99 美元和 59.99 美元（IT之家注：现汇率约合 339.2 / 407 元人民币）。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/5dfabe49-de07-4552-8162-819ea4f0cd2e.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，Kensington（肯辛通）美国加州当地时间 9 日宣布推出 Pro Fit Ergo TB675，这是一款采用 60° 大倾角设计的拇指轨迹球垂直鼠标，通过人体工学友好设计提升长时间使用中的舒适度。Pro Fit Ergo TB675 面向中尺寸手型用户，配备 34",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962197
+  },
+  {
+    "title": "微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，在本月（2026 年 6 月）补丁星期二活动日中，微软面向 <a href=\"https://win11.ithome.com/\">Windows 11</a> 24H2 和 25H2 用户，<strong>推送 KB5094126 累积更新，用户安装后版本号升至 Build 26x00.8655。</strong></p><p>在本月补丁星期二活动日，微软在推送 Windows 11 累积更新外，还同步推出 .NET 更新，提高所有用 .NET 编写的应用程序的安全性、性能和整体体验：</p><ul><li><p>2026-06 .NET 8.0.28 x64 客户端安全更新 (KB5097149)</p></li><li><p>Windows 恶意软件删除工具 x64 – v5.142 (KB890830)</p></li><li><p>2026-06 .NET 9.0.17 x64 客户端安全更新 (KB5097150)</p></li></ul><p>在更新内容方面，本次更新重点推进安全启动证书升级，引入低延迟配置体验（Low Latency Profile）、共享音频、多应用调用摄像头等。</p><p>安全方面，微软推进安全启动证书升级，符合升级条件的设备在安装 6 月累积更新后，将更新安全启动证书，从而提高设备安全性。</p><p style=\"text-align: center;\"><img alt=\"Secure Boot certificate status in Windows Security app for Windows 11\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书\"/></p><p>大多数受支持设备会自动收到更新，但缺少 Secure Boot、TPM 或固件支持的设备不在范围内。部分老旧电脑还可能因 BIOS 或 UEFI（统一可扩展固件接口）限制而更新失败，此时需联系 OEM 获取固件升级。</p><p>在使用体验方面，微软主要扩展低延迟配置体验，用户启用后，打开开始菜单、通知中心、快速设置、Windows 搜索或右键菜单后，短暂拉高 CPU 频率，持续约 1 到 3 秒，从而减少界面卡顿、提升响应速度。IT之家附上相关视频如下：</p><p>音频体验方面，微软 Windows 11 加入了共享音频功能，用户可在快速设置中启用该功能，让 2 个蓝牙设备同时接收同一台电脑的系统音频，体验类似 iOS 的音频共享。</p><p style=\"text-align: center;\"><img alt=\"Shared audio in Windows 11 Quick Settings\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书\"/></p><p style=\"text-align: center;\"><img alt=\"Select devices in Shared audio in Windows 11\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书\"/></p><p style=\"text-align: center;\"><img alt=\"Bluetooth LE audio when available\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书\"/></p><p>摄像头方面，微软放宽 Windows 11 限制，过去往往只允许 1 款应用独占摄像头，例如 Teams 打开摄像头后，浏览器或相机应用就无法再调用。</p><p style=\"text-align: center;\"><img alt=\"Multi-camera app mode for Windows 11\" referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软推送 Win11 24H2/25H2 六月累积更新 26x00.8655：引入低延迟配置、升级安全启动证书\"/></p><p>而在本次更新后，Windows 11 支持多应用调用摄像头，用户可在“设置 — 蓝牙和设备 — 相机”中手动开启“允许多个应用使用摄像头”。微软还新增了基础摄像头工具，帮助用户区分问题来自驱动还是硬件，方便排查故障。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/626b28f6-4b9f-448a-83c0-5986c95fe5c1.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，在本月（2026 年 6 月）补丁星期二活动日中，微软面向Windows 1124H2 和 25H2 用户，推送 KB5094126 累积更新，用户安装后版本号升至 Build 26x00.8655。在本月补丁星期二活动日，微软在推送 Windows 11 累积更新外，",
+    "tags": [
+      "安全",
+      "Windows",
+      "微软"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962199
+  },
+  {
+    "title": "“运营商新老歧视”引热议：优惠套餐偏爱新人、老用户不投诉不给改",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，据澎湃新闻报道，近日多地消费者反映称自己作为运营商多年老用户，所使用的套餐资费偏高，而高性价比优惠套餐只向新用户或升档用户开放。有消费者多次与客服沟通，当提及要携号转网、向监管部门投诉时，才争取到优惠套餐。相应话题在网上引起热议。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"“运营商新老歧视”引热议：优惠套餐偏爱新人、老用户不投诉不给改\"/></p><p>IT之家参考报道获悉，移动 12 年老用户李女士反映称自己的套餐月租 79 元，仅包含 5GB 通用流量（超出后为限速免费流量）及 90 分钟通话。其多次致电中国移动客服无果，直到她明确提及要携号转网、向工信部投诉后，客服才最终给出解决方案：79 元月租保持不变，额外增加 30GB 流量，超出后流量限速，同时免费通话时长也做了增加，协议期为两年。</p><p>无独有偶，广东一位有着近 20 年网龄的中国移动用户消费者反映称，自己月租 159 元，包含 400 分钟免费通话 +80GB 流量；而她的朋友 39 元套餐，不仅能享受 480 元话费补贴，还包含 110GB 流量，性价比远超她的套餐。</p><p>事实上，被投诉的运营商也并非中国移动一家，中国电信以及中国联通也都存在相似情况。一位黑龙江的中国联通五年用户称，他此前办理的 159 元套餐，含通话 700 分钟 + 流量 40GB，近期他无意中发现有新套餐，更具性价比，但无法办理，“在我几次投诉后，变更后的套餐内含 220GB 流量 +1000 分钟通话，这原本是 199 的套餐，打了 7 折变成 139 元。”</p><p>有关人士表示，老用户的降档受阻一方面是因为办理套餐时签订的协议未到期，降档可能会被要求支付违约金，而升档则不用；另一方面，老用户在与客服的交涉中，触发了服务中的“挽留机制”，运营商为了挽留携号转网用户，安抚不断向监管部门投诉的老客户，会给予一定补偿性优惠。谈及如何提升老用户的获得感，<strong>有一线营业员透露“运营商也会对老用户有优惠，比如对老用户做宽带升级等”</strong>。</p><p>事实上，运营商新老用户权益不对等的问题存在多年。2021 年，国新办举行网络提速降费国务院政策例行吹风会时，就曾表示要规范网络资费营销行为，严查“强推 5G 套餐”“新老用户不同权”“套餐夸大宣传”等行为。</p><p>2025 年 4 月，工业和信息化部在全国组织开展电信业务“明白办、放心用”行动。要求在基础电信企业网上营业厅和 APP 设立资费公示专区，集中公示面向公众用户的全量在售资费方案，未公示不得销售。介绍营销内容应全面准确，不得夸大宣传、诱导营销或隐瞒关键信息，保障用户知情权。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/92223d2c-e753-405d-abe4-f00ae32d29ed.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，据澎湃新闻报道，近日多地消费者反映称自己作为运营商多年老用户，所使用的套餐资费偏高，而高性价比优惠套餐只向新用户或升档用户开放。有消费者多次与客服沟通，当提及要携号转网、向监管部门投诉时，才争取到优惠套餐。相应话题在网上引起热议。IT之家参考报道获悉，移动 12 年老用",
+    "tags": [
+      "5G"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962207
+  },
+  {
+    "title": "分析显示美国约三分之二拟建数据中心选址干旱区，加剧用水危机",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，英国《卫报》本周一项分析发现，美国规划建设的 809 座数据中心中，约三分之二选址在过去一年遭遇干旱的区域。结合美国国家海洋和大气管理局旗下全国综合干旱信息系统的数据，共有 517 座拟建数据中心落地于去年划定的干旱受灾地区。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"分析显示美国约三分之二拟建数据中心选址干旱区，加剧用水危机\"/></p><p>IT之家注意到，Xylem 公司与全球水务情报机构今年 1 月联合发布的报告显示，到 2050 年，人工智能产业新增用水需求中，数据中心冷却用水仅占约 4%，发电用水占比约 54%，半导体制造用水则达到 42%。联合国大学上周发布的报告也得出了相近的用水占比结论，该报告测算，2025 年全球数据中心耗电量约为 448 太瓦时。</p><p>机柜内的芯片以及设备运转所需电力，是剩余用水需求的主要来源。一座现代化逻辑芯片晶圆厂每日耗水量在 200 万至 1000 万加仑之间，且芯片生产无法使用普通自来水。晶圆厂所需的超纯水，每制取 1000 加仑，就要消耗 1400 至 1600 加仑市政供水；也就是说，在晶圆蚀刻工序启动前，水资源就已产生大量损耗。</p><p>以台积电位于菲尼克斯的三座晶圆厂为例，该地区是美国第四干旱的州。三座工厂全部建成后，每日总取水量预计达 1640 万加仑。尽管厂区污水处理回用率达 85%，并计划进一步提升至 90%，大幅削减了取水总量，但厂区依旧在水资源本就紧缺的区域大量取水。</p><p>数据中心运营方常辩称，该行业用水量远低于农业，但这种说法只看到了问题的冰山一角。若仅统计冷却用水，就会忽略同一条产业链上芯片制造与发电环节的用水需求，而这两大环节才是人工智能产业用水增长的主力。数据中心与为其供应加速芯片的晶圆厂可能同处干旱地带、共用地下水源，可最终统计的冷却用水量，却只体现了其中一方的消耗。</p><p>封闭式芯片直冷液冷技术有望缓解这一难题。英伟达称，其 GB200 NVL72 系统的节水效率最高可达风冷模式的 300 倍，但该数据仅针对冷却回路本身。这类机柜单台功耗为 120 至 140 千瓦，而今年晚些时候落地的 Vera Rubin 平台，单台机柜功耗将逼近 600 千瓦。机柜功耗越高，对应的发电需求就越大，而火力、燃气发电本身也是耗水大户。因此，机柜端省下的水资源，最终又会在发电厂环节被消耗。</p><p>Meta 计划在路易斯安那州修建的海波龙数据中心就是典型案例。该数据中心采用闭环冷却系统，但其运转需配套约 10 座燃气发电厂供电，而发电过程同样需要消耗大量水资源。这就导致数据中心现场冷却用水量下降，但冷却与发电的总耗水量不降反升；随着机柜功耗逐步升至鲁宾平台的 600 千瓦，整体耗水量还会加速上涨。</p><p>目前美国多个州已针对数据中心冷却用水出台监管法规，加利福尼亚、密歇根、艾奥瓦三州正考虑推行强制用水申报制度；南卡罗来纳州与堪萨斯州拟要求数据中心必须配备闭环冷却系统；纽约州议员更是提议全面暂停新建数据中心。上述管控措施均只针对占比仅 4% 的冷却用水，却没有触及真正推动人工智能产业用水激增的芯片制造与发电环节。</p><p><strong>相关阅读：</strong></p><ul><li><p>《<a href=\"https://www.ithome.com/0/961/739.htm\">保险公司报告：美国 6700 亿美元待建数据中心面临强对流风暴威胁</a>》</p></li></ul>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/a3695be3-35d9-4981-ad8c-646e01570bd2.png?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，英国《卫报》本周一项分析发现，美国规划建设的 809 座数据中心中，约三分之二选址在过去一年遭遇干旱的区域。结合美国国家海洋和大气管理局旗下全国综合干旱信息系统的数据，共有 517 座拟建数据中心落地于去年划定的干旱受灾地区。IT之家注意到，Xylem 公司与全球水务情",
+    "tags": [
+      "人工智能",
+      "芯片"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962209
+  },
+  {
+    "title": "微软 Win11 26H1 更至 28000.2269：扩展 XBOX 模式、优化文件管理器",
+    "content": "<div>\n<p><a href=\"https://www.ithome.com/\">IT之家</a> 6 月 10 日消息，在本月（2026 年 6 月）补丁星期二活动日上，微软面向搭载高通骁龙 X2 系列芯片的设备，推送了适用于 <a href=\"https://win11.ithome.com/\">Windows 11</a> 26H1 的 KB5095051 更新，<strong>用户安装后版本号升至 Build 28000.2269。</strong></p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软 Win11 26H1 更至 28000.2269：扩展 XBOX 模式、优化文件管理器\"/></p><p>IT之家附上本次更新相关内容如下：</p><h2>一、新功能</h2><p>XBOX 模式在 Windows 11 电脑上可用，包括笔记本电脑、台式机和平板电脑。灵感来自 XBOX 游戏机体验，XBOX 模式提供简化的全屏界面，将游戏置于设备中心位置，同时最小化背景干扰。</p><p>玩家可以通过 XBOX 应用、游戏栏设置或按 Windows 键 + F11 进入 Xbox 模式。</p><p style=\"text-align: center;\"><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"微软 Win11 26H1 更至 28000.2269：扩展 XBOX 模式、优化文件管理器\"/></p><h2>二、文件资源管理器</h2><ul><li><p>扩展了文件资源管理器中可使用的归档格式列表，包括 uu、cpio、xar 和 NuGet 包（nupkg）。</p></li><li><p>当应用直接打开文件资源管理器的下载和文档等文件夹时，视图和排序偏好设置将被保留。</p></li><li><p>修复了在打开此电脑或调整暗黑模式时，详细信息窗格大小时可能出现的白色闪烁。</p></li><li><p>提高了相关 <span>explorer.exe</span> 进程的可靠性，在关闭文件资源管理器窗口后会正确停止。</p></li></ul><h2>三、输入</h2><ul><li><p>新增功能：在执行某些操作时，用户可以在兼容的输入设备上感受到触觉反馈效果，例如在 PowerPoint 中对齐对象、窗口吸附或调整大小。这些触觉信号可以在设置 &gt; 蓝牙和其他设备 &gt; 鼠标、触摸板或笔 &gt; 触觉信号中开启或关闭。Surface Slim Pen 2、ASUS Pen 3.0 和带有触觉反馈的 MSI Pen 2 支持此功能。随着硬件合作伙伴发布更新，可能还会支持更多兼容设备，包括 Logitech MX Master 4 等特定鼠标。</p></li><li><p>新增功能：触摸键盘上的语音输入现在看起来更简洁直观。更新后的设计去除了全屏覆盖层，并在语音输入键上直接显示语音输入动画，减少额外的视觉干扰。</p></li><li><p>新增功能：阿拉伯语 101 传统键盘布局现已可用。用户可以在时间和语言 &gt; 语言和区域设置中为阿拉伯语选择键盘时添加。</p></li><li><p>提高了在设置 &gt; 蓝牙和其他设备 &gt; Wheel 下设置自定义工具的可靠性。</p></li><li><p>提高了语音输入中流畅听写设置的持久性。</p></li><li><p>提升了 emoji 面板（Windows 键 + 句号）的键盘导航可靠性。</p></li><li><p>提升了使用 ADLaM 键盘时的打字可靠性。</p></li></ul><h2>四、共享</h2><p>新增功能：拖放托盘现更名为放置托盘。其设置现位于设置 &gt; 系统 &gt; 多任务处理（此前为邻近共享）。放置托盘使用更小的预览视图。此改进有助于防止放置托盘无意中打开，并在屏幕顶部附近工作时更容易关闭。</p><h2>五、任务栏监控智能体</h2><p>新增功能：Windows 正在任务栏中添加一种新的方式来监控智能体。此体验支持第一方和第三方应用中的智能体，其中 Microsoft 365 Copilot 应用中的 Researcher 作为首批采用者。当 Researcher 处理报告时，Windows 会在任务栏上显示进度，以便用户一目了然地查看更新。将鼠标悬停在 Microsoft 365 Copilot 图标上即可查看实时进度。报告准备好后，Windows 会通知用户。选择通知或图标即可返回应用并查看和使用结果。</p><h2>六、企业状态漫游（ESR）</h2><p>新增功能：ESR 现在可以通过组织的 Windows Backup 策略进行管理。这使得 IT 管理员的设置更加简单。</p><h2>七、基于策略的微软预装应用移除</h2><p>新增功能：为 Windows 企业和教育版本的“移除默认 Microsoft Store 包”策略添加了对动态应用移除列表的支持。管理员可以通过使用组策略指定其应用包家族名称来移除额外的 MSIX / APPX 打包应用。动态列表目前尚未在 Intune 设置目录中提供。必须使用组策略或自定义 OMA-URI 进行验证。</p><h2>八、打印</h2><p>新增功能：在打印设置中添加了一个新图标，用于显示打印机是否支持 Windows 受保护的打印模式。</p><h2>九、Windows 驱动策略更新</h2><p>新增功能：通过改变 Windows 内核对第三方驱动的信任方式来提高 Windows 的安全性。移除了跨签名驱动的默认信任，而来自 Windows 硬件兼容性计划（WHCP）的驱动和受信任的旧版驱动白名单仍然允许。Windows 在启用强制执行前会至少检查 100 小时和三次重启的驱动兼容性。强制执行后，一小部分跨签名驱动可能会被阻止。</p><h2>十、增强批处理文件的安全性和性能</h2><p>新增功能：管理员和应用控制业务策略作者现在可以更精细地控制系统如何处理批处理文件和命令提示符（CMD）脚本。从本次发布开始，管理员可以启用更安全的批处理文件处理模式。此模式可防止批处理文件在执行过程中更改。</p><p>要启用此设置，需要将以下值添加到注册表：</p><ul><li><p>Key：<span>HKEY_LOCAL_MACHINE\\Software\\Microsoft\\Command</span> Processor</p></li><li><p>值名称：LockBatchFilesWhenInUse</p></li><li><p>类型：DWORD</p></li><li><p>要设置的值：0（禁用）或 1（启用）</p></li></ul><h2>十一、微软应用商店</h2><p>减少了从 Microsoft Store 下载和安装应用时出现的意外错误，包括错误代码 0x80070057、0x80240008 和 0x80073d28。</p><h2>十二、字体</h2><p>包含对泰语、老挝语、高棉语和龙塔拉文字符的 Leelawadee UI 字体家族的改进，以增强字形序列、位置和渲染。</p><h2>十三、音频</h2><p>改进了第三方驱动程序与 <span>midisrv.exe</span> 的兼容性。</p><h2>十四、任务栏</h2><p>提升了任务栏系统托盘区域的加载可靠性。</p><h2>十五、Windows Hello</h2><ul><li><p>提升了 Windows Hello Face 的可靠性。</p></li><li><p>提升了 Windows Hello 指纹在升级过程中的持久性。</p></li></ul><h2>十六、存储</h2><p>提升了查看设置 &gt; 系统 &gt; 存储 &gt; 高级存储设置 &gt; 磁盘和卷时，查看大容量存储信息的性能。</p><p>从命令行格式化 FAT32 卷的大小限制从 32GB 提高到 2TB。</p><h2>十七、交付优化</h2><p>改进了内存使用，降低了意外使用大量内存的可能性。</p><h2>十八、显示和图形</h2><p>改进了支持显示器颜色配置文件选项的持久性和可用性。</p><h2>十九、Kiosk Mode</h2><p>简化了在 Microsoft Edge 是允许的应用之一时，Kiosk Mode 中允许的打包应用的配置。</p><h2>二十、性能</h2><p>提升了开机自启动应用的性能（设置 &gt; 应用 &gt; 启动中的应用列表应用）。</p><h2>二十一、可靠性</h2><p>带来了底层更改，旨在提升 <span>explorer.exe</span> 的可靠性，包括在登录时、与任务栏菜单和任务视图交互时、从文件资源管理器的快速访问中取消固定项目时，以及更多场景。</p><h2>二十二、其他更新（Normal rollout）</h2><p>Secure Boot：通过此更新，Windows 质量更新包含额外的设备目标数据，提高了符合自动接收新安全启动证书条件的设备覆盖率。设备只有在展示足够的成功更新信号后才能接收新证书，以保持受控和分阶段的推出。</p>\n</div>",
+    "coverImg": "https://img.ithome.com/newsuploadfiles/2026/6/99539d8c-5504-488d-88bc-3a6cd65c6ea9.jpg?x-bce-process=image/format,f_auto",
+    "summary": "IT之家6 月 10 日消息，在本月（2026 年 6 月）补丁星期二活动日上，微软面向搭载高通骁龙 X2 系列芯片的设备，推送了适用于Windows 1126H1 的 KB5095051 更新，用户安装后版本号升至 Build 28000.2269。IT之家附上本次更新相关内容如下：一、新功能XB",
+    "tags": [
+      "Windows",
+      "微软",
+      "芯片"
+    ],
+    "categoryName": "后端",
+    "sourceId": 962211
+  },
+  {
+    "title": "带动全产业链共赴绿色 安踏集团2025年ESG报告发布",
+    "content": "<div>\n<p style=\"text-align: left;\">2026 年 6 月 5 日是第 55 个“世界环境日”，安踏集团在国内首个废网球回收再造的可持续球场，举办 2025 年度 ESG 报告发布会。这已是安踏集团连续第 11 年公开发布《环境、社会及管治 (ESG) 报告》，围绕“五大共生”发展原则，全方位披露了在可持续新品研发、全产业链低碳升级、人性化职场搭建以及各类公益落地等板块的落地举措与阶段性成果。凭借可持续领域的扎实布局，安踏集团在国际知名可持续评估机构 MSCI 的评级稳步上调至 AA 级，成为中国体育用品企业最高评级。</p><p><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"带动全产业链共赴绿色 安踏集团2025年ESG报告发布\"/></p><p style=\"text-align: center;\">图 1：安踏集团举办 2025 年度 ESG 报告发布会</p><p>安踏集团执行董事、集团联席 CEO、可持续发展委员会主席赖世贤表示：“可持续发展是安踏集团坚定不移的发展战略。同时，带动上下游企业一同推进可持续发展进程，是我们作为链主企业的重要责任。2025 年集团超预期达成了阶段性目标，正以全系统的管理体系和层层责任制稳步推进‘1+3+5’可持续战略蓝图落地，迈向 2050 年全集团实现碳中和的愿景。”</p><p>深耕消费者价值可持续产品占比突破 38%</p><p>2025 年安踏集团可持续产品占比突破 38%，推出超 1 亿件可持续产品服务全球消费者。从原材料研发、产品设计、包装应用到终端零售的全生命周期，全方位推动产品的绿色低碳转型，并构建全流程质量与创新管理体系。</p><p><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"带动全产业链共赴绿色 安踏集团2025年ESG报告发布\"/></p><p style=\"text-align: center;\">图 2：安踏集团可持续商品</p><p>2025 年安踏集团对旗下 7 个品牌共 11 款近 43 万件产品经过全生命周期碳足迹评估，其中 5 款为碳中和认证产品。</p><p>安踏集团联合东华大学发布中国首款自研量产高性能无氟防水透湿材料 —— 无氟安踏膜。</p><p>安踏创新推出采用碳捕捉技术及无氟安踏膜的 ANTAZERO 地球日风暴甲外套，较上一代减少 36.3% 碳排放的马赫 5 代跑鞋；斐乐 FILA EXPLORE 系列约 38% 面料采用可降解聚酯纤维；迪桑特 DESCENTE BIRTH 骑行服产品采用创新的母粒着色技术，减少传统染色工艺的水资源消耗；可隆 OBLI-K 露营冲锋衣使用 55% 消费后回收聚酯纤维。</p><p>践行绿色低碳范围一、范围二温室气体排放同比减少超 63%</p><p>安踏集团温室气体减排目标已通过 SBTi（科学碳目标倡议）验证，符合 1.5°C 减排路径，并获得四大会计师事务所出具的范围一（直接温室气体排放量）、范围二（间接温室气体排放量）及范围三类别 1、6、7、12 的独立鉴证报告，其中 2025 年范围三温室气体总排放量（按类别 1、6、7、12、15）较 2024 年减少 11.7%，减少的二氧化碳当量相当于种植 1868 万棵树的年固碳量。</p><p>2025 年安踏集团自有营运工厂及物流中心光伏项目自发自用电量较 2024 年上升 74.2% 至 15,330 兆瓦时，持续降低外购电力需求依赖。同时，集团结合采购与使用绿色电力及绿色电力证书，覆盖近 34.3 万兆瓦时电力消费。本年度范围一和范围二（基于市场）总排放量较 2024 年减少 63.3% 至 6.2 万吨二氧化碳当量，减少约 10.7 万吨二氧化碳当量，约等同 1.4 万个标准足球场面积的森林年固碳成效。</p><p>可持续融入企业战略运营协同供应链伙伴共建责任担当</p><p>将可持续发展全面融入发展战略，已成为安踏集团高质量发展的重要引擎。安踏集团并非将可持续发展工作作为满足合规要求的底线任务，而是将其内化为价值创造的核心工具，通过构建“战略引领 ——KPI 牵引 —— 组织协同 —— 数据支撑”四位一体的管理闭环，确保可持续发展理念贯穿企业运营的各个环节，成功实现了从被动披露到主动管理的战略跃升。与此同时，安踏集团持续强化伙伴协同与责任共建，建立完善的全供应链分级管理体系，持续优化供应链结构、提升全链条运营效率。集团已完成对一级及二级供应商的全面 ESG 审计，整体合规水平稳步提升，获得良好等级以上供应商占比超过 88%，超过 130 家供应商引入可再生能源。</p><p>五家供应商积极参与创建家庭友好型工作场所（FFF）计划。未来将继续携手产业链上下游合作伙伴，在职业健康安全、劳工权益保障、绿色低碳升级等领域协同共进。</p><p>材料循环焕新打造首个废网球再造球场</p><p>FILA 打造中国内地首个采用废弃网球回收再造材料的可持续网球场，项目累计收集超 2 万颗废网球，实现减碳 12.4 吨二氧化碳当量。同时，FILA 打造了网球回收闭环系统，并围绕网球场景构建了可持续网球产品、球场、社群活动的立体生态。这项将可持续发展战略融入消费者全触点体验的扎实实践，也为 ESG 报告阐述的“五大共生”成果提供了生动注脚。</p><p><img referrerpolicy=\"no-referrer\" src=\"//img.ithome.com/images/v2/t.png\" title=\"带动全产业链共赴绿色 安踏集团2025年ESG报告发布\"/></p><p style=\"text-align: center;\">图 3：FILA 可持续网球场</p><p>集团鞋服配产品使用超过 40.6% 的可持续原材料，FILA、DESCENTE 及 KOLON SPORT 所使用的羽绒材料 100% 获得 RDS 认证，并且接近 100% 皮革来自获得 LWG 金级认证的供应商，实现皮革材料可追溯。</p><p>集团可持续包装占比近 46%，超过 80% FILA 产品采用可持续包装，绿色转型举措扎实落地。</p><p>坚持多元共融社会责任行业领先</p><p>安踏集团始终将员工视为最重要的事业伙伴，致力于构建多元、平等、包容的职场环境，拥有来自全球 28 个国家和地区，不同区域和文化背景的员工约 69100 名，吸纳超 1000 名高校毕业生，产业链上下游创造近 30 万就业机会，2025 年投入超 4.8 亿元深化员工福利及培训发展。</p><p>以体育为桥梁，持续回馈全球社会。安踏集团与创始人家族捐资百亿成立的和敏基金会构建了“五个一”的双公益平台，截至 2026 年 3 月累计捐赠超 39 亿元。聚焦青少年体育公益的“安踏茁壮成长公益计划”已捐赠超 14 亿元，惠及欠发达地区超 1000 万青少年。</p><p>安踏集团联合中华全国体育基金会落地“优秀运动员终身保障公益项目”，累计为 142 名运动员配置终身保障规划；与联合国难民署合作“体育照亮未来”公益项目，累计捐赠现金 150 万美元及超 120 万件运动装备，惠及全球 30 万流离失所的青少年。持续深化与世界自然基金会（WWF）的三年战略合作，围绕长江江豚、亚洲象等濒危物种开展生物多样性保护行动。同时，集团鼓励员工参与公益志愿服务，服务时长超 4 万小时。</p>\n</div>",
+    "coverImg": "https://qimg.ithome.com/image/2026/06/10/20260610_101343_63.jpeg",
+    "summary": "2026 年 6 月 5 日是第 55 个“世界环境日”，安踏集团在国内首个废网球回收再造的可持续球场，举办 2025 年度 ESG 报告发布会。这已是安踏集团连续第 11 年公开发布《环境、社会及管治 (ESG) 报告》，围绕“五大共生”发展原则，全方位披露了在可持续新品研发、全产业链低碳升级、人",
+    "tags": [],
+    "categoryName": "后端",
+    "sourceId": 962229
+  }
+]

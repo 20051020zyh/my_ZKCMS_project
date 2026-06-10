@@ -38,7 +38,7 @@ const startParticles = () => {
       r: Math.random() * 2 + 0.8,
       vx: (Math.random() - 0.5) * 0.35,
       vy: (Math.random() - 0.5) * 0.35,
-      hue: Math.random() < 0.5 ? 250 + Math.random() * 40 : 200 + Math.random() * 40
+      hue: Math.random() < 0.5 ? 210 + Math.random() * 30 : 160 + Math.random() * 30
     })
   }
 
@@ -50,7 +50,7 @@ const startParticles = () => {
       const p = particles[i]
       ctx.beginPath()
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-      ctx.fillStyle = `hsla(${p.hue}, 80%, 70%, 0.25)`
+      ctx.fillStyle = `hsla(${p.hue}, 60%, 70%, 0.20)`
       ctx.fill()
 
       p.x += p.vx
@@ -70,7 +70,7 @@ const startParticles = () => {
           ctx.beginPath()
           ctx.moveTo(particles[i].x, particles[i].y)
           ctx.lineTo(particles[j].x, particles[j].y)
-          ctx.strokeStyle = `hsla(${avgHue}, 70%, 70%, ${0.08 * (1 - dist / 130)})`
+          ctx.strokeStyle = `hsla(${avgHue}, 55%, 70%, ${0.06 * (1 - dist / 130)})`
           ctx.stroke()
         }
       }
@@ -326,7 +326,7 @@ const handleBack = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(160deg, #fdf2f8 0%, #f5f3ff 30%, #ede9fe 60%, #e0f2fe 100%);
+  background: linear-gradient(160deg, #f0f7ff 0%, #f5fbfa 30%, #f8fafe 60%, #f0f5ff 100%);
   position: relative;
   overflow: hidden;
   font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
@@ -342,9 +342,9 @@ const handleBack = () => {
 .auth-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(236,72,153,0.1), transparent 50%),
-              radial-gradient(ellipse 60% 60% at 75% 40%, rgba(139,92,246,0.08), transparent 50%),
-              radial-gradient(ellipse 50% 50% at 50% 80%, rgba(59,130,246,0.06), transparent 50%);
+  background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(59,130,246,0.08), transparent 50%),
+              radial-gradient(ellipse 60% 60% at 75% 40%, rgba(16,185,129,0.06), transparent 50%),
+              radial-gradient(ellipse 50% 50% at 50% 80%, rgba(59,130,246,0.04), transparent 50%);
   z-index: 1;
   pointer-events: none;
 }
@@ -357,11 +357,11 @@ const handleBack = () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: #6b7280;
+  color: #64748b;
   background: rgba(255,255,255,0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.5);
+  border: 1px solid rgba(203,213,225,0.3);
   border-radius: 10px;
   padding: 8px 16px;
   font-size: 13px;
@@ -371,10 +371,10 @@ const handleBack = () => {
 }
 
 .back-link:hover {
-  color: #374151;
+  color: #1e293b;
   background: rgba(255,255,255,0.9);
-  border-color: #cbd5e1;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border-color: #60a5fa;
+  box-shadow: 0 2px 12px rgba(59,130,246,0.1);
 }
 
 .auth-panel {
@@ -384,10 +384,10 @@ const handleBack = () => {
   background: rgba(255,255,255,0.82);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.6);
+  border: 1px solid rgba(203,213,225,0.3);
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 8px 50px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5) inset;
+  box-shadow: 0 8px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,0.5) inset;
   animation: panelIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -412,7 +412,7 @@ const handleBack = () => {
 .ornament-ring {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(139,92,246,0.12);
+  border: 1px solid rgba(59,130,246,0.12);
 }
 
 .r1 {
@@ -427,7 +427,7 @@ const handleBack = () => {
   height: 200px;
   bottom: -100px;
   left: -80px;
-  border-color: rgba(236,72,153,0.1);
+  border-color: rgba(16,185,129,0.1);
 }
 
 .r3 {
@@ -461,7 +461,7 @@ const handleBack = () => {
 .brand-icon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 50%, #6366f1 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #34d399 100%);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -527,7 +527,7 @@ const handleBack = () => {
 
 .panel-tab.active {
   background: #fff;
-  color: #6366f1;
+  color: #3b82f6;
   box-shadow: 0 1px 4px rgba(0,0,0,0.06), 0 0 0 1px rgba(0,0,0,0.03);
 }
 
@@ -552,9 +552,9 @@ const handleBack = () => {
 }
 
 .input-group:focus-within {
-  border-color: #8b5cf6;
+  border-color: #60a5fa;
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(139,92,246,0.08);
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.08);
 }
 
 .input-icon {
@@ -567,7 +567,7 @@ const handleBack = () => {
 }
 
 .input-group:focus-within .input-icon {
-  color: #8b5cf6;
+  color: #3b82f6;
 }
 
 .input-field {
@@ -611,7 +611,7 @@ const handleBack = () => {
 .submit-btn {
   width: 100%;
   height: 46px;
-  background: linear-gradient(135deg, #ec4899, #8b5cf6, #6366f1);
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
   border: none;
   border-radius: 12px;
   color: #fff;
@@ -631,7 +631,7 @@ const handleBack = () => {
   position: absolute;
   inset: -2px;
   border-radius: 14px;
-  background: linear-gradient(135deg, #ec4899, #8b5cf6, #6366f1, #8b5cf6, #ec4899);
+  background: linear-gradient(135deg, #60a5fa, #3b82f6, #34d399, #3b82f6, #60a5fa);
   background-size: 300% 300%;
   z-index: -1;
   opacity: 0;
@@ -650,7 +650,7 @@ const handleBack = () => {
 }
 
 .submit-btn:hover:not(:disabled) {
-  box-shadow: 0 4px 24px rgba(139,92,246,0.35);
+  box-shadow: 0 4px 24px rgba(59,130,246,0.35);
   transform: translateY(-2px);
 }
 

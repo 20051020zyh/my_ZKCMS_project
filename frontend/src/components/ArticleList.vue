@@ -8,17 +8,11 @@ import { navigateTo } from '@/utils/navigate'
 interface Props {
   articles: any[]
   loading: boolean
-  pagination: {
-    pageNum: number
-    pageSize: number
-    total: number
-  }
+  pagination: { pageNum: number; pageSize: number; total: number }
 }
 
 const props = defineProps<Props>()
-const emit = defineEmits<{
-  pageChange: [page: number]
-}>()
+const emit = defineEmits<{ pageChange: [page: number] }>()
 
 const userStore = useUserStore()
 const likedArticles = ref<Set<number>>(new Set())
@@ -27,11 +21,7 @@ const coverOrientations = ref<Record<number, 'portrait' | 'landscape'>>({})
 
 const onImgLoad = (e: Event, id: number) => {
   const img = e.target as HTMLImageElement
-  if (img.naturalWidth > img.naturalHeight) {
-    coverOrientations.value[id] = 'landscape'
-  } else {
-    coverOrientations.value[id] = 'portrait'
-  }
+  coverOrientations.value[id] = img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait'
 }
 
 const formatViewCount = (count: number) => {
@@ -45,46 +35,33 @@ const goToArticle = (id: number) => {
   navigateTo(`/article/${id}`)
 }
 
-watch(
-  () => props.articles,
-  async (articles) => {
-    if (!articles || articles.length === 0) return
-    const ids = articles.map((a: any) => a.id)
-    try {
-      const [likeRes, collectRes] = await Promise.all([
-        Promise.allSettled(ids.map((id: number) => checkLike(id))),
-        Promise.allSettled(ids.map((id: number) => checkCollect(id)))
-      ])
-      const newLiked = new Set<number>()
-      const newCollected = new Set<number>()
-      likeRes.forEach((result: any, idx: number) => {
-        if (result.status === 'fulfilled') {
-          const data = result.value?.data ?? result.value
-          if (data === true || data?.data === true) newLiked.add(ids[idx])
-        }
-      })
-      collectRes.forEach((result: any, idx: number) => {
-        if (result.status === 'fulfilled') {
-          const data = result.value?.data ?? result.value
-          if (data === true || data?.data === true) newCollected.add(ids[idx])
-        }
-      })
-      likedArticles.value = newLiked
-      collectedArticles.value = newCollected
-    } catch (error) {
-      console.error('加载点赞/收藏状态失败:', error)
-    }
-  },
-  { immediate: true }
-)
+watch(() => props.articles, async (articles) => {
+  if (!articles || articles.length === 0) return
+  const ids = articles.map((a: any) => a.id)
+  try {
+    const [likeRes, collectRes] = await Promise.all([
+      Promise.allSettled(ids.map((id: number) => checkLike(id))),
+      Promise.allSettled(ids.map((id: number) => checkCollect(id)))
+    ])
+    const newLiked = new Set<number>()
+    const newCollected = new Set<number>()
+    likeRes.forEach((r: any, i: number) => {
+      if (r.status === 'fulfilled' && (r.value?.data === true || r.value?.data?.data === true)) newLiked.add(ids[i])
+    })
+    collectRes.forEach((r: any, i: number) => {
+      if (r.status === 'fulfilled' && (r.value?.data === true || r.value?.data?.data === true)) newCollected.add(ids[i])
+    })
+    likedArticles.value = newLiked
+    collectedArticles.value = newCollected
+  } catch {}
+}, { immediate: true })
 
-const handlePageChange = (page: number) => {
-  emit('pageChange', page)
-}
+const handlePageChange = (page: number) => emit('pageChange', page)
 </script>
 
 <template>
   <div class="article-feed">
+    <!-- Loading -->
     <div v-if="loading" class="feed-loading">
       <div v-for="i in 3" :key="i" class="skeleton-card">
         <div class="sk-left">
@@ -96,8 +73,14 @@ const handlePageChange = (page: number) => {
       </div>
     </div>
 
+    <!-- Empty -->
     <div v-else-if="articles.length === 0" class="feed-empty">
-      <el-empty description="暂无文章" :image-size="80" />
+      <div class="empty-state">
+        <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/>
+        </svg>
+        <p class="empty-text">暂无文章</p>
+      </div>
     </div>
 
     <template v-else>
@@ -111,9 +94,9 @@ const handlePageChange = (page: number) => {
         <div class="card-body">
           <div class="card-meta-top">
             <span class="card-author">
-              <el-avatar :size="24" :src="article.user_pic || ''">
+              <el-avatar :size="22" :src="article.user_pic || ''">
                 <template #default>
-                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;opacity:0.6"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2c0 .66.54 1.2 1.2 1.2h16.8c.66 0 1.2-.54 1.2-1.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+                  <svg viewBox="0 0 24 24" fill="currentColor" style="width:12px;height:12px;opacity:0.5"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v1.2c0 .66.54 1.2 1.2 1.2h16.8c.66 0 1.2-.54 1.2-1.2v-1.2c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
                 </template>
               </el-avatar>
               <span>{{ article.username || '匿名' }}</span>
@@ -123,6 +106,10 @@ const handlePageChange = (page: number) => {
 
           <h3 class="card-title">{{ article.title }}</h3>
           <p class="card-desc">{{ article.content }}</p>
+
+          <div v-if="article.tagNames && article.tagNames.length" class="card-tags">
+            <span v-for="tag in article.tagNames" :key="tag" class="card-tag">{{ tag }}</span>
+          </div>
 
           <div class="card-footer">
             <div class="card-stats">
@@ -139,10 +126,6 @@ const handlePageChange = (page: number) => {
                 {{ article.collectCount || 0 }}
               </span>
             </div>
-          </div>
-
-          <div v-if="article.tagNames && article.tagNames.length" class="card-tags">
-            <span v-for="tag in article.tagNames" :key="tag" class="card-tag">{{ tag }}</span>
           </div>
         </div>
 
@@ -172,52 +155,49 @@ const handlePageChange = (page: number) => {
 .article-feed {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
+/* ── Card ── */
 .feed-card {
   display: flex;
-  background: #fff;
-  border-radius: 16px;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 14px;
   overflow: hidden;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #e2e8f0;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(226,232,240,0.6);
   opacity: 0;
   animation: cardSlideUp 0.45s ease-out forwards;
-  animation-delay: calc(var(--i, 0) * 0.06s);
+  animation-delay: calc(var(--i, 0) * 0.05s);
 }
 
 @keyframes cardSlideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .feed-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.07), 0 0 0 1px rgba(99,102,241,0.1);
-  border-color: rgba(99,102,241,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(59,130,246,0.06), 0 1px 3px rgba(0,0,0,0.03);
+  border-color: rgba(59,130,246,0.15);
+  background: rgba(255,255,255,0.95);
 }
 
 .card-body {
   flex: 1;
-  padding: 20px 24px;
+  padding: 18px 22px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   min-width: 0;
 }
 
 .card-meta-top {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 13px;
 }
 
@@ -230,24 +210,23 @@ const handlePageChange = (page: number) => {
 }
 
 .card-category {
-  padding: 3px 10px;
-  background: linear-gradient(135deg, #eef2ff, #ede9fe);
-  color: #6366f1;
-  border-radius: 12px;
+  padding: 2px 10px;
+  background: rgba(59,130,246,0.06);
+  color: #3b82f6;
+  border-radius: 100px;
   font-size: 12px;
   font-weight: 500;
   transition: all 0.25s ease;
 }
 
 .feed-card:hover .card-category {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: #fff;
+  background: rgba(59,130,246,0.1);
 }
 
 .card-title {
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 600;
-  color: #1e293b;
+  color: #0f172a;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -258,7 +237,7 @@ const handlePageChange = (page: number) => {
 }
 
 .feed-card:hover .card-title {
-  color: #6366f1;
+  color: #3b82f6;
 }
 
 .card-desc {
@@ -272,16 +251,32 @@ const handlePageChange = (page: number) => {
   margin: 0;
 }
 
-.card-footer {
+.card-tags {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 4px;
+  flex-wrap: wrap;
+  gap: 4px;
 }
+
+.card-tag {
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #60a5fa;
+  background: rgba(59,130,246,0.04);
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.feed-card:hover .card-tag {
+  background: rgba(59,130,246,0.08);
+}
+
+.card-footer { margin-top: 2px; }
 
 .card-stats {
   display: flex;
-  gap: 16px;
+  gap: 14px;
 }
 
 .stat-item {
@@ -294,45 +289,32 @@ const handlePageChange = (page: number) => {
 }
 
 .heart-icon {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   display: block;
-  transition: color 0.3s ease;
 }
 
-.liked {
-  color: #6366f1;
-}
+.liked { color: #3b82f6; }
+.collected { color: #10b981; }
 
-.collected {
-  color: #f59e0b;
-}
-
+/* ── Thumbnail ── */
 .card-thumb {
-  width: 240px;
+  width: 220px;
   flex-shrink: 0;
-  padding: 10px;
+  padding: 8px;
   box-sizing: border-box;
 }
 
-.card-thumb.landscape {
-  height: 160px;
-}
-
-.card-thumb.portrait {
-  height: 210px;
-}
-
-.card-thumb:not(.landscape):not(.portrait) {
-  height: 185px;
-}
+.card-thumb.landscape { height: 150px; }
+.card-thumb.portrait { height: 190px; }
+.card-thumb:not(.landscape):not(.portrait) { height: 170px; }
 
 .thumb-inner {
   width: 100%;
   height: 100%;
-  border-radius: 24px;
+  border-radius: 18px;
   overflow: hidden;
-  background: #fff;
+  background: #f8fafc;
 }
 
 .thumb-inner img {
@@ -340,46 +322,40 @@ const handlePageChange = (page: number) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.45s ease;
 }
 
-.feed-card:hover .thumb-inner img {
-  transform: scale(1.05);
-}
+.feed-card:hover .thumb-inner img { transform: scale(1.06); }
 
+/* ── Pagination ── */
 .feed-pagination {
   display: flex;
   justify-content: center;
-  padding: 20px 0;
+  padding: 24px 0 8px;
 }
 
-/* Skeleton */
+/* ── Skeleton ── */
 .feed-loading {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .skeleton-card {
   display: flex;
   background: #fff;
   border-radius: 14px;
-  padding: 24px;
-  gap: 24px;
-  border: 1px solid #e2e8f0;
+  padding: 22px;
+  gap: 22px;
+  border: 1px solid rgba(226,232,240,0.6);
 }
 
-.sk-left {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
+.sk-left { flex: 1; display: flex; flex-direction: column; gap: 10px; }
 .sk-right {
-  width: 240px;
-  height: 185px;
-  border-radius: 24px;
+  width: 220px;
+  height: 170px;
+  border-radius: 18px;
+  flex-shrink: 0;
 }
 
 .sk-line {
@@ -389,53 +365,38 @@ const handlePageChange = (page: number) => {
   border-radius: 4px;
 }
 
-.sk-title {
-  height: 22px;
-  width: 60%;
-}
-
-.sk-text {
-  height: 16px;
-  width: 90%;
-}
-
-.sk-meta {
-  height: 14px;
-  width: 40%;
-}
+.sk-title { height: 20px; width: 60%; }
+.sk-text { height: 14px; width: 90%; }
+.sk-meta { height: 12px; width: 40%; }
 
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
 
+/* ── Empty ── */
 .feed-empty {
-  background: #fff;
+  background: rgba(255,255,255,0.7);
   border-radius: 14px;
-  padding: 60px;
-  border: 1px solid #e2e8f0;
+  padding: 48px;
+  border: 1px solid rgba(226,232,240,0.6);
 }
 
-.card-tags {
+.empty-state {
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 6px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 
-.card-tag {
-  padding: 2px 8px;
-  font-size: 11px;
-  font-weight: 500;
-  color: #818cf8;
-  background: rgba(99,102,241,0.06);
-  border-radius: 8px;
-  white-space: nowrap;
-  transition: all 0.2s ease;
+.empty-icon {
+  width: 48px;
+  height: 48px;
+  color: #cbd5e1;
 }
 
-.feed-card:hover .card-tag {
-  background: rgba(99,102,241,0.12);
-  color: #6366f1;
+.empty-text {
+  font-size: 14px;
+  color: #94a3b8;
 }
 </style>

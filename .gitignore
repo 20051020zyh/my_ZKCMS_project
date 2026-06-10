@@ -62,3 +62,15 @@ application-*.properties
 HELP.md
 *.ctxt
 .mtj.tmp/
+
+# ===== Python 相关 =====
+__pycache__/
+*.pyc
+.venv/
+
+# ===== 编辑器/IDE工具配置 =====
+.qoder/
+.lingma/
+
+# ===== 备份文件 =====
+前端备份文件/

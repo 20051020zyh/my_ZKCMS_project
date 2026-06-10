@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getSysConfig, toggleMaintenance } from '@/api/admin'
@@ -69,15 +69,15 @@ onMounted(() => {
   margin: 0 0 24px 0;
   font-size: 22px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   letter-spacing: -0.3px;
 }
 :deep(.el-card) {
   border-radius: 14px;
-  background: linear-gradient(145deg, #111827, #0f1320);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
 }
-:deep(.el-card__body) { color: #e2e8f0; }
+:deep(.el-card__body) { color: #334155; }
 :deep(.el-form-item__label) { color: #94a3b8; font-weight: 500; }
 .mode-status { margin-left: 12px; color: #94a3b8; font-size: 13px; }
 </style>

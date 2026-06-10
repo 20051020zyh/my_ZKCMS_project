@@ -123,20 +123,20 @@ watch(() => route.path, () => {
 }
 
 html, body {
-  background: #080b14;
+  background: #fafcff;
 }
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #1e293b;
+  color: #0f172a;
   line-height: 1.6;
 }
 
 #app {
   min-height: 100vh;
-  background: #080b14;
+  background: #fafcff;
 }
 
 /* ── Maintenance Overlay ── */
@@ -518,27 +518,27 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #d1d5db;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #9ca3af;
 }
 
 ::selection {
-  background: #6366f1;
+  background: #3b82f6;
   color: #fff;
 }
 
 .el-pagination {
-  --el-pagination-hover-color: #6366f1;
+  --el-pagination-hover-color: #3b82f6;
   --el-pagination-button-color: #64748b;
   --el-pagination-button-bg-color: transparent;
 }
 
 .el-pagination button.is-active {
-  --el-pagination-button-color: #6366f1 !important;
+  --el-pagination-button-color: #3b82f6 !important;
   font-weight: 600;
 }
 

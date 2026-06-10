@@ -38,7 +38,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.ico",
                         "/", "/index.html", "/login.html", "/register.html",
                         "/druid/**",
-                        "/leaveMessage/**"
+                        "/leaveMessage/**",
+                        "/baidu/**"
                 );
 
          //原来的JWT拦截器
@@ -62,7 +63,8 @@ public class WebConfig implements WebMvcConfigurer {
                         "/*.css", "/*.js", "/*.png", "/*.jpg", "/*.ico",
                         "/", "/index.html", "/login.html", "/register.html",
                         "/druid/**",
-                        "/leaveMessage/**"
+                        "/leaveMessage/**",
+                        "/baidu/**"
                 );
     }
 

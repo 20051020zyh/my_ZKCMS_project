@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { ElMessage } from 'element-plus'
 import { getBrowserDeviceStats } from '@/api/statistics'
@@ -83,16 +83,16 @@ const renderBrowserChart = () => {
   const data = statsData.value.browserStats.map((i: any) => ({ name: i.browser, value: i.total_count }))
   browserChart.setOption({
     backgroundColor: 'transparent',
-    title: { text: '浏览器分布', left: 'center', top: 6, textStyle: { color: '#f1f5f9', fontSize: 15, fontWeight: 700 } },
-    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(99,102,241,0.2)', borderWidth: 1, textStyle: { color: '#e2e8f0', fontSize: 12 }, formatter: (p: any) => `${p.name}<br/>访问量: <b>${formatNum(p.value)}</b> (${p.percent}%)` },
+    title: { text: '浏览器分布', left: 'center', top: 6, textStyle: { color: '#0f172a', fontSize: 15, fontWeight: 700 } },
+    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(59,130,246,0.2)', borderWidth: 1, textStyle: { color: '#f1f5f9', fontSize: 12 }, formatter: (p: any) => `${p.name}<br/>访问量: <b>${formatNum(p.value)}</b> (${p.percent}%)` },
     legend: { orient: 'vertical', right: 8, top: 'center', textStyle: { color: '#94a3b8', fontSize: 11 }, itemGap: 8 },
     series: [{
       type: 'pie', radius: ['38%', '68%'], center: ['40%', '52%'],
       avoidLabelOverlap: true,
       padAngle: 1.5,
-      itemStyle: { borderRadius: 6, borderColor: '#0f172a', borderWidth: 2.5 },
+      itemStyle: { borderRadius: 6, borderColor: '#fff', borderWidth: 2 },
       label: { show: false },
-      emphasis: { label: { show: true, fontSize: 18, fontWeight: 'bold', color: '#f1f5f9' } },
+      emphasis: { label: { show: true, fontSize: 18, fontWeight: 'bold', color: '#0f172a' } },
       labelLine: { show: false },
       data,
       color: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7', '#ec4899', '#f97316', '#8b5cf6', '#14b8a6']
@@ -108,19 +108,19 @@ const renderDeviceChart = () => {
   const data = statsData.value.deviceStats.map((i: any) => ({ name: i.device_type, value: i.total_count }))
   deviceChart.setOption({
     backgroundColor: 'transparent',
-    title: { text: '设备类型分布', left: 'center', top: 6, textStyle: { color: '#f1f5f9', fontSize: 15, fontWeight: 700 } },
-    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(99,102,241,0.2)', borderWidth: 1, textStyle: { color: '#e2e8f0', fontSize: 12 } },
+    title: { text: '设备类型分布', left: 'center', top: 6, textStyle: { color: '#0f172a', fontSize: 15, fontWeight: 700 } },
+    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(59,130,246,0.2)', borderWidth: 1, textStyle: { color: '#f1f5f9', fontSize: 12 } },
     graphic: [
-      { type: 'text', left: 'center', top: '44%', style: { text: formatNum(total), fill: '#f1f5f9', fontSize: 24, fontWeight: 800, textAlign: 'center', textVerticalAlign: 'middle' } },
+      { type: 'text', left: 'center', top: '44%', style: { text: formatNum(total), fill: '#0f172a', fontSize: 24, fontWeight: 800, textAlign: 'center', textVerticalAlign: 'middle' } },
       { type: 'text', left: 'center', top: '55%', style: { text: '总访问', fill: '#64748b', fontSize: 12, fontWeight: 500, textAlign: 'center', textVerticalAlign: 'middle' } }
     ],
     series: [{
       type: 'pie', radius: ['48%', '73%'], center: ['50%', '50%'],
       avoidLabelOverlap: false,
       label: { color: '#94a3b8', fontSize: 12, formatter: '{b}\n{d}%' },
-      labelLine: { length: 12, length2: 16, lineStyle: { color: 'rgba(255,255,255,0.06)' } },
+      labelLine: { length: 12, length2: 16, lineStyle: { color: 'rgba(203,213,225,0.3)' } },
       emphasis: { itemStyle: { shadowBlur: 16, shadowColor: 'rgba(0,0,0,0.4)' } },
-      itemStyle: { borderRadius: 4, borderColor: '#0f172a', borderWidth: 2.5 },
+      itemStyle: { borderRadius: 4, borderColor: '#fff', borderWidth: 2 },
       data: data.length ? data : [{ name: '暂无数据', value: 1 }],
       color: data.length ? ['#10b981', '#f59e0b', '#6366f1'] : ['#334155']
     }]
@@ -135,15 +135,15 @@ const renderOsChart = () => {
   const data = statsData.value.osStats.map((i: any) => ({ name: i.os, value: i.total_count }))
   osChart.setOption({
     backgroundColor: 'transparent',
-    title: { text: '操作系统分布', left: 'center', top: 6, textStyle: { color: '#f1f5f9', fontSize: 15, fontWeight: 700 } },
-    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(99,102,241,0.2)', borderWidth: 1, textStyle: { color: '#e2e8f0', fontSize: 12 }, formatter: (p: any) => `${p.name}<br/>访问量: <b>${formatNum(p.value)}</b> 次 (${p.percent}%)` },
+    title: { text: '操作系统分布', left: 'center', top: 6, textStyle: { color: '#0f172a', fontSize: 15, fontWeight: 700 } },
+    tooltip: { trigger: 'item', backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(59,130,246,0.2)', borderWidth: 1, textStyle: { color: '#f1f5f9', fontSize: 12 }, formatter: (p: any) => `${p.name}<br/>访问量: <b>${formatNum(p.value)}</b> 次 (${p.percent}%)` },
     series: [{
       type: 'pie', radius: ['30%', '58%'], center: ['50%', '52%'],
       avoidLabelOverlap: true,
       padAngle: 1,
-      itemStyle: { borderRadius: 4, borderColor: '#0f172a', borderWidth: 2 },
+      itemStyle: { borderRadius: 4, borderColor: '#fff', borderWidth: 1.5 },
       label: { color: '#94a3b8', fontSize: 11, formatter: (p: any) => `${p.name}\n${formatNum(p.value)} 次` },
-      labelLine: { length: 10, length2: 14, lineStyle: { color: 'rgba(255,255,255,0.06)' } },
+      labelLine: { length: 10, length2: 14, lineStyle: { color: 'rgba(203,213,225,0.3)' } },
       emphasis: { itemStyle: { shadowBlur: 16, shadowColor: 'rgba(0,0,0,0.4)' } },
       data,
       color: ['#6366f1', '#10b981', '#f59e0b', '#ef4444', '#06b6d4', '#a855f7', '#f97316', '#8b5cf6']
@@ -160,10 +160,10 @@ const renderComboChart = () => {
   const values = items.map((i: any) => i.total_count).reverse()
   comboChart.setOption({
     backgroundColor: 'transparent',
-    title: { text: '浏览器/系统 组合 TOP10', left: 'center', top: 6, textStyle: { color: '#f1f5f9', fontSize: 15, fontWeight: 700 } },
-    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(99,102,241,0.2)', borderWidth: 1, textStyle: { color: '#e2e8f0', fontSize: 12 } },
+    title: { text: '浏览器/系统 组合 TOP10', left: 'center', top: 6, textStyle: { color: '#0f172a', fontSize: 15, fontWeight: 700 } },
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' }, backgroundColor: 'rgba(15,19,32,0.92)', borderColor: 'rgba(59,130,246,0.2)', borderWidth: 1, textStyle: { color: '#f1f5f9', fontSize: 12 } },
     grid: { left: 10, right: 50, bottom: 14, top: 44, containLabel: true },
-    xAxis: { type: 'value', axisLabel: { color: '#64748b', fontSize: 10 }, splitLine: { lineStyle: { color: 'rgba(255,255,255,0.03)' } }, axisLine: { show: false }, axisTick: { show: false } },
+    xAxis: { type: 'value', axisLabel: { color: '#64748b', fontSize: 10 }, splitLine: { lineStyle: { color: 'rgba(203,213,225,0.2)' } }, axisLine: { show: false }, axisTick: { show: false } },
     yAxis: { type: 'category', data: labels, axisLabel: { color: '#94a3b8', fontSize: 11, fontWeight: 500 }, axisLine: { show: false }, axisTick: { show: false }, splitLine: { show: false } },
     series: [{
       type: 'bar', barWidth: '52%',
@@ -178,7 +178,7 @@ const renderComboChart = () => {
         }
       })),
       label: { show: true, position: 'right', formatter: (p: any) => formatNum(p.value), color: '#94a3b8', fontSize: 11, fontWeight: 600 },
-      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: 'rgba(99,102,241,0.3)' } },
+      emphasis: { itemStyle: { shadowBlur: 12, shadowColor: 'rgba(59,130,246,0.3)' } },
       animationDuration: 600,
       animationEasing: 'cubicOut'
     }]
@@ -284,7 +284,7 @@ onUnmounted(() => {
     </div>
 
     <!-- Charts -->
-    <div class="bd-charts" v-loading="loading" element-loading-background="rgba(8,11,20,0.85)">
+    <div class="bd-charts" v-loading="loading" element-loading-background="rgba(255,255,255,0.85)">
       <div class="bd-chart-grid">
         <div class="bd-panel">
           <div ref="browserChartRef" class="bd-chart-box" />
@@ -315,17 +315,12 @@ onUnmounted(() => {
 .bd-hero {
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   margin-bottom: 22px;
 }
-.bd-hero-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
+.bd-hero-bg { display: none !important; }
 .bd-orb {
   position: absolute;
   border-radius: 50%;
@@ -334,7 +329,7 @@ onUnmounted(() => {
 }
 .o1 {
   width: 380px; height: 380px;
-  background: radial-gradient(circle, rgba(99,102,241,0.3), transparent);
+  background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
   top: -120px; right: -60px;
   animation: bdFloat 12s ease-in-out infinite alternate;
 }
@@ -378,7 +373,7 @@ onUnmounted(() => {
   margin: 0;
   font-size: 26px;
   font-weight: 800;
-  color: #f1f5f9;
+  color: #0f172a;
   letter-spacing: -0.4px;
   line-height: 1.2;
 }
@@ -397,7 +392,7 @@ onUnmounted(() => {
 .bd-hero-tabs {
   display: flex;
   gap: 6px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(203,213,225,0.3);
   padding: 4px;
   border-radius: 12px;
 }
@@ -415,19 +410,19 @@ onUnmounted(() => {
   font-weight: 600;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.bd-tab:hover { color: #94a3b8; background: rgba(255,255,255,0.04); }
+.bd-tab:hover { color: #94a3b8; background: rgba(203,213,225,0.3); }
 .bd-tab.active {
-  color: #f1f5f9;
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  box-shadow: 0 4px 16px rgba(99,102,241,0.35);
+  color: #0f172a;
+  background: linear-gradient(135deg, #3b82f6, #3b82f6);
+  box-shadow: 0 4px 16px rgba(59,130,246,0.35);
 }
 .bd-refresh-btn {
   display: flex;
   align-items: center;
   gap: 5px;
   padding: 6px 14px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(203,213,225,0.4);
+  background: rgba(203,213,225,0.2);
   color: #94a3b8;
   border-radius: 10px;
   cursor: pointer;
@@ -436,9 +431,9 @@ onUnmounted(() => {
   transition: all 0.25s;
 }
 .bd-refresh-btn:hover {
-  border-color: rgba(99,102,241,0.3);
-  color: #e2e8f0;
-  background: rgba(99,102,241,0.08);
+  border-color: rgba(59,130,246,0.3);
+  color: #334155;
+  background: rgba(59,130,246,0.08);
 }
 .bd-refresh-btn svg { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 .bd-refresh-btn:hover svg { transform: rotate(180deg); }
@@ -453,8 +448,8 @@ onUnmounted(() => {
 .bd-stat-card {
   position: relative;
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -467,7 +462,7 @@ onUnmounted(() => {
 .bd-stat-card:hover {
   transform: translateY(-2px);
   border-color: var(--accent);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 @keyframes bdCardIn {
   from { opacity: 0; transform: translateY(16px) scale(0.97); }
@@ -503,7 +498,7 @@ onUnmounted(() => {
 .bd-stat-num {
   font-size: 22px;
   font-weight: 800;
-  color: #f1f5f9;
+  color: #0f172a;
   line-height: 1;
   letter-spacing: -0.3px;
 }
@@ -526,14 +521,14 @@ onUnmounted(() => {
 }
 .bd-panel {
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 .bd-panel:hover {
-  border-color: rgba(99,102,241,0.12);
-  box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  border-color: rgba(59,130,246,0.12);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
 }
 .bd-chart-box {
   width: 100%;

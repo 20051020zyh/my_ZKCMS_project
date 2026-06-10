@@ -10,14 +10,9 @@ const loading = ref(false)
 
 const fetchData = async () => {
   loading.value = true
-  try {
-    const res: any = await getBestArticles({ pageNum: 1, pageSize: 5 })
-    items.value = res.data?.records || []
-  } catch (error) {
-    items.value = []
-  } finally {
-    loading.value = false
-  }
+  try { const r: any = await getBestArticles({ pageNum: 1, pageSize: 5 }); items.value = r.data?.records || [] }
+  catch { items.value = [] }
+  finally { loading.value = false }
 }
 
 const goToArticle = (id: number) => {
@@ -30,31 +25,23 @@ onMounted(() => fetchData())
 
 <template>
   <div class="widget">
-    <div class="widget-header">
-      <h3 class="widget-title">
-        <el-icon><Medal /></el-icon>
-        精选
-      </h3>
+    <div class="w-head">
+      <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      <span>精选</span>
     </div>
 
-    <div v-if="loading" class="widget-loading">
-      <div v-for="i in 4" :key="i" class="best-skeleton" />
+    <div v-if="loading" class="w-load">
+      <div v-for="i in 4" :key="i" class="w-sk" />
     </div>
 
-    <div v-else-if="items.length === 0" class="widget-empty">暂无数据</div>
+    <div v-else-if="items.length === 0" class="w-empty">暂无</div>
 
-    <div v-else class="widget-list">
-      <div
-        v-for="(item, index) in items"
-        :key="item.id"
-        class="best-item"
-        :style="{ '--k': index }"
-        @click="goToArticle(item.id)"
-      >
-        <div class="best-badge" :class="'badge-' + (index + 1)">{{ index + 1 }}</div>
-        <div class="best-info">
-          <h4 class="best-title">{{ item.title }}</h4>
-          <span class="best-meta">{{ new Date(item.createTime).toLocaleDateString('zh-CN') }} · {{ item.viewCount || 0 }} 阅读</span>
+    <div v-else class="w-list">
+      <div v-for="(item, i) in items" :key="item.id" class="b-item" :style="{ '--p': i }" @click="goToArticle(item.id)">
+        <span class="b-badge" :class="'b' + (i + 1)">{{ i + 1 }}</span>
+        <div class="b-info">
+          <span class="b-title">{{ item.title }}</span>
+          <span class="b-meta">{{ new Date(item.createTime).toLocaleDateString('zh-CN') }}</span>
         </div>
       </div>
     </div>
@@ -63,152 +50,97 @@ onMounted(() => fetchData())
 
 <style scoped>
 .widget {
-  background: #fff;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
   border-radius: 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(203,213,225,0.25);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
 }
 
-.widget-header {
-  padding: 16px 20px 12px;
-  border-bottom: 1px solid #f1f5f9;
-  background: linear-gradient(180deg, #fafbfd, #fff);
+.widget:hover {
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(16,185,129,0.1);
 }
 
-.widget-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
+.w-head {
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-
-.widget-title :deep(.el-icon) {
-  color: #f59e0b;
-}
-
-.widget-loading {
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.best-skeleton {
-  height: 40px;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
-  border-radius: 6px;
-}
-
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-.widget-empty {
-  padding: 32px 20px;
-  text-align: center;
-  color: #94a3b8;
+  gap: 8px;
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid rgba(203,213,225,0.2);
   font-size: 14px;
-}
-
-.widget-list {
-  padding: 8px;
-}
-
-.best-item {
-  display: flex;
-  gap: 12px;
-  padding: 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0;
-  animation: bestSlideIn 0.35s ease-out forwards;
-  animation-delay: calc(var(--k, 0) * 0.06s);
-}
-
-@keyframes bestSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.best-item:hover {
-  background: #fffbeb;
-  transform: translateX(3px);
-}
-
-.best-badge {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
   font-weight: 700;
-  border-radius: 8px;
+  color: #0f172a;
+}
+
+.w-icon {
+  width: 15px; height: 15px;
+  color: #10b981;
+}
+
+.w-load { padding: 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+.w-sk { height: 32px; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: sh 1.8s infinite; border-radius: 6px; }
+@keyframes sh { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.w-empty { padding: 24px 18px; text-align: center; color: #94a3b8; font-size: 13px; }
+
+.w-list { padding: 6px; }
+
+.b-item {
+  display: flex;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  opacity: 0;
+  animation: bi 0.3s ease-out forwards;
+  animation-delay: calc(var(--p, 0) * 0.04s);
+}
+
+@keyframes bi {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.b-item:hover { background: rgba(16,185,129,0.04); transform: translateX(2px); }
+
+.b-badge {
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  border-radius: 6px;
   flex-shrink: 0;
-  background: #f1f5f9;
-  color: #64748b;
-  margin-top: 2px;
-  transition: all 0.25s ease;
+  margin-top: 1px;
+  background: rgba(241,245,249,0.5);
+  color: #94a3b8;
 }
 
-.best-item:hover .best-badge {
-  box-shadow: 0 2px 8px rgba(245,158,11,0.2);
-}
+.b-badge.b1 { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+.b-badge.b2 { background: linear-gradient(135deg, #34d399, #10b981); color: #fff; }
+.b-badge.b3 { background: linear-gradient(135deg, #6ee7b7, #34d399); color: #065f46; }
 
-.best-badge.badge-1 {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(245,158,11,0.3);
-}
+.b-info { flex: 1; min-width: 0; }
 
-.best-badge.badge-2 {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  color: #fff;
-}
-
-.best-badge.badge-3 {
-  background: linear-gradient(135deg, #fde68a, #fbbf24);
-  color: #92400e;
-}
-
-.best-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.best-title {
-  font-size: 13px;
+.b-title {
+  display: block;
+  font-size: 12px;
   font-weight: 500;
   color: #334155;
-  margin: 0 0 4px;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  transition: color 0.25s ease;
+  transition: color 0.2s ease;
 }
 
-.best-item:hover .best-title {
-  color: #d97706;
-}
+.b-item:hover .b-title { color: #059669; }
 
-.best-meta {
-  font-size: 12px;
+.b-meta {
+  display: block;
+  font-size: 11px;
   color: #94a3b8;
+  margin-top: 2px;
 }
 </style>

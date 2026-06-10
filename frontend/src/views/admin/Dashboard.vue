@@ -51,7 +51,7 @@ const trendData = ref<{ dates: string[]; views: number[]; articles: number[]; us
 })
 
 const statMeta = [
-  { key: 'articles', label: '文章总数', icon: Document, accent: '#6366f1', light: 'rgba(99,102,241,0.15)' },
+  { key: 'articles', label: '文章总数', icon: Document, accent: '#6366f1', light: 'rgba(59,130,246,0.15)' },
   { key: 'users', label: '用户总数', icon: User, accent: '#10b981', light: 'rgba(16,185,129,0.15)' },
   { key: 'views', label: '访问总量', icon: View, accent: '#f59e0b', light: 'rgba(245,158,11,0.15)' },
   { key: 'comments', label: '评论总数', icon: ChatDotRound, accent: '#ef4444', light: 'rgba(239,68,68,0.15)' },
@@ -149,9 +149,9 @@ const buildCompareChartOption = () => {
     tooltip: {
       trigger: 'item',
       backgroundColor: 'rgba(15,19,32,0.95)',
-      borderColor: 'rgba(99,102,241,0.2)',
+      borderColor: 'rgba(59,130,246,0.2)',
       borderWidth: 1,
-      textStyle: { color: '#e2e8f0', fontSize: 12 },
+      textStyle: { color: '#f1f5f9', fontSize: 12 },
     },
     legend: {
       data: [baseName, compareName],
@@ -171,17 +171,17 @@ const buildCompareChartOption = () => {
       },
       splitLine: {
         lineStyle: {
-          color: 'rgba(255,255,255,0.06)',
+          color: 'rgba(203,213,225,0.3)',
         },
       },
       splitArea: {
         areaStyle: {
-          color: ['rgba(99,102,241,0.02)', 'rgba(99,102,241,0.04)', 'rgba(99,102,241,0.06)', 'rgba(99,102,241,0.08)'],
+          color: ['rgba(59,130,246,0.02)', 'rgba(59,130,246,0.04)', 'rgba(59,130,246,0.06)', 'rgba(59,130,246,0.08)'],
         },
       },
       axisLine: {
         lineStyle: {
-          color: 'rgba(255,255,255,0.08)',
+          color: 'rgba(203,213,225,0.4)',
         },
       },
     },
@@ -236,9 +236,9 @@ const buildGrowthChartOption = () => {
     tooltip: {
       trigger: 'axis',
       backgroundColor: 'rgba(15,19,32,0.95)',
-      borderColor: 'rgba(99,102,241,0.2)',
+      borderColor: 'rgba(59,130,246,0.2)',
       borderWidth: 1,
-      textStyle: { color: '#e2e8f0', fontSize: 12 },
+      textStyle: { color: '#f1f5f9', fontSize: 12 },
       formatter: (params: any) => {
         const item = params[0]
         const rate = item.value
@@ -250,7 +250,7 @@ const buildGrowthChartOption = () => {
     xAxis: {
       type: 'category',
       data: labels,
-      axisLine: { lineStyle: { color: 'rgba(255,255,255,0.06)' } },
+      axisLine: { lineStyle: { color: 'rgba(203,213,225,0.3)' } },
       axisLabel: { color: '#64748b', fontSize: 11 },
       axisTick: { show: false },
     },
@@ -258,7 +258,7 @@ const buildGrowthChartOption = () => {
       type: 'value',
       name: '增长率(%)',
       nameTextStyle: { color: '#64748b', fontSize: 11 },
-      splitLine: { lineStyle: { color: 'rgba(255,255,255,0.03)' } },
+      splitLine: { lineStyle: { color: 'rgba(203,213,225,0.2)' } },
       axisLabel: {
         color: '#64748b',
         fontSize: 11,
@@ -303,7 +303,7 @@ const buildGrowthChartOption = () => {
         markLine: {
           silent: true,
           data: [{ yAxis: 0 }],
-          lineStyle: { color: 'rgba(255,255,255,0.1)', type: 'solid', width: 1 },
+          lineStyle: { color: 'rgba(203,213,225,0.5)', type: 'solid', width: 1 },
           label: { show: false },
         },
       },
@@ -332,9 +332,9 @@ const buildChartOption = () => ({
   tooltip: {
     trigger: 'axis',
     backgroundColor: 'rgba(15,19,32,0.95)',
-    borderColor: 'rgba(99,102,241,0.2)',
+    borderColor: 'rgba(59,130,246,0.2)',
     borderWidth: 1,
-    textStyle: { color: '#e2e8f0', fontSize: 12 },
+    textStyle: { color: '#f1f5f9', fontSize: 12 },
     axisPointer: { type: 'cross', crossStyle: { color: '#374151' } },
   },
   legend: {
@@ -346,7 +346,7 @@ const buildChartOption = () => ({
   xAxis: {
     type: 'category',
     data: trendData.value.dates,
-    axisLine: { lineStyle: { color: 'rgba(255,255,255,0.06)' } },
+    axisLine: { lineStyle: { color: 'rgba(203,213,225,0.3)' } },
     axisLabel: { color: '#64748b', fontSize: 11 },
     axisTick: { show: false },
     boundaryGap: false,
@@ -356,7 +356,7 @@ const buildChartOption = () => ({
       type: 'value',
       name: '访问量',
       nameTextStyle: { color: '#64748b', fontSize: 11 },
-      splitLine: { lineStyle: { color: 'rgba(255,255,255,0.03)' } },
+      splitLine: { lineStyle: { color: 'rgba(203,213,225,0.2)' } },
       axisLabel: { color: '#64748b', fontSize: 11 },
       axisLine: { show: false },
       axisTick: { show: false },
@@ -392,16 +392,16 @@ const buildChartOption = () => ({
         color: {
           type: 'linear', x: 0, y: 0, x2: 0, y2: 1,
           colorStops: [
-            { offset: 0, color: 'rgba(99,102,241,0.35)' },
-            { offset: 0.5, color: 'rgba(99,102,241,0.12)' },
-            { offset: 1, color: 'rgba(99,102,241,0)' },
+            { offset: 0, color: 'rgba(59,130,246,0.35)' },
+            { offset: 0.5, color: 'rgba(59,130,246,0.12)' },
+            { offset: 1, color: 'rgba(59,130,246,0)' },
           ],
         },
       },
       markLine: {
         silent: true,
         data: [{ type: 'average', name: '平均' }],
-        lineStyle: { color: 'rgba(99,102,241,0.25)', type: 'dashed', width: 1 },
+        lineStyle: { color: 'rgba(59,130,246,0.25)', type: 'dashed', width: 1 },
         label: { color: '#64748b', fontSize: 10, formatter: 'avg: {c}' },
       },
     },
@@ -600,7 +600,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="dashboard" v-loading="loading" element-loading-background="rgba(8,11,20,0.85)">
+  <div class="dashboard" v-loading="loading" element-loading-background="rgba(255,255,255,0.85)">
     <!-- Hero Section -->
     <div class="hero">
       <div class="hero-bg">
@@ -735,17 +735,12 @@ onUnmounted(() => {
 .hero {
   position: relative;
   border-radius: 20px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.05);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   margin-bottom: 24px;
 }
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
+.hero-bg { display: none !important; }
 .hero-orb {
   position: absolute;
   border-radius: 50%;
@@ -754,7 +749,7 @@ onUnmounted(() => {
 }
 .orb-1 {
   width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(99,102,241,0.3), transparent);
+  background: radial-gradient(circle, rgba(59,130,246,0.3), transparent);
   top: -120px; right: -80px;
   animation: orbFloat 12s ease-in-out infinite alternate;
 }
@@ -798,7 +793,7 @@ onUnmounted(() => {
   margin: 0;
   font-size: 28px;
   font-weight: 800;
-  color: #f1f5f9;
+  color: #0f172a;
   letter-spacing: -0.5px;
   line-height: 1.2;
 }
@@ -817,7 +812,7 @@ onUnmounted(() => {
 .clock-display {
   font-size: 32px;
   font-weight: 700;
-  color: #e2e8f0;
+  color: #334155;
   letter-spacing: 2px;
   font-variant-numeric: tabular-nums;
   line-height: 1;
@@ -860,8 +855,8 @@ onUnmounted(() => {
 .stat-card {
   position: relative;
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   animation: cardIn 0.6s ease-out both;
@@ -870,7 +865,7 @@ onUnmounted(() => {
 .stat-card:hover {
   transform: translateY(-3px);
   border-color: var(--accent);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
 }
 @keyframes cardIn {
   from { opacity: 0; transform: translateY(20px) scale(0.96); }
@@ -913,7 +908,7 @@ onUnmounted(() => {
 .card-num {
   font-size: 24px;
   font-weight: 800;
-  color: #f1f5f9;
+  color: #0f172a;
   line-height: 1.1;
   letter-spacing: -0.5px;
   font-variant-numeric: tabular-nums;
@@ -928,8 +923,8 @@ onUnmounted(() => {
 /* ── Chart ── */
 .chart-panel {
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   margin-bottom: 24px;
   animation: panelFade 0.6s ease-out 0.3s both;
@@ -954,12 +949,12 @@ onUnmounted(() => {
 }
 .hd-icon {
   font-size: 18px;
-  color: #818cf8;
+  color: #60a5fa;
 }
 .hd-title {
   font-size: 15px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #334155;
   white-space: nowrap;
 }
 .hd-right { display: flex; align-items: center; gap: 10px; }
@@ -967,9 +962,9 @@ onUnmounted(() => {
 .trend-tab {
   height: 28px;
   padding: 0 14px;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(203,213,225,0.3);
   border-radius: 8px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(203,213,225,0.2);
   color: #64748b;
   font-size: 12px;
   font-weight: 500;
@@ -978,18 +973,18 @@ onUnmounted(() => {
   transition: all 0.2s ease;
   white-space: nowrap;
 }
-.trend-tab:hover { background: rgba(255,255,255,0.06); color: #94a3b8; }
+.trend-tab:hover { background: rgba(203,213,225,0.3); color: #94a3b8; }
 .trend-tab.active {
-  background: rgba(99,102,241,0.15);
-  color: #818cf8;
-  border-color: rgba(99,102,241,0.25);
+  background: rgba(59,130,246,0.15);
+  color: #60a5fa;
+  border-color: rgba(59,130,246,0.25);
 }
 .hd-badge {
   font-size: 11px;
   color: #64748b;
   padding: 3px 10px;
   border-radius: 10px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(203,213,225,0.2);
 }
 .panel-hd-right {
   display: flex;
@@ -999,7 +994,7 @@ onUnmounted(() => {
 .toggle-group {
   display: flex;
   gap: 4px;
-  background: rgba(255,255,255,0.03);
+  background: rgba(203,213,225,0.2);
   padding: 3px;
   border-radius: 10px;
 }
@@ -1019,16 +1014,16 @@ onUnmounted(() => {
 }
 .toggle-btn:hover { color: #94a3b8; }
 .toggle-btn.active {
-  background: rgba(99,102,241,0.15);
-  color: #818cf8;
+  background: rgba(59,130,246,0.15);
+  color: #60a5fa;
 }
 .chart-body { padding: 12px 20px 16px; }
 
 /* ── Compare Panel (Radar Chart) ── */
 .compare-panel {
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   animation: panelFade 0.6s ease-out 0.45s both;
 }
@@ -1036,8 +1031,8 @@ onUnmounted(() => {
 /* ── Growth Panel (Line Chart) ── */
 .growth-panel {
   border-radius: 16px;
-  background: linear-gradient(145deg, #111827, #0a0e17);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   animation: panelFade 0.6s ease-out 0.6s both;
 }

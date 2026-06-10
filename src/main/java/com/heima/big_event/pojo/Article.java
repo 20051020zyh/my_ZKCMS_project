@@ -19,7 +19,7 @@ public class Article {
     @TableId(type = IdType.AUTO)//主键自增
     private Integer id;//主键ID
     @NotBlank(message = "文章标题不能为空")
-    @Pattern(regexp = "^\\S{1,10}$", message = "文章标题内容为1~10个字符")
+    @Pattern(regexp = "^\\S{1,100}$", message = "文章标题内容为1~100个字符")
     private String title;//文章标题
     private String content;//文章内容
     //@NotBlank(message = "封面不能为空")

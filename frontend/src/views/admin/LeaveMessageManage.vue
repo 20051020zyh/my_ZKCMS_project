@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { Delete } from '@element-plus/icons-vue'
@@ -114,7 +114,7 @@ onMounted(() => {
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#818cf8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#60a5fa"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
           <span>留言列表</span>
         </div>
         <span class="panel-badge">共 {{ pagination.total }} 条</span>
@@ -173,16 +173,16 @@ onMounted(() => {
 .header-title-row { display: flex; align-items: center; gap: 16px; }
 .header-icon-wrap {
   width: 48px; height: 48px; border-radius: 14px;
-  background: linear-gradient(135deg, rgba(99,102,241,0.2), rgba(99,102,241,0.05));
-  color: #818cf8; display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 24px rgba(99,102,241,0.15);
+  background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.05));
+  color: #60a5fa; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 24px rgba(59,130,246,0.15);
   animation: hdr-icon-in 0.5s cubic-bezier(0.34,1.56,0.64,1);
 }
 @keyframes hdr-icon-in {
   from { transform: scale(0) rotate(-20deg); opacity: 0; }
   to { transform: scale(1) rotate(0); opacity: 1; }
 }
-.page-title { margin: 0; font-size: 26px; font-weight: 700; color: #f1f5f9; letter-spacing: -0.5px; }
+.page-title { margin: 0; font-size: 26px; font-weight: 700; color: #0f172a; letter-spacing: -0.5px; }
 .page-subtitle { margin: 4px 0 0; font-size: 14px; color: #64748b; }
 
 .toolbar {
@@ -209,21 +209,21 @@ onMounted(() => {
 
 .panel {
   border-radius: 14px;
-  background: linear-gradient(145deg, #111827, #0f1320);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
   animation: panel-in 0.4s cubic-bezier(0.22,1,0.36,1);
 }
 @keyframes panel-in { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-.panel-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.04); }
-.panel-title { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; color: #e2e8f0; }
-.panel-badge { font-size: 12px; color: #94a3b8; padding: 4px 12px; border-radius: 12px; background: rgba(255,255,255,0.03); }
+.panel-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgba(203,213,225,0.3); }
+.panel-title { display: flex; align-items: center; gap: 9px; font-size: 14px; font-weight: 600; color: #334155; }
+.panel-badge { font-size: 12px; color: #94a3b8; padding: 4px 12px; border-radius: 12px; background: rgba(203,213,225,0.2); }
 .table-wrapper { padding: 0; }
 
 .cell-id { color: #64748b; font-family: monospace; font-size: 12px; }
-.user-tag { font-size: 13px; padding: 3px 10px; border-radius: 12px; background: rgba(99,102,241,0.1); color: #a5b4fc; font-weight: 500; }
-.phone-text { color: #cbd5e1; font-size: 13px; font-family: monospace; }
-.email-text { color: #cbd5e1; font-size: 13px; }
+.user-tag { font-size: 13px; padding: 3px 10px; border-radius: 12px; background: rgba(59,130,246,0.1); color: #a5b4fc; font-weight: 500; }
+.phone-text { color: #475569; font-size: 13px; font-family: monospace; }
+.email-text { color: #475569; font-size: 13px; }
 .time-text { color: #64748b; font-size: 13px; }
 
 .ops-btn {
@@ -232,24 +232,24 @@ onMounted(() => {
   border: 1px solid transparent; font-size: 12px; font-weight: 500;
   cursor: pointer; transition: all 0.25s ease; font-family: inherit; white-space: nowrap;
 }
-.ops-reply { background: rgba(99,102,241,0.1); color: #818cf8; border-color: rgba(99,102,241,0.15); }
-.ops-reply:hover { background: rgba(99,102,241,0.2); color: #a5b4fc; transform: translateY(-1px); }
+.ops-reply { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.15); }
+.ops-reply:hover { background: rgba(59,130,246,0.2); color: #a5b4fc; transform: translateY(-1px); }
 
 .pagination-wrapper { display: flex; justify-content: center; padding: 20px; }
 
-:deep(.el-table) { --el-table-bg-color: transparent; --el-table-tr-bg-color: transparent; --el-table-header-bg-color: transparent; --el-table-row-hover-bg-color: rgba(99,102,241,0.04); --el-table-border-color: transparent; --el-table-text-color: #cbd5e1; --el-table-header-text-color: #94a3b8; }
-:deep(.el-table th.el-table__cell) { background: transparent; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 16px 0; font-weight: 600; }
-:deep(.el-table td.el-table__cell) { border-bottom: 1px solid rgba(255,255,255,0.03); padding: 14px 0; }
-:deep(.el-pagination) { --el-pagination-bg-color: transparent; --el-pagination-text-color: #94a3b8; --el-pagination-button-bg-color: rgba(255,255,255,0.03); --el-pagination-hover-color: #818cf8; --el-pagination-button-color: #94a3b8; }
-:deep(.el-pagination .btn-prev), :deep(.el-pagination .btn-next) { background: rgba(255,255,255,0.03) !important; border-radius: 8px !important; }
-:deep(.el-pagination .btn-prev:hover), :deep(.el-pagination .btn-next:hover) { background: rgba(255,255,255,0.08) !important; color: #818cf8; }
-:deep(.el-pagination button.is-active) { background: linear-gradient(135deg, #6366f1, #818cf8); color: #fff; }
-:deep(.el-input__wrapper) { background: rgba(255,255,255,0.03); box-shadow: none; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; }
-:deep(.el-input__wrapper:hover) { border-color: rgba(99,102,241,0.2); }
-:deep(.el-input__wrapper.is-focus) { border-color: #6366f1; }
-:deep(.el-input__inner) { color: #e2e8f0; }
-:deep(.el-checkbox__input .el-checkbox__inner) { border-color: rgba(255,255,255,0.12); }
-:deep(.el-checkbox__input.is-checked .el-checkbox__inner) { background: #818cf8; border-color: #818cf8; }
+:deep(.el-table) { --el-table-bg-color: transparent; --el-table-tr-bg-color: transparent; --el-table-header-bg-color: transparent; --el-table-row-hover-bg-color: rgba(59,130,246,0.04); --el-table-border-color: transparent; --el-table-text-color: #475569; --el-table-header-text-color: #94a3b8; }
+:deep(.el-table th.el-table__cell) { background: transparent; border-bottom: 1px solid rgba(203,213,225,0.3); padding: 16px 0; font-weight: 600; }
+:deep(.el-table td.el-table__cell) { border-bottom: 1px solid rgba(203,213,225,0.2); padding: 14px 0; }
+:deep(.el-pagination) { --el-pagination-bg-color: transparent; --el-pagination-text-color: #94a3b8; --el-pagination-button-bg-color: rgba(203,213,225,0.2); --el-pagination-hover-color: #60a5fa; --el-pagination-button-color: #94a3b8; }
+:deep(.el-pagination .btn-prev), :deep(.el-pagination .btn-next) { background: rgba(203,213,225,0.2) !important; border-radius: 8px !important; }
+:deep(.el-pagination .btn-prev:hover), :deep(.el-pagination .btn-next:hover) { background: rgba(203,213,225,0.4) !important; color: #60a5fa; }
+:deep(.el-pagination button.is-active) { background: linear-gradient(135deg, #3b82f6, #60a5fa); color: #fff; }
+:deep(.el-input__wrapper) { background: rgba(203,213,225,0.2); box-shadow: none; border: 1px solid rgba(203,213,225,0.4); border-radius: 8px; }
+:deep(.el-input__wrapper:hover) { border-color: rgba(59,130,246,0.2); }
+:deep(.el-input__wrapper.is-focus) { border-color: #3b82f6; }
+:deep(.el-input__inner) { color: #334155; }
+:deep(.el-checkbox__input .el-checkbox__inner) { border-color: rgba(203,213,225,0.5); }
+:deep(.el-checkbox__input.is-checked .el-checkbox__inner) { background: #60a5fa; border-color: #60a5fa; }
 
 @media (max-width: 768px) { .message-manage { padding: 20px 16px; } .toolbar { flex-direction: column; align-items: stretch; } }
 </style>

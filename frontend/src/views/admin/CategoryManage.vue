@@ -1,4 +1,4 @@
-<script setup lang="ts">
+﻿<script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { getUserCategoryList, addCategory, updateCategory, deleteCategory } from '@/api/category'
@@ -157,7 +157,7 @@ onMounted(() => { fetchCategories() })
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#818cf8"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#60a5fa"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
           <span>分类列表</span>
         </div>
         <span class="panel-badge">共 {{ categoryStats.total }} 个分类</span>
@@ -252,7 +252,7 @@ onMounted(() => { fetchCategories() })
   margin: 0;
   font-size: 22px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   letter-spacing: -0.3px;
 }
 .page-subtitle {
@@ -283,22 +283,22 @@ onMounted(() => { fetchCategories() })
   white-space: nowrap;
 }
 .ghost-btn {
-  background: rgba(255,255,255,0.04);
+  background: rgba(203,213,225,0.3);
   color: #94a3b8;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(203,213,225,0.3);
 }
 .ghost-btn:hover {
-  background: rgba(255,255,255,0.08);
-  color: #e2e8f0;
+  background: rgba(203,213,225,0.4);
+  color: #334155;
 }
 .add-btn {
-  background: linear-gradient(135deg, #6366f1, #7c3aed);
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(99,102,241,0.3);
+  box-shadow: 0 4px 14px rgba(59,130,246,0.3);
 }
 .add-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(99,102,241,0.45);
+  box-shadow: 0 6px 20px rgba(59,130,246,0.45);
 }
 
 /* ── Stats ── */
@@ -307,8 +307,8 @@ onMounted(() => { fetchCategories() })
   position: relative;
   border-radius: 14px;
   overflow: hidden;
-  background: linear-gradient(145deg, #111827, #0f1320);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
 }
 .stat-card-sm { max-width: 220px; }
 .stat-card-inner-sm {
@@ -321,18 +321,18 @@ onMounted(() => { fetchCategories() })
   width: 32px; height: 32px; border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
   color: #fff; flex-shrink: 0;
-  background: linear-gradient(135deg, #6366f1, #818cf8);
-  box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  box-shadow: 0 4px 12px rgba(59,130,246,0.3);
 }
 .stat-info-sm { display: flex; flex-direction: column; gap: 1px; }
 .stat-label-sm { font-size: 11px; color: #64748b; font-weight: 500; letter-spacing: 0.3px; }
-.stat-num-sm { font-size: 18px; font-weight: 700; color: #f1f5f9; letter-spacing: -0.3px; line-height: 1.2; }
+.stat-num-sm { font-size: 18px; font-weight: 700; color: #0f172a; letter-spacing: -0.3px; line-height: 1.2; }
 
 /* ── Panel ── */
 .panel {
   border-radius: 14px;
-  background: linear-gradient(145deg, #111827, #0f1320);
-  border: 1px solid rgba(255,255,255,0.04);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   overflow: hidden;
 }
 .panel-header {
@@ -340,7 +340,7 @@ onMounted(() => { fetchCategories() })
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(203,213,225,0.3);
 }
 .panel-title {
   display: flex;
@@ -348,7 +348,7 @@ onMounted(() => { fetchCategories() })
   gap: 8px;
   font-size: 14px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #334155;
 }
 .panel-badge {
   font-size: 12px;
@@ -369,25 +369,25 @@ onMounted(() => { fetchCategories() })
   color: #64748b;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
-  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid rgba(203,213,225,0.3);
+  background: rgba(203,213,225,0.15);
 }
 .cm-table tbody td {
   padding: 14px 20px;
   font-size: 13px;
-  color: #cbd5e1;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+  color: #475569;
+  border-bottom: 1px solid rgba(203,213,225,0.2);
 }
-.cm-table tbody tr:hover td { background: rgba(99,102,241,0.03); }
+.cm-table tbody tr:hover td { background: rgba(59,130,246,0.03); }
 .cm-table tbody tr:last-child td { border-bottom: none; }
 .cell-id { color: #64748b; font-family: monospace; font-size: 12px; }
-.name-text { color: #e2e8f0; font-weight: 500; }
+.name-text { color: #334155; font-weight: 500; }
 .alias-tag {
   display: inline-block;
   padding: 2px 10px;
   border-radius: 6px;
   font-size: 12px;
-  background: rgba(99,102,241,0.08);
+  background: rgba(59,130,246,0.08);
   color: #a5b4fc;
 }
 .time-text { font-size: 12px; color: #64748b; font-family: monospace; }
@@ -410,7 +410,7 @@ onMounted(() => { fetchCategories() })
   color: #94a3b8;
   background: transparent;
 }
-.ops-btn.edit:hover { background: rgba(99,102,241,0.1); color: #818cf8; }
+.ops-btn.edit:hover { background: rgba(59,130,246,0.1); color: #60a5fa; }
 .ops-btn.del:hover { background: rgba(239,68,68,0.1); color: #f87171; }
 
 /* ── Empty ── */
@@ -441,17 +441,17 @@ onMounted(() => { fetchCategories() })
   width: 100%;
   height: 40px;
   padding: 0 14px;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(203,213,225,0.4);
   border-radius: 10px;
-  background: rgba(255,255,255,0.03);
-  color: #e2e8f0;
+  background: rgba(203,213,225,0.2);
+  color: #334155;
   font-size: 14px;
   font-family: inherit;
   outline: none;
   transition: all 0.2s ease;
   box-sizing: border-box;
 }
-.form-input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+.form-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
 .form-input::placeholder { color: #475569; }
 .dialog-footer { display: flex; justify-content: flex-end; gap: 10px; }
 .d-btn {
@@ -468,20 +468,20 @@ onMounted(() => { fetchCategories() })
   cursor: pointer;
   transition: all 0.2s ease;
 }
-.d-btn-ghost { background: rgba(255,255,255,0.04); color: #94a3b8; border: 1px solid rgba(255,255,255,0.06); }
-.d-btn-ghost:hover { background: rgba(255,255,255,0.08); color: #e2e8f0; }
-.d-btn-primary { background: linear-gradient(135deg, #6366f1, #7c3aed); color: #fff; box-shadow: 0 4px 14px rgba(99,102,241,0.3); }
-.d-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(99,102,241,0.45); }
+.d-btn-ghost { background: rgba(203,213,225,0.3); color: #94a3b8; border: 1px solid rgba(203,213,225,0.3); }
+.d-btn-ghost:hover { background: rgba(203,213,225,0.4); color: #334155; }
+.d-btn-primary { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; box-shadow: 0 4px 14px rgba(59,130,246,0.3); }
+.d-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(59,130,246,0.45); }
 
 /* ── Element Plus overrides ── */
 :deep(.el-dialog) {
-  background: linear-gradient(145deg, #111827, #0f1320);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #ffffff;
+  border: 1px solid rgba(203,213,225,0.3);
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
 :deep(.el-dialog__header) { padding: 20px 24px 0; }
-:deep(.el-dialog__title) { font-size: 17px; font-weight: 600; color: #f1f5f9; }
+:deep(.el-dialog__title) { font-size: 17px; font-weight: 600; color: #0f172a; }
 :deep(.el-dialog__body) { padding: 20px 24px; }
 :deep(.el-dialog__footer) { padding: 0 24px 20px; }
 :deep(.el-dialog__close) { color: #475569; font-size: 16px; }
@@ -495,8 +495,8 @@ onMounted(() => { fetchCategories() })
   border: none !important;
   border-radius: 20px !important;
   width: 400px !important;
-  background: linear-gradient(160deg, #1a1f2e 0%, #0d1117 100%) !important;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05) !important;
+  background: #ffffff !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(203,213,225,0.3) !important;
   animation: fxCIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   overflow: hidden !important;
 }
@@ -513,7 +513,7 @@ onMounted(() => { fetchCategories() })
   display: flex !important;
   gap: 12px !important;
   justify-content: center !important;
-  border-top: 1px solid rgba(255,255,255,0.06) !important;
+  border-top: 1px solid rgba(203,213,225,0.3) !important;
   margin-top: 0 !important;
 }
 .fx-confirm-box .el-message-box__btns .el-button {
@@ -534,13 +534,13 @@ onMounted(() => { fetchCategories() })
   letter-spacing: 0.3px !important;
 }
 .fx-confirm-box .el-message-box__btns .el-button--default { 
-  background: rgba(255,255,255,0.06) !important; 
+  background: rgba(203,213,225,0.3) !important; 
   color: #94a3b8 !important; 
-  border: 1px solid rgba(255,255,255,0.1) !important; 
+  border: 1px solid rgba(203,213,225,0.5) !important; 
 }
 .fx-confirm-box .el-message-box__btns .el-button--default:hover { 
-  background: rgba(255,255,255,0.1) !important; 
-  color: #e2e8f0 !important; 
+  background: rgba(203,213,225,0.5) !important; 
+  color: #334155 !important; 
   transform: translateY(-1px) !important;
 }
 .fx-c-btn-pass { 
@@ -572,12 +572,12 @@ onMounted(() => { fetchCategories() })
 }
 .fx-c-btn-ghost { 
   background: rgba(148,163,184,0.1) !important; 
-  color: #cbd5e1 !important; 
+  color: #475569 !important; 
   border: 1px solid rgba(148,163,184,0.2) !important; 
 }
 .fx-c-btn-ghost:hover { 
   background: rgba(148,163,184,0.18) !important; 
-  color: #e2e8f0 !important; 
+  color: #334155 !important; 
   transform: translateY(-1px) !important;
 }
 .fx-c-header {
@@ -620,7 +620,7 @@ onMounted(() => { fetchCategories() })
 .fx-c-title {
   font-size: 20px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   padding: 0 28px;
   margin-bottom: 8px;
   letter-spacing: -0.3px;

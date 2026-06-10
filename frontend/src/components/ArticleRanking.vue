@@ -10,47 +10,39 @@ const loading = ref(false)
 const activeTab = ref('view')
 
 const tabs = [
-  { label: '浏览量', value: 'view', icon: 'View', countKey: 'viewCount', suffix: '阅读' },
-  { label: '收藏榜', value: 'collect', icon: 'Star', countKey: 'collectCount', suffix: '收藏' },
-  { label: '点赞榜', value: 'like', icon: 'TrendCharts', countKey: 'likeCount', suffix: '赞' },
+  { label: '浏览', value: 'view', countKey: 'viewCount', suffix: '' },
+  { label: '收藏', value: 'collect', countKey: 'collectCount', suffix: '' },
+  { label: '点赞', value: 'like', countKey: 'likeCount', suffix: '' },
 ]
 
 const fetchData = async (type: string = 'view') => {
   loading.value = true
-  try {
-    const res: any = await getArticleRank({ type, limit: 10 })
-    items.value = res.data || []
-  } catch {
-    items.value = []
-  } finally {
-    loading.value = false
-  }
+  try { const r: any = await getArticleRank({ type, limit: 10 }); items.value = r.data || [] }
+  catch { items.value = [] }
+  finally { loading.value = false }
 }
 
-const handleTabChange = (type: string) => {
-  activeTab.value = type
-  fetchData(type)
-}
+const handleTabChange = (t: string) => { activeTab.value = t; fetchData(t) }
 
 const goToArticle = (id: number) => {
   if (!userStore.checkLogin('请先登录以查看文章')) return
   navigateTo(`/article/${id}`)
 }
 
-const getRankClass = (index: number) => {
-  if (index === 0) return 'rank-1'
-  if (index === 1) return 'rank-2'
-  if (index === 2) return 'rank-3'
+const getRankClass = (i: number) => {
+  if (i === 0) return 'r1'
+  if (i === 1) return 'r2'
+  if (i === 2) return 'r3'
   return ''
 }
 
-const activeTabConfig = () => tabs.find(t => t.value === activeTab.value)
+const activeCfg = () => tabs.find(t => t.value === activeTab.value)
 
-const formatCount = (num: number) => {
-  if (!num) return 0
-  if (num >= 10000) return (num / 10000).toFixed(3).replace(/\.?0+$/, '') + 'w'
-  if (num >= 1000) return (num / 1000).toFixed(3).replace(/\.?0+$/, '') + 'k'
-  return num
+const fmt = (n: number) => {
+  if (!n) return 0
+  if (n >= 10000) return (n / 10000).toFixed(1) + 'w'
+  if (n >= 1000) return (n / 1000).toFixed(1) + 'k'
+  return n
 }
 
 onMounted(() => fetchData('view'))
@@ -58,236 +50,153 @@ onMounted(() => fetchData('view'))
 
 <template>
   <div class="widget">
-    <div class="widget-header">
-      <h3 class="widget-title">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="title-icon">
-          <polyline points="6 9 12 4 18 9" />
-          <polyline points="6 15 12 20 18 15" />
-        </svg>
-        排行榜
-      </h3>
+    <div class="w-head">
+      <svg class="w-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 4 18 9"/><polyline points="6 15 12 20 18 15"/></svg>
+      <span>排行榜</span>
     </div>
 
-    <div class="tab-bar">
-      <button
-        v-for="tab in tabs"
-        :key="tab.value"
-        class="tab-btn"
-        :class="{ active: activeTab === tab.value }"
-        @click="handleTabChange(tab.value)"
-      >
-        {{ tab.label }}
-      </button>
+    <div class="w-tabs">
+      <button v-for="t in tabs" :key="t.value" class="w-tab" :class="{ active: activeTab === t.value }" @click="handleTabChange(t.value)">{{ t.label }}</button>
     </div>
 
-    <div v-if="loading" class="widget-loading">
-      <div v-for="i in 5" :key="i" class="rank-skeleton" />
+    <div v-if="loading" class="w-load">
+      <div v-for="i in 5" :key="i" class="w-sk" />
     </div>
 
-    <div v-else-if="items.length === 0" class="widget-empty">暂无排行数据</div>
+    <div v-else-if="items.length === 0" class="w-empty">暂无数据</div>
 
-    <div v-else class="widget-list">
-      <div
-        v-for="(item, index) in items.slice(0, 8)"
-        :key="item.id"
-        class="rank-item"
-        :style="{ '--j': index }"
-        @click="goToArticle(item.id)"
-      >
-        <span class="rank-num" :class="getRankClass(index)">
-          <template v-if="index === 0">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    <div v-else class="w-list">
+      <div v-for="(item, i) in items.slice(0, 6)" :key="item.id" class="w-item" :style="{ '--q': i }" @click="goToArticle(item.id)">
+        <span class="w-num" :class="getRankClass(i)">
+          <template v-if="i === 0">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           </template>
-          <template v-else>{{ index + 1 }}</template>
+          <template v-else>{{ i + 1 }}</template>
         </span>
-        <span class="rank-title">{{ item.title }}</span>
-        <span class="rank-count">
-          {{ formatCount(activeTabConfig() ? item[activeTabConfig()!.countKey] : 0) }}
-          <small>{{ activeTabConfig()?.suffix }}</small>
-        </span>
+        <span class="w-title">{{ item.title }}</span>
+        <span class="w-cnt">{{ fmt(activeCfg() ? item[activeCfg()!.countKey] : 0) }}</span>
       </div>
     </div>
+
   </div>
 </template>
 
 <style scoped>
 .widget {
-  background: #fff;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
   border-radius: 14px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid rgba(203,213,225,0.25);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
 }
 
-.widget-header {
-  padding: 18px 20px 0;
+.widget:hover {
+  background: rgba(255,255,255,0.88);
+  border-color: rgba(59,130,246,0.1);
 }
 
-.widget-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0;
+.w-head {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 16px 18px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
 }
 
-.title-icon {
-  color: #6366f1;
+.w-icon {
+  width: 16px; height: 16px;
+  color: #3b82f6;
 }
 
-.tab-bar {
+.w-tabs {
   display: flex;
   gap: 4px;
-  padding: 14px 20px;
-  border-bottom: 1px solid #f1f5f9;
+  padding: 12px 18px;
+  border-bottom: 1px solid rgba(203,213,225,0.2);
 }
 
-.tab-btn {
+.w-tab {
   flex: 1;
-  padding: 7px 0;
-  font-size: 13px;
+  padding: 5px 0;
+  font-size: 12px;
   font-weight: 500;
   color: #64748b;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  background: rgba(248,250,252,0.5);
+  border: 1px solid rgba(203,213,225,0.25);
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   font-family: inherit;
 }
 
-.tab-btn:hover {
-  background: #f1f5f9;
-  color: #334155;
-}
-
-.tab-btn.active {
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+.w-tab.active {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
   color: #fff;
   border-color: transparent;
-  box-shadow: 0 2px 8px rgba(99,102,241,0.25);
   font-weight: 600;
 }
 
-.widget-loading {
-  padding: 16px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
+.w-load { padding: 14px 18px; display: flex; flex-direction: column; gap: 10px; }
+.w-sk { height: 12px; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: sh 1.8s infinite; border-radius: 4px; }
+@keyframes sh { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.w-empty { padding: 24px 18px; text-align: center; color: #94a3b8; font-size: 13px; }
 
-.rank-skeleton {
-  height: 16px;
-  background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.8s infinite;
-  border-radius: 4px;
-}
+.w-list { padding: 6px; }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-.widget-empty {
-  padding: 32px 20px;
-  text-align: center;
-  color: #94a3b8;
-  font-size: 14px;
-}
-
-.widget-list {
-  padding: 8px;
-}
-
-.rank-item {
+.w-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 8px;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.2s ease;
   opacity: 0;
-  animation: rankSlideIn 0.35s ease-out forwards;
-  animation-delay: calc(var(--j, 0) * 0.05s);
+  animation: ri 0.3s ease-out forwards;
+  animation-delay: calc(var(--q, 0) * 0.03s);
 }
 
-@keyframes rankSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+@keyframes ri {
+  from { opacity: 0; transform: translateX(-6px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.rank-item:hover {
-  background: #f8fafc;
-  transform: translateX(3px);
-}
+.w-item:hover { background: rgba(59,130,246,0.04); }
 
-.rank-num {
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  font-weight: 700;
-  color: #64748b;
-  background: #f1f5f9;
-  border-radius: 8px;
+.w-num {
+  width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+  border-radius: 5px;
   flex-shrink: 0;
-  transition: all 0.25s ease;
+  background: rgba(241,245,249,0.5);
+  color: #94a3b8;
 }
 
-.rank-num.rank-1 {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(245,158,11,0.35);
-}
+.w-num.r1 { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #fff; }
+.w-num.r2 { background: linear-gradient(135deg, #94a3b8, #cbd5e1); color: #fff; }
+.w-num.r3 { background: linear-gradient(135deg, #d4a574, #c4956a); color: #fff; }
 
-.rank-num.rank-2 {
-  background: linear-gradient(135deg, #94a3b8, #b0bec5);
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(148,163,184,0.25);
-}
-
-.rank-num.rank-3 {
-  background: linear-gradient(135deg, #d4a574, #c4956a);
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(180,140,100,0.25);
-}
-
-.rank-title {
+.w-title {
   flex: 1;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: #334155;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.4;
 }
 
-.rank-count {
-  font-size: 13px;
+.w-cnt {
+  font-size: 12px;
   font-weight: 600;
-  color: #6366f1;
-  white-space: nowrap;
+  color: #3b82f6;
   flex-shrink: 0;
 }
 
-.rank-count small {
-  font-size: 11px;
-  font-weight: 400;
-  color: #94a3b8;
-  margin-left: 2px;
-}
+
 </style>
