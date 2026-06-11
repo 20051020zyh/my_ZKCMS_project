@@ -22,6 +22,17 @@ const formatCount = (n: number) => {
   return n.toString()
 }
 
+// 从HTML内容中提取纯文本摘要
+const getSummary = (article: any) => {
+  // 优先使用 seoDescription
+  if (article.seoDescription) {
+    return article.seoDescription
+  }
+  // 否则从 content 中剥离HTML标签
+  const text = (article.content || '').replace(/<[^>]*>/g, '').trim()
+  return text.length > 120 ? text.substring(0, 120) + '...' : text
+}
+
 const goToArticle = (id: number) => {
   if (!userStore.checkLogin('请先登录以查看文章')) return
   navigateTo(`/article/${id}`)
@@ -63,11 +74,16 @@ const handlePageChange = (page: number) => emit('pageChange', page)
       >
         <!-- Image -->
         <div class="card-img" v-if="article.coverImg">
-          <img :src="article.coverImg" :alt="article.title" loading="lazy" />
+          <img :src="article.coverImg" :alt="article.title" loading="lazy" referrerpolicy="no-referrer" />
         </div>
         <div class="card-img card-img-placeholder" v-else>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
-            <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+          <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pg-01" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#6366f1" stop-opacity="0.08"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0.12"/></linearGradient>
+            </defs>
+            <rect width="128" height="128" rx="4" fill="url(#pg-01)"/>
+            <path d="M44 52a6 6 0 100-12 6 6 0 000 12zM96 84l-22-22-18 18-12-12L28 84" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <circle cx="80" cy="38" r="14" stroke="#94a3b8" stroke-width="2" fill="none" stroke-dasharray="4 3"/>
           </svg>
         </div>
 
@@ -78,7 +94,7 @@ const handlePageChange = (page: number) => emit('pageChange', page)
             <span class="card-author">{{ article.username || '匿名' }}</span>
           </div>
           <h3 class="card-title">{{ article.title }}</h3>
-          <p class="card-desc">{{ article.content }}</p>
+          <p class="card-desc">{{ getSummary(article) }}</p>
 
           <div class="card-tags" v-if="article.tagNames?.length">
             <span v-for="tag in article.tagNames" :key="tag" class="card-tag">{{ tag }}</span>

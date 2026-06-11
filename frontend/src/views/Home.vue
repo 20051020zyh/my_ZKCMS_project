@@ -192,6 +192,7 @@ const goCreateArticle = () => {
       :categories="categories"
       :selected-category="selectedCategory"
       :selected-tag="selectedTag"
+      :sidebar-collapse="sidebarCollapse"
       @search="handleSearch"
       @category-select="handleCategorySelect"
       @tag-select="handleTagSelect"

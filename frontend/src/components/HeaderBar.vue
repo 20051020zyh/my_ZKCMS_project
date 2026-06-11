@@ -13,6 +13,7 @@ interface Props {
   categories: any[]
   selectedCategory: number | null
   selectedTag: string
+  sidebarCollapse?: boolean
 }
 
 const props = defineProps<Props>()
@@ -32,11 +33,6 @@ const handleSearch = () => {
 }
 
 const handleEnter = () => handleSearch()
-
-const handleClear = () => {
-  searchKeyword.value = ''
-  emit('search', '')
-}
 
 const handleTagClick = (tagName: string) => {
   if (props.selectedTag === tagName) {
@@ -80,7 +76,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <header class="header">
+  <header class="header" :class="{ collapsed: props.sidebarCollapse }">
     <!-- 第一行：搜索 + 用户 -->
     <div class="header-main">
       <div class="header-inner">
@@ -90,7 +86,7 @@ onMounted(async () => {
         <div class="header-right">
           <div class="search-box">
             <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input v-model="searchKeyword" placeholder="搜索文章..." @keyup.enter="handleEnter" @input="handleClear" />
+            <input v-model="searchKeyword" placeholder="搜索文章..." @keyup.enter="handleEnter" />
           </div>
 
           <el-dropdown v-if="userStore.token" trigger="hover" @command="handleCommand">
@@ -152,11 +148,16 @@ onMounted(async () => {
 <style scoped>
 .header {
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0; left: 240px; right: 0;
   z-index: 100;
   background: rgba(255,255,255,0.55);
   backdrop-filter: blur(20px) saturate(1.3);
   border-bottom: 1px solid rgba(203,213,225,0.2);
+  transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.header.collapsed {
+  left: 64px;
 }
 
 .header-main {
@@ -327,6 +328,10 @@ onMounted(async () => {
   background: linear-gradient(135deg, #60a5fa, #3b82f6);
   color: #fff;
   box-shadow: 0 2px 8px rgba(59,130,246,0.2);
+}
+
+@media (max-width: 1100px) {
+  .header { left: 0; }
 }
 
 @media (max-width: 900px) {

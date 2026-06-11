@@ -26,16 +26,16 @@ const startParticles = () => {
   canvas.height = window.innerHeight
 
   const particles: any[] = []
-  const count = 60
+  const count = 55
 
   for (let i = 0; i < count; i++) {
     particles.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.5,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      o: Math.random() * 0.4 + 0.1
+      r: Math.random() * 2 + 0.8,
+      vx: (Math.random() - 0.5) * 0.35,
+      vy: (Math.random() - 0.5) * 0.35,
+      hue: Math.random() < 0.5 ? 210 + Math.random() * 30 : 160 + Math.random() * 30
     })
   }
 
@@ -47,7 +47,7 @@ const startParticles = () => {
       const p = particles[i]
       ctx.beginPath()
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
-      ctx.fillStyle = `rgba(255,255,255,${p.o})`
+      ctx.fillStyle = `hsla(${p.hue}, 60%, 70%, 0.25)`
       ctx.fill()
 
       p.x += p.vx
@@ -62,11 +62,12 @@ const startParticles = () => {
         const dx = particles[i].x - particles[j].x
         const dy = particles[i].y - particles[j].y
         const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 120) {
+        if (dist < 130) {
+          const avgHue = (particles[i].hue + particles[j].hue) / 2
           ctx.beginPath()
           ctx.moveTo(particles[i].x, particles[i].y)
           ctx.lineTo(particles[j].x, particles[j].y)
-          ctx.strokeStyle = `rgba(255,255,255,${0.06 * (1 - dist / 120)})`
+          ctx.strokeStyle = `hsla(${avgHue}, 55%, 70%, ${0.08 * (1 - dist / 130)})`
           ctx.stroke()
         }
       }
@@ -254,7 +255,7 @@ const handleBack = () => {
 <style scoped>
 .admin-auth {
   min-height: 100vh;
-  background: #09090b;
+  background: linear-gradient(160deg, #f0f7ff 0%, #f5fbfa 30%, #f8fafe 60%, #f0f5ff 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -272,9 +273,9 @@ const handleBack = () => {
 .auth-overlay {
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,102,241,0.12), transparent 60%),
-              radial-gradient(ellipse 60% 50% at 85% 60%, rgba(139,92,246,0.08), transparent 60%),
-              radial-gradient(ellipse 50% 50% at 15% 85%, rgba(99,102,241,0.06), transparent 60%);
+  background: radial-gradient(ellipse 70% 50% at 30% 20%, rgba(59,130,246,0.08), transparent 50%),
+              radial-gradient(ellipse 60% 60% at 75% 40%, rgba(16,185,129,0.06), transparent 50%),
+              radial-gradient(ellipse 50% 50% at 50% 80%, rgba(59,130,246,0.04), transparent 50%);
   z-index: 1;
   pointer-events: none;
 }
@@ -287,10 +288,12 @@ const handleBack = () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  color: rgba(255,255,255,0.5);
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 8px;
+  color: #64748b;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(203,213,225,0.3);
+  border-radius: 10px;
   padding: 8px 16px;
   font-size: 13px;
   cursor: pointer;
@@ -299,22 +302,23 @@ const handleBack = () => {
 }
 
 .back-link:hover {
-  color: rgba(255,255,255,0.85);
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.14);
+  color: #1e293b;
+  background: rgba(255,255,255,0.9);
+  border-color: #60a5fa;
+  box-shadow: 0 2px 12px rgba(59,130,246,0.1);
 }
 
 .auth-panel {
   position: relative;
   z-index: 2;
-  width: 400px;
-  background: rgba(15,23,42,0.8);
+  width: 420px;
+  background: rgba(255,255,255,0.82);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 20px;
+  border: 1px solid rgba(203,213,225,0.3);
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  box-shadow: 0 8px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,255,255,0.5) inset;
   animation: panelIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -343,28 +347,31 @@ const handleBack = () => {
 }
 
 .c1 {
-  width: 260px;
-  height: 260px;
-  background: #6366f1;
-  top: -120px;
-  right: -80px;
+  width: 300px;
+  height: 300px;
+  top: -180px;
+  right: -120px;
+  border: 1px solid rgba(59,130,246,0.12);
+  background: transparent;
 }
 
 .c2 {
-  width: 180px;
-  height: 180px;
-  background: #8b5cf6;
-  bottom: -60px;
-  left: -60px;
+  width: 200px;
+  height: 200px;
+  bottom: -100px;
+  left: -80px;
+  border: 1px solid rgba(16,185,129,0.1);
+  background: transparent;
 }
 
 .c3 {
-  width: 100px;
-  height: 100px;
-  background: #a5b4fc;
-  top: 50%;
-  right: -30px;
-  opacity: 0.04;
+  width: 140px;
+  height: 140px;
+  top: 40%;
+  right: -50px;
+  border: 1px solid rgba(59,130,246,0.08);
+  background: transparent;
+  opacity: 1;
 }
 
 .panel-content {
@@ -390,7 +397,7 @@ const handleBack = () => {
 .brand-icon {
   width: 56px;
   height: 56px;
-  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 50%, #3730a3 100%);
+  background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 50%, #34d399 100%);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -417,16 +424,16 @@ const handleBack = () => {
 }
 
 .brand-title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  color: #f1f5f9;
+  color: #0f172a;
   margin: 0 0 8px;
   letter-spacing: -0.3px;
 }
 
 .brand-sub {
-  font-size: 13px;
-  color: rgba(255,255,255,0.35);
+  font-size: 14px;
+  color: #94a3b8;
   margin: 0;
   font-weight: 400;
 }
@@ -441,21 +448,21 @@ const handleBack = () => {
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
   transition: all 0.25s ease;
 }
 
 .input-group:focus-within {
-  border-color: rgba(99,102,241,0.5);
-  background: rgba(255,255,255,0.05);
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.1);
+  border-color: #60a5fa;
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(59,130,246,0.08);
 }
 
 .input-icon {
   padding-left: 14px;
-  color: rgba(255,255,255,0.25);
+  color: #cbd5e1;
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -463,7 +470,7 @@ const handleBack = () => {
 }
 
 .input-group:focus-within .input-icon {
-  color: rgba(99,102,241,0.7);
+  color: #3b82f6;
 }
 
 .input-field {
@@ -471,20 +478,20 @@ const handleBack = () => {
   background: transparent;
   border: none;
   outline: none;
-  color: #e2e8f0;
+  color: #1e293b;
   font-size: 14px;
-  padding: 13px 14px;
+  padding: 14px 14px;
   font-family: inherit;
   letter-spacing: 0.2px;
 }
 
 .input-field::placeholder {
-  color: rgba(255,255,255,0.18);
+  color: #cbd5e1;
 }
 
 .input-field:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #0f172a inset;
-  -webkit-text-fill-color: #e2e8f0;
+  -webkit-box-shadow: 0 0 0 30px #f8fafc inset;
+  -webkit-text-fill-color: #1e293b;
 }
 
 .error-tip {
@@ -506,26 +513,48 @@ const handleBack = () => {
 
 .submit-btn {
   width: 100%;
-  height: 44px;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
+  height: 46px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   color: #fff;
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.25s ease;
+  transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
   font-family: inherit;
   letter-spacing: 4px;
-  margin-top: 6px;
+  margin-top: 8px;
+}
+
+.submit-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #60a5fa, #3b82f6, #34d399, #3b82f6, #60a5fa);
+  background-size: 300% 300%;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.submit-btn:hover:not(:disabled)::before {
+  opacity: 0.6;
+  animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 
 .submit-btn:hover:not(:disabled) {
-  background: linear-gradient(135deg, #4f46e5, #4338ca);
-  box-shadow: 0 4px 20px rgba(99,102,241,0.35);
-  transform: translateY(-1px);
+  box-shadow: 0 4px 24px rgba(59,130,246,0.35);
+  transform: translateY(-2px);
 }
 
 .submit-btn:active:not(:disabled) {
@@ -564,8 +593,8 @@ const handleBack = () => {
 }
 
 .loader-dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   background: #fff;
   border-radius: 50%;
   animation: dotBounce 1.2s ease-in-out infinite;
@@ -581,9 +610,9 @@ const handleBack = () => {
 
 .panel-foot {
   text-align: center;
-  margin-top: 32px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.15);
+  margin-top: 28px;
+  font-size: 12px;
+  color: #cbd5e1;
 }
 
 /* ====== 无权限弹窗 ====== */
@@ -611,16 +640,16 @@ const handleBack = () => {
 }
 .modal-glass {
   position: relative;
-  background: linear-gradient(170deg, rgba(17,24,39,0.97), rgba(15,18,30,0.98));
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #fff;
+  border: 1px solid rgba(203,213,225,0.3);
   border-radius: 20px;
-  box-shadow: 0 24px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);
+  box-shadow: 0 24px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.5) inset;
   overflow: hidden;
 }
 .modal-header {
   display: flex; align-items: flex-start; gap: 14px;
   padding: 24px 28px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(203,213,225,0.2);
 }
 .modal-hd-icon {
   width: 44px; height: 44px; border-radius: 12px;
@@ -632,15 +661,15 @@ const handleBack = () => {
   color: #f87171;
 }
 .modal-hd-text { flex: 1; min-width: 0; }
-.modal-title { margin: 0; font-size: 17px; font-weight: 700; color: #f1f5f9; letter-spacing: -0.3px; }
+.modal-title { margin: 0; font-size: 17px; font-weight: 700; color: #0f172a; letter-spacing: -0.3px; }
 .modal-desc { margin: 3px 0 0; font-size: 13px; color: #64748b; line-height: 1.5; }
 .modal-close {
   width: 32px; height: 32px; border-radius: 8px; border: none;
-  background: rgba(255,255,255,0.03); color: #64748b;
+  background: rgba(241,245,249,0.5); color: #94a3b8;
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; transition: all 0.2s;
 }
-.modal-close:hover { background: rgba(239,68,68,0.12); color: #f87171; }
+.modal-close:hover { background: rgba(239,68,68,0.1); color: #ef4444; }
 .modal-body {
   padding: 24px 28px 12px;
   display: flex; flex-direction: column; gap: 16px;
@@ -664,7 +693,7 @@ const handleBack = () => {
   margin: 0;
   font-size: 15px;
   font-weight: 600;
-  color: #e2e8f0;
+  color: #1e293b;
   text-align: center;
 }
 .no-perm-hint {
@@ -676,7 +705,7 @@ const handleBack = () => {
 .modal-footer {
   display: flex; justify-content: center;
   padding: 16px 28px 24px;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  border-top: 1px solid rgba(203,213,225,0.2);
 }
 .m-btn {
   display: flex; align-items: center; gap: 7px;
@@ -685,7 +714,7 @@ const handleBack = () => {
   cursor: pointer; transition: all 0.25s ease;
   position: relative; overflow: hidden;
 }
-.m-btn-primary { background: linear-gradient(135deg, #6366f1, #7c3aed); color: #fff; box-shadow: 0 4px 16px rgba(99,102,241,0.3); }
-.m-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(99,102,241,0.45); }
+.m-btn-primary { background: linear-gradient(135deg, #60a5fa, #3b82f6); color: #fff; box-shadow: 0 4px 16px rgba(59,130,246,0.3); }
+.m-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(59,130,246,0.45); }
 .m-btn-primary:active { transform: translateY(0) scale(0.98); }
 </style>
